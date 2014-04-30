@@ -1,0 +1,89 @@
+
+edificios.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alien
+  rotate: false
+  xy: 1, 103
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: 24
+tower
+  rotate: false
+  xy: 1, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+office
+  rotate: false
+  xy: 131, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+lighthouse
+  rotate: false
+  xy: 1, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+church
+  rotate: false
+  xy: 35, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bank
+  rotate: false
+  xy: 131, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+factory
+  rotate: false
+  xy: 165, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+car
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+library
+  rotate: false
+  xy: 35, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+home
+  rotate: false
+  xy: 69, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+house
+  rotate: false
+  xy: 131, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+shop
+  rotate: false
+  xy: 165, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
