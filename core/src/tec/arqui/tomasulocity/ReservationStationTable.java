@@ -12,15 +12,23 @@ public class ReservationStationTable extends Table{
 	 */
 	public ReservationStationTable(){
 		
-		Label instructionHeader	= new Label("Instruccion", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
+		Label tagHeader			= new Label("Tag", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label opHeader		 	= new Label("Op", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label tag1Header		= new Label("Tag1", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label tag2Header		= new Label("Tag2", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label value1Header		= new Label("Value1", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label value2Header 		= new Label("Value2", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label busybitHeader		= new Label("BB", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label tagROBHeader		= new Label("TagRB", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(tagHeader).space(5);
+	    this.add(opHeader).space(5);
+	    this.add(tag1Header).space(5);
+	    this.add(tag2Header).space(5);
+	    this.add(value1Header).space(5);
+	    this.add(value2Header).space(5);
+	    this.add(busybitHeader).space(5);
+	    this.add(tagROBHeader).space(5);	
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
@@ -30,15 +38,23 @@ public class ReservationStationTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tagField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label opField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tag1Field		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tag2Field		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label value1Field	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label value2Field	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label busybitField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tagROBField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		
-		this.add(instructionField);
-		this.add(sourceOneField);
-		this.add(sourceTwoField);
-		this.add(sinkField);
+		this.add(tagField);
+		this.add(opField);
+		this.add(tag1Field);
+		this.add(tag2Field);
+		this.add(value1Field);
+		this.add(value2Field);
+		this.add(busybitField);
+		this.add(tagROBField);		
 	}
 	
 }

@@ -12,15 +12,11 @@ public class CommonDataBusTable extends Table{
 	 */
 	public CommonDataBusTable(){
 		
-		Label instructionHeader	= new Label("Instruccion", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
+		Label registerHeader	= new Label("Register", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label valueHeader 		= new Label("Value", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(registerHeader).space(5);
+	    this.add(valueHeader).space(5);
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
@@ -30,14 +26,10 @@ public class CommonDataBusTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label registerField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label valueField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		
-		this.add(instructionField);
-		this.add(sourceOneField);
-		this.add(sourceTwoField);
-		this.add(sinkField);
+		this.add(registerField);
+		this.add(valueField);
 	}
 }

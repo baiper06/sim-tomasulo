@@ -12,15 +12,15 @@ public class ReorderBufferTable extends Table{
 	 */
 	public ReorderBufferTable(){
 		
-		Label instructionHeader	= new Label("Instruccion", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
+		Label tagHeader		= new Label("Tag", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label targetHeader 	= new Label("Target", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label valueHeader	= new Label("Value", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label readyHeader	= new Label("Ready", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(tagHeader).space(5);
+	    this.add(targetHeader).space(5);
+	    this.add(valueHeader).space(5);
+	    this.add(readyHeader).space(5);	
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
@@ -30,14 +30,14 @@ public class ReorderBufferTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tagField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label targetField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label valueField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label readyField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		
-		this.add(instructionField);
-		this.add(sourceOneField);
-		this.add(sourceTwoField);
-		this.add(sinkField);
+		this.add(tagField);
+		this.add(targetField);
+		this.add(valueField);
+		this.add(readyField);
 	}
 }

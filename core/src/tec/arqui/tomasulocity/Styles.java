@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class Styles {
 	
@@ -20,7 +19,7 @@ public class Styles {
 	private Styles(){
 		//Fuentes
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(FONT_FILE));
-		mHeaderFont = generator.generateFont(12);
+		mHeaderFont = generator.generateFont(15);
 		mNormalFont = generator.generateFont(15);
 		generator.dispose();
 		

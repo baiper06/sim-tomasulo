@@ -12,15 +12,13 @@ public class TemporalRegistersTable extends Table{
 	 */
 	public TemporalRegistersTable(){
 		
-		Label instructionHeader	= new Label("Instruccion", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
+		Label tempRegisterHeader	= new Label("Reg Temp", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label physicalRegisterHeader= new Label("Reg Fisico", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label busyBitHeader			= new Label("BB", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(tempRegisterHeader).space(5);
+	    this.add(physicalRegisterHeader).space(5);
+	    this.add(busyBitHeader).space(5);
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
@@ -30,14 +28,12 @@ public class TemporalRegistersTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tempRegisterField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label physicalRegisterField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label busyBitField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		
-		this.add(instructionField);
-		this.add(sourceOneField);
-		this.add(sourceTwoField);
-		this.add(sinkField);
+		this.add(tempRegisterField);
+		this.add(physicalRegisterField);
+		this.add(busyBitField);
 	}
 }
