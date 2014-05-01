@@ -33,7 +33,7 @@ public class TomasuloControl {
 	
 	public void step(){	
 		if( clock == 0 ){
-			front.setListInstructions(mBlockProgram);
+			front.setBlockProgram(mBlockProgram);
 		}
 		front.run();
 		exec.run();

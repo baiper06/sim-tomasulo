@@ -105,8 +105,12 @@ public class Frontend {
 	public Queue<Instruction> getListInstructions() {
 		return mListInstructions;
 	}
-
-	public void setListInstructions(Queue<Instruction> pListInstructions) {
-		this.mListInstructions = pListInstructions;
+	
+	public void setBlockProgram(Queue<Instruction> pBlockProgram){
+		this.mBlockProgram = pBlockProgram;
+	}
+	
+	public Queue<Instruction> getBlockProgram(){
+		return mBlockProgram;
 	}
 }
