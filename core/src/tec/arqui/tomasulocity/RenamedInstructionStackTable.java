@@ -3,16 +3,16 @@ package tec.arqui.tomasulocity;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-public class PhysicRegistersTable extends Table{
-	
-	public final static int ROW_COUNT = 5;
+public class RenamedInstructionStackTable extends Table{
+		
+	public final static int ROW_COUNT = 3;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
-	public PhysicRegistersTable(){
+	public RenamedInstructionStackTable(){
 		
-		Label title = new Label("Registers",Styles.getInstance().getGenericTableNormalStyle());
+		Label title = new Label("Renamed",Styles.getInstance().getGenericTableNormalStyle());
 	    this.add(title).space(2);
 	    this.row();
 		
@@ -21,13 +21,14 @@ public class PhysicRegistersTable extends Table{
 	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(instructionHeader).space(2);
+	    this.add(sourceOneHeader).space(2);
+	    this.add(sourceTwoHeader).space(2);
+	    this.add(sinkHeader).space(2);
 	    
-	    for ( int row=0; row < ROW_COUNT ; row++ )
+	   for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
+
 	}
 	
 	private void addRow(){
@@ -44,4 +45,7 @@ public class PhysicRegistersTable extends Table{
 		this.add(sourceTwoField);
 		this.add(sinkField);
 	}
+		
+	
+
 }

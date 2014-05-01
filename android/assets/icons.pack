@@ -1,0 +1,89 @@
+
+icons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Aaargh
+  rotate: false
+  xy: 1, 380
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+badlogic
+  rotate: false
+  xy: 1, 122
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+gears
+  rotate: false
+  xy: 515, 781
+  size: 125, 111
+  orig: 125, 111
+  offset: 0, 0
+  index: -1
+rectangle-dark
+  rotate: false
+  xy: 1, 90
+  size: 80, 30
+  orig: 80, 30
+  offset: 0, 0
+  index: -1
+rectangle
+  rotate: false
+  xy: 259, 348
+  size: 80, 30
+  orig: 80, 30
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 515, 739
+  size: 51, 40
+  orig: 51, 40
+  offset: 0, 0
+  index: -1
+bottom
+  rotate: false
+  xy: 642, 841
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 1, 48
+  size: 51, 40
+  orig: 51, 40
+  offset: 0, 0
+  index: -1
+top
+  rotate: false
+  xy: 259, 295
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+top-left
+  rotate: false
+  xy: 515, 692
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+bottom-right
+  rotate: false
+  xy: 684, 847
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+top-right
+  rotate: false
+  xy: 1, 1
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1

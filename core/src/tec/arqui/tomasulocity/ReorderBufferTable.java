@@ -12,6 +12,10 @@ public class ReorderBufferTable extends Table{
 	 */
 	public ReorderBufferTable(){
 		
+		Label title = new Label("ROB",Styles.getInstance().getGenericTableNormalStyle());
+	    this.add(title).space(2);
+	    this.row();
+		
 		Label tagHeader		= new Label("Tag", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label targetHeader 	= new Label("Target", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label valueHeader	= new Label("Value", Styles.getInstance().getGenericTableHeaderStyle());

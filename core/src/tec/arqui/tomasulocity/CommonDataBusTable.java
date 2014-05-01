@@ -12,11 +12,15 @@ public class CommonDataBusTable extends Table{
 	 */
 	public CommonDataBusTable(){
 		
+		Label title = new Label("CDB",Styles.getInstance().getGenericTableNormalStyle());
+	    this.add(title).space(2);
+	    this.row();
+		
 		Label registerHeader	= new Label("Register", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label valueHeader 		= new Label("Value", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(registerHeader).space(5);
-	    this.add(valueHeader).space(5);
+	    this.add(registerHeader).space(2);
+	    this.add(valueHeader).space(2);
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
