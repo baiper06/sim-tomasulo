@@ -12,6 +12,10 @@ public class TemporalRegistersTable extends Table{
 	 */
 	public TemporalRegistersTable(){
 		
+		Label title = new Label("Temporals",Styles.getInstance().getGenericTableNormalStyle());
+	    this.add(title).space(2);
+	    this.row();
+		
 		Label tempRegisterHeader	= new Label("Reg Temp", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label physicalRegisterHeader= new Label("Reg Fisico", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label busyBitHeader			= new Label("BB", Styles.getInstance().getGenericTableHeaderStyle());

@@ -5,12 +5,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ReservationStationTable extends Table{
 
-	public final static int ROW_COUNT = 5;
+	public final static int ROW_COUNT = 3;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
-	public ReservationStationTable(){
+	public ReservationStationTable(String pName){
+		
+		Label title = new Label(pName,Styles.getInstance().getGenericTableNormalStyle());
+	    this.add(title).space(2);
+	    this.row();
 		
 		Label tagHeader			= new Label("Tag", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label opHeader		 	= new Label("Op", Styles.getInstance().getGenericTableHeaderStyle());
@@ -21,14 +25,14 @@ public class ReservationStationTable extends Table{
 	    Label busybitHeader		= new Label("BB", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label tagROBHeader		= new Label("TagRB", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(tagHeader).space(5);
-	    this.add(opHeader).space(5);
-	    this.add(tag1Header).space(5);
-	    this.add(tag2Header).space(5);
-	    this.add(value1Header).space(5);
-	    this.add(value2Header).space(5);
-	    this.add(busybitHeader).space(5);
-	    this.add(tagROBHeader).space(5);	
+	    this.add(tagHeader).space(2);
+	    this.add(opHeader).space(2);
+	    this.add(tag1Header).space(2);
+	    this.add(tag2Header).space(2);
+	    this.add(value1Header).space(2);
+	    this.add(value2Header).space(2);
+	    this.add(busybitHeader).space(2);
+	    this.add(tagROBHeader).space(2);	
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
