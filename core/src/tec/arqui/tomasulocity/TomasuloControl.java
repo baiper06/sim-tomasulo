@@ -22,7 +22,7 @@ import tec.arqui.tomasulocity.model.UnitFunctional;
 
 public class TomasuloControl {
 	
-	private ArrayList<Instruction> 		mPage;
+	
 	private CommonDataBus				mCDB;
 	private PhysicRegister[] 			mPhysicRegisters;
 	private TempRegistersBank 			mTempRegisters;
@@ -64,114 +64,15 @@ public class TomasuloControl {
 		execute();
 		rob();
 	}
-	
-	public void issue(){
-		
-		/*
-		 *  decoder
-		 */
-		Instruction inst = mPage.get(mPC);
-		
-		/*
-		 * renaming
-		 */
-		PhysicRegister PhysicRegTarget = (PhysicRegister) inst.getTarget();
-		PhysicRegister PhysicRegSource = (PhysicRegister) inst.getSource();
-		// renaming target
-		TempRegister tempRegTarget = new TempRegister();
-		tempRegTarget.setPhysicRegister( PhysicRegTarget );
-		tempRegTarget.setBusyBit( true );
-		tempRegTarget.setDirty( false );
-		mTempRegisters.addRegister(tempRegTarget);
-		
-		// renaming source
-		TempRegister reg = mTempRegisters.getPhysicReg( PhysicRegSource );
-		TempRegister tempRegSource;
-		if( reg  == null || reg.isBusyBit() == false ){
-			tempRegSource = new TempRegister();
-			tempRegSource.setPhysicRegister( PhysicRegSource );
-			tempRegSource.setBusyBit( false );
-			tempRegSource.setDirty( false );
-			mTempRegisters.addRegister(tempRegSource);
-		} else {
-			tempRegSource = reg;
-		}
-		
-		// set new registers
-		inst.setSource(tempRegTarget);
-		inst.setTarget(tempRegSource);
 
-		
-		
-		/*
-		 * dispatch
-		 */
-		UnitFunctional fu;
-		if( mReorderBuffer.blockAvailable() ){
-			if( inst.getOperation() == Constants.Operations.ADD ||  inst.getOperation() == Constants.Operations.MOVE ){
-				fu = mAdder;
-			} else {
-				fu = mMultiplier;
-			}
-			int pos = fu.anySlotEmptyInRS( );
-			if( pos != -1 ){
-				
-				ItemReorderBuffer rob = new ItemReorderBuffer();
-				rob.setTarget( PhysicRegTarget );
-				int tagROB = mReorderBuffer.addElement(rob);
-				
-				ItemReservStation rs = new ItemReservStation();
-				rs.setOperation( inst.getOperation() );
-				rs.setDirty(false);
-				rs.setTag1( mTempRegisters.getTag(tempRegSource) );
-				rs.setTag2( mTempRegisters.getTag(tempRegTarget) );
-				rs.setTagROB( tagROB );
-				rs.setTarget( mTempRegisters.getTag(tempRegTarget) );
-				rs.setValue1( PhysicRegSource.getValue() );
-				rs.setValue2( PhysicRegTarget.getValue() );
-				fu.addRS(rs, pos );
-				
-				mPC++;
-			}
-		}
-		
-		execList.add(inst);
-		
-	}
-	
 	public void execute(){
-		for (InstructionItem inst: execList){
-			switch (inst.op) {
-			case Global.ADDD:
-				if (register.getStation(inst.src1) == -1 && 
-					register.getStation(inst.src2) == -1){
-						
-					inst.time--;
-					if (inst.time == 0){
-						inst.result = register.read(inst.src1) + 
-									  register.read(inst.src2);
-						wbList.add(inst);
-					}
-				} 
-			case Global.SUBD:
-			case Global.MULD:
-			case Global.DIVD:
-				if (register.getStation(inst.src1) == -1 && 
-					register.getStation(inst.src2) == -1){
-						
-					inst.time--;
-				} 
-				
-				
-				break;
-
-			default:
-				break;
-			}
-			if (inst.time == 0){
-				
-			}
+		if( mAdder.areYouReady() ){
+			mAdder.action();
+			mAdder.
 		}
+
+		mAdder.
+		mMultiplier.action();
 	}
 	
 	public void rob(){
