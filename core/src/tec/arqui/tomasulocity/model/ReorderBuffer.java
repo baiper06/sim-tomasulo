@@ -3,10 +3,9 @@ package tec.arqui.tomasulocity.model;
 public class ReorderBuffer {
 
 	private ItemReorderBuffer[] mReorderBuffer;
-	private ItemReorderBuffer	mHeader;
+	private ItemReorderBuffer mHeader;
 	private int AvailableBlock;
-	private Stack<int> Order;
-
+	private int Order;
 	
 	public static int SIZE_ROD = 5;
 	
@@ -21,7 +20,7 @@ public class ReorderBuffer {
 	/*
 	 * Checks for blocks availability
 	 */
-	private boolean blockAvailable(){
+	public boolean blockAvailable(){
 		for(int i = 0; i < SIZE_ROD; i ++){
 			if (ItemReorderBuffer[i] == null){
 				AvailableBlock = i;
@@ -38,7 +37,7 @@ public class ReorderBuffer {
 	public int addElement( ItemReorderBuffer mItem ){
 		
 		if(!blockAvailable()){
-			//Nose
+			return false;
 		} else {
 			mItem = ItemReorderBuffer[AvailableBlock];
 		}
@@ -49,14 +48,13 @@ public class ReorderBuffer {
 	/*
 	 * Checks for data to dispatch
 	 */
-	public update(){
-		
-		for (int i = 0; i < SIZE_ROD; i++){
-			
-			if(mHeader.getValue != null){
-				//despachar
+	public ItemReorderBuffer update(){
+		if(this.mHeader.getValue != null)
+			return mHeader;
+			if( (Order + 1) < 5){
+				mHeader = mReorderBuffer[Order + 1];
 			}
-		}
+		} 
 	}
 	
 }
