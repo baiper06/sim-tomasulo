@@ -18,28 +18,30 @@ import tec.arqui.tomasulocity.model.UnitFunctional;
 public class Frontend {
 	
 	int mPC;
-	private ArrayList<Instruction> 	mListInstructions;
-	private Queue<Instruction> 		mBlockProgram;
+	private Queue<Instruction> 	mListInstructions;
+	private Queue<Instruction> 	mBlockProgram;
 	
 	public void run(){
+		mListInstructions.clear();
 		for( int i=0; i<Constants.SIZE_PAGE; i++){
-			issue();
-			mListInstructions
+			/*
+			 *  decoder
+			 */
+			Instruction inst = mBlockProgram.remove();
+			mListInstructions.add(inst);
+			
+			issue(inst);
+			
 		}
 	}
 	
-	public void issue(){
-		
-		/*
-		 *  decoder
-		 */
-		Instruction inst = mListInstructions.get(mPC);
-		
+	private void issue( Instruction pInst ){
+
 		/*
 		 * renaming
 		 */
-		PhysicRegister PhysicRegTarget = (PhysicRegister) inst.getTarget();
-		PhysicRegister PhysicRegSource = (PhysicRegister) inst.getSource();
+		PhysicRegister PhysicRegTarget = (PhysicRegister) pInst.getTarget();
+		PhysicRegister PhysicRegSource = (PhysicRegister) pInst.getSource();
 		// renaming target
 		TempRegister tempRegTarget = new TempRegister();
 		tempRegTarget.setPhysicRegister( PhysicRegTarget );
@@ -61,8 +63,8 @@ public class Frontend {
 		}
 		
 		// set new registers
-		inst.setSource(tempRegTarget);
-		inst.setTarget(tempRegSource);
+		pInst.setSource(tempRegTarget);
+		pInst.setTarget(tempRegSource);
 
 		
 		
@@ -71,7 +73,7 @@ public class Frontend {
 		 */
 		UnitFunctional fu;
 		if( ReorderBuffer.getInstance().blockAvailable() ){
-			if( inst.getOperation() == Constants.Operations.ADD ||  inst.getOperation() == Constants.Operations.MOVE ){
+			if( pInst.getOperation() == Constants.Operations.ADD ||  pInst.getOperation() == Constants.Operations.MOVE ){
 				fu = UFAdder.getInstance();
 			} else {
 				fu = UFMultiplier.getInstance();
@@ -84,7 +86,7 @@ public class Frontend {
 				int tagROB = ReorderBuffer.getInstance().addElement(rob);
 				
 				ItemReservStation rs = new ItemReservStation();
-				rs.setOperation( inst.getOperation() );
+				rs.setOperation( pInst.getOperation() );
 				rs.setDirty(false);
 				rs.setTag1( TempRegistersBank.getInstance().getTag(tempRegSource) );
 				rs.setTag2( TempRegistersBank.getInstance().getTag(tempRegTarget) );
@@ -100,7 +102,7 @@ public class Frontend {
 		
 	}
 	
-	public ArrayList<Instruction> getListInstructions() {
+	public Queue<Instruction> getListInstructions() {
 		return mListInstructions;
 	}
 
