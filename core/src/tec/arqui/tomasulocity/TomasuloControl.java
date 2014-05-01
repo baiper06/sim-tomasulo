@@ -17,9 +17,6 @@ import tec.arqui.tomasulocity.model.UFMultiplier;
 
 public class TomasuloControl {
 	
-	
-
-	
 	private ArrayList<Instruction> 		mPage;
 	private CommonDataBus				mCDB;
 	private PhysicRegister[] 			mPhysicRegisters;
