@@ -7,7 +7,7 @@ public class ReorderBuffer {
 	private int AvailableBlock;
 	private int Order;
 	
-	public static int SIZE_ROD = 5;
+	public static int SIZE_ROD = 15;
 	
 	public ReorderBuffer {
 	
