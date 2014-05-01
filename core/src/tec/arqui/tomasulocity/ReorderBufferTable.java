@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ReorderBufferTable extends Table{
 	
-	public final static int ROW_COUNT = 5;
+	public final static int ROW_COUNT = 15;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
@@ -27,17 +27,17 @@ public class ReorderBufferTable extends Table{
 	    this.add(readyHeader).space(5);	
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
-	    	this.addRow();
+	    	this.addRow(row);
 	}
 	
-	private void addRow(){
+	private void addRow(int pRow){
 		
 		this.row();
 		
-		Label tagField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label targetField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label valueField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label readyField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tagField		= new Label("P"+String.valueOf(pRow+1), Styles.getInstance().getGenericTableNormalStyle());
+		Label targetField	= new Label("-", Styles.getInstance().getGenericTableNormalStyle());
+		Label valueField	= new Label("-", Styles.getInstance().getGenericTableNormalStyle());
+		Label readyField	= new Label("-", Styles.getInstance().getGenericTableNormalStyle());
 		
 		this.add(tagField);
 		this.add(targetField);

@@ -13,6 +13,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -35,8 +36,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private TextButton mPlayButton;
 	private TextButton mStepButton;
 	private ShapeRenderer shapeRenderer;
-	private Image arrow1;
-	private ArrayList<Image> arrows;
 	
 	private enum SIDES{
 		TOP, BOTTOM, LEFT, RIGHT
@@ -57,19 +56,19 @@ public class EscenarioTomasulo implements Screen, GestureListener {
         //Recursos
 		
 	    mInstructionsStackTable = new InstructionStackTable();
-	    mInstructionsStackTable.setPosition(150,500);
+	    mInstructionsStackTable.setPosition(150,600);
 	    
 	    mRenamedInstructionsStackTable = new RenamedInstructionStackTable();
 	    mRenamedInstructionsStackTable.setPosition(150,250);
 	    
 	    mPhysicRegistersTable = new PhysicRegistersTable();
-	    mPhysicRegistersTable.setPosition(150,-50);
+	    mPhysicRegistersTable.setPosition(150,-100);
 	    
 	    mTemporalRegistersTable = new TemporalRegistersTable();
-	    mTemporalRegistersTable.setPosition(125,125);
+	    mTemporalRegistersTable.setPosition(125,80);
 	    
 	    mReorderBufferTable = new ReorderBufferTable();
-	    mReorderBufferTable.setPosition(600, -50);
+	    mReorderBufferTable.setPosition(600, -100);
 	    
 	    mReservationStationA = new ReservationStationTable("RS A");
 	    mReservationStationA.setPosition(550,320);
@@ -90,10 +89,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    Image arrow2 = new Image(Styles.getInstance().getArrowTopRight());
 	    Image arrow3 = new Image(Styles.getInstance().getArrowBottomRight());
 	    Image arrow4 = new Image(Styles.getInstance().getArrowRight());
-	    Image image4 = new Image(Styles.getInstance().getGears());
-	    Image image5 = new Image(Styles.getInstance().getGears());
-	    Image image6 = new Image(Styles.getInstance().getArrowBottomRight());
-	    Image image7 = new Image(Styles.getInstance().getArrowTopRight());
+	    Image gearsA = new Image(Styles.getInstance().getGears());
+	    Image gearsB = new Image(Styles.getInstance().getGears());
+	    Image arrow25 = new Image(Styles.getInstance().getArrowBottomRight());
+	    Image arrow26 = new Image(Styles.getInstance().getArrowTopRight());
 
 	    Image arrow5 = new Image(Styles.getInstance().getArrowTop());
 	    Image arrow6 = new Image(Styles.getInstance().getArrowLeft());
@@ -118,15 +117,16 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    Image arrow22 = new Image(Styles.getInstance().getArrowTopLeft());
 	    Image arrow23 = new Image(Styles.getInstance().getArrowTopLeft());
 	    Image arrow24 = new Image(Styles.getInstance().getArrowLeft());
+	    
 //	    
 	    arrow1.setPosition(150, 320);
 	    arrow2.setPosition(350, 250);
 	    arrow3.setPosition(350, 175);
 	    arrow4.setPosition(300, 215);
-	    image4.setPosition(700, 250);
-	    image5.setPosition(700, 80);
-	    image6.setPosition(850, 275);
-	    image7.setPosition(850, 125);
+	    gearsA.setPosition(700, 250);
+	    gearsB.setPosition(700, 80);
+	    arrow25.setPosition(850, 275);
+	    arrow26.setPosition(850, 125);
 	    arrow5.setPosition(930, 320);
 	    arrow6.setPosition(900, 400);
 	    arrow7.setPosition(800, 400);
@@ -148,6 +148,63 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    arrow23.setPosition(360, 40);
 	    arrow24.setPosition(280, 60);
 	    
+	    arrow1.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow1.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow2.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow2.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow3.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow3.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow4.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow4.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow5.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow5.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow6.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow6.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow7.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow7.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow8.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow8.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow9.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow9.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow10.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow10.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow11.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow11.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow12.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow12.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow13.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow13.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow14.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow14.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow16.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow16.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow17.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow17.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow18.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow18.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow19.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow19.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow20.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow20.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow21.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow21.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow22.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow22.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow23.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow23.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow24.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow24.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow25.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow25.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow26.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow26.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+
+	    gearsA.setOrigin(gearsA.getWidth()/2, gearsA.getHeight()/2);
+	    gearsA.addAction(Actions.forever(Actions.rotateBy(1)));
+	    
+	    gearsB.setOrigin(gearsB.getWidth()/2, gearsB.getHeight()/2);
+	    gearsB.addAction(Actions.forever(Actions.rotateBy(1)));
+	    
 	    mStage.addActor(mInstructionsStackTable);
 	    mStage.addActor(mRenamedInstructionsStackTable);
 	    mStage.addActor(mPhysicRegistersTable);
@@ -163,10 +220,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStage.addActor(arrow2);
 	    mStage.addActor(arrow3);
 	    mStage.addActor(arrow4);
-	    mStage.addActor(image4);
-	    mStage.addActor(image5);
-	    mStage.addActor(image6);
-	    mStage.addActor(image7);
+	    mStage.addActor(gearsA);
+	    mStage.addActor(gearsB);
+	    mStage.addActor(arrow25);
+	    mStage.addActor(arrow26);
 	    mStage.addActor(arrow5);
 	    mStage.addActor(arrow6);
 	    mStage.addActor(arrow7);
@@ -194,10 +251,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mStage.act(delta);
-        mStage.draw();
-        
-        
-                
+	    mStage.draw();                
         shapeRenderer.end();
 	}
 	

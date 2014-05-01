@@ -35,10 +35,10 @@ public class RenamedInstructionStackTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label instructionField	= new Label("ADD", Styles.getInstance().getGenericTableNormalStyle());
+		Label sourceOneField	= new Label("L1", Styles.getInstance().getGenericTableNormalStyle());
+		Label sourceTwoField	= new Label("L2", Styles.getInstance().getGenericTableNormalStyle());
+		Label sinkField			= new Label("L3", Styles.getInstance().getGenericTableNormalStyle());
 		
 		this.add(instructionField);
 		this.add(sourceOneField);

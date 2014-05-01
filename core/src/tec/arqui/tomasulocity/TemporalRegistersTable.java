@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class TemporalRegistersTable extends Table{
 	
-	public final static int ROW_COUNT = 5;
+	public final static int ROW_COUNT = 8;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
@@ -25,14 +25,14 @@ public class TemporalRegistersTable extends Table{
 	    this.add(busyBitHeader).space(5);
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
-	    	this.addRow();
+	    	this.addRow(row);
 	}
 	
-	private void addRow(){
+	private void addRow(int pRow){
 		
 		this.row();
 		
-		Label tempRegisterField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label tempRegisterField		= new Label("L"+String.valueOf(pRow+1), Styles.getInstance().getGenericTableNormalStyle());
 		Label physicalRegisterField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label busyBitField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		

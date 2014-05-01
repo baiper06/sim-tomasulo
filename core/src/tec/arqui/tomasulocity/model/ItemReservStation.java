@@ -4,6 +4,7 @@ import tec.arqui.tomasulocity.model.Constants.Operations;
 
 public class ItemReservStation {
 	
+	public final static int DATA_COUNT = 8;
 	private int mTarget;
 	private Operations mOperation;
 	private int mTag1;
@@ -60,6 +61,19 @@ public class ItemReservStation {
 	}
 	public void setTagROB(int pTagROB) {
 		this.mTagROB = pTagROB;
+	}
+	
+	public boolean[] compare(ItemReservStation objectA, ItemReservStation objectB){
+		boolean[] semejanza = new boolean[DATA_COUNT];
+		semejanza[0] = objectA.getTarget() == objectB.getTarget();
+		semejanza[1] = objectA.getOperation() == objectB.getOperation();
+		semejanza[2] = objectA.getTag1() == objectB.getTag1();
+		semejanza[3] = objectA.getTag2() == objectB.getTag2();
+		semejanza[4] = objectA.getValue1() == objectB.getValue1();
+		semejanza[5] = objectA.getValue1() == objectB.getValue2();
+		semejanza[6] = objectA.isDirty() == objectB.isDirty();
+		semejanza[7] = objectA.getTagROB() == objectB.getTagROB();
+		return semejanza;
 	}
 	
 }

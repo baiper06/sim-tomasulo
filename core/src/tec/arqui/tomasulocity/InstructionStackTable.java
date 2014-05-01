@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class InstructionStackTable extends Table{
 	
-	public final static int ROW_COUNT = 3;
+	public final static int ROW_COUNT = 12;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
@@ -30,7 +30,7 @@ public class InstructionStackTable extends Table{
 	    
 	   for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
-
+	   
 	}
 	
 	private void addRow(){

@@ -47,6 +47,8 @@ public class Styles {
 	private Drawable mGears;
 
 	private Drawable mDrawableArrowTopLeft;
+
+	private Skin mSkin;
 	
 	private Styles(){
 		//Fuentes
@@ -54,9 +56,9 @@ public class Styles {
 		mNormalFont = new BitmapFont(Gdx.files.internal("Aaargh-12.fnt"));
 		
 		TextureAtlas atlas = new TextureAtlas("icons.pack");
-		Skin skin = new Skin(atlas);
-		mDrawableRect = new Image(skin, "rectangle").getDrawable();
-		mDrawableRectDark = new Image(skin,"rectangle-dark").getDrawable();
+		mSkin = new Skin(atlas);
+		mDrawableRect = new Image(mSkin, "rectangle").getDrawable();
+		mDrawableRectDark = new Image(mSkin,"rectangle-dark").getDrawable();
 		//Styles
 		mGenericTableHeaderStyle = new LabelStyle();
 		mGenericTableHeaderStyle.font = mHeaderFont;
@@ -92,14 +94,14 @@ public class Styles {
 		mGenericTextButtonStyle.font = mNormalFont;
 		mGenericTextButtonStyle.fontColor = Color.BLACK;
 		
-		mDrawableArrowRight  = new Image(skin, "right").getDrawable();
-		mDrawableArrowLeft   = new Image(skin, "left").getDrawable();
-		mDrawableArrowTop    = new Image(skin, "top").getDrawable();
-		mDrawableArrowBottom = new Image(skin, "bottom").getDrawable();
-		mDrawableArrowBottomRight = new Image(skin, "bottom-right").getDrawable();
-		mDrawableArrowTopRight = new Image(skin, "top-right").getDrawable();
-		mGears = new Image(skin,"gears3").getDrawable();
-		mDrawableArrowTopLeft = new Image(skin,"top-left").getDrawable();
+		mDrawableArrowRight  = new Image(mSkin, "right").getDrawable();
+		mDrawableArrowLeft   = new Image(mSkin, "left").getDrawable();
+		mDrawableArrowTop    = new Image(mSkin, "top").getDrawable();
+		mDrawableArrowBottom = new Image(mSkin, "bottom").getDrawable();
+		mDrawableArrowBottomRight = new Image(mSkin, "bottom-right").getDrawable();
+		mDrawableArrowTopRight = new Image(mSkin, "top-right").getDrawable();
+		mGears = new Image(mSkin,"gears3").getDrawable();
+		mDrawableArrowTopLeft = new Image(mSkin,"top-left").getDrawable();
 	}
 	
 	public LabelStyle getGenericTableHeaderStyle(){
@@ -153,6 +155,10 @@ public class Styles {
 	
 	public Drawable getArrowTopLeft(){
 		return mDrawableArrowTopLeft;
+	}
+	
+	public Skin getSkin(){
+		return mSkin;
 	}
 	
 	

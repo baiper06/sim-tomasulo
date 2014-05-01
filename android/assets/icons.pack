@@ -5,91 +5,98 @@ filter: Nearest,Nearest
 repeat: none
 Aaargh
   rotate: false
-  xy: 1, 478
+  xy: 1, 468
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 badlogic
   rotate: false
-  xy: 1, 220
+  xy: 1, 210
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+rectangle2
+  rotate: false
+  xy: 515, 837
+  size: 317, 143
+  orig: 317, 143
+  offset: 0, 0
+  index: -1
 gears3
   rotate: false
-  xy: 515, 862
+  xy: 1, 80
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gears2
   rotate: false
-  xy: 1, 90
+  xy: 259, 338
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gears
   rotate: false
-  xy: 259, 365
+  xy: 515, 724
   size: 125, 111
   orig: 125, 111
   offset: 0, 0
   index: -1
 rectangle-dark
   rotate: false
-  xy: 515, 830
+  xy: 834, 950
   size: 80, 30
   orig: 80, 30
   offset: 0, 0
   index: -1
 rectangle
   rotate: false
-  xy: 645, 960
+  xy: 1, 48
   size: 80, 30
   orig: 80, 30
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 1, 48
+  xy: 131, 168
   size: 51, 40
   orig: 51, 40
   offset: 0, 0
   index: -1
 bottom
   rotate: false
-  xy: 131, 167
+  xy: 259, 285
   size: 40, 51
   orig: 40, 51
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 259, 323
+  xy: 389, 426
   size: 51, 40
   orig: 51, 40
   offset: 0, 0
   index: -1
 top
   rotate: false
-  xy: 386, 425
+  xy: 515, 671
   size: 40, 51
   orig: 40, 51
   offset: 0, 0
   index: -1
 top-left
   rotate: false
-  xy: 515, 783
+  xy: 642, 790
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 bottom-right
   rotate: false
-  xy: 645, 913
+  xy: 834, 903
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
