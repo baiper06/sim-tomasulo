@@ -1,11 +1,10 @@
 package tec.arqui.tomasulocity.model;
 
+import java.util.concurrent.ArrayBlockingQueue;
+
 public class ReorderBuffer {
 
-	private ItemReorderBuffer[] mReorderBuffer;
-	private ItemReorderBuffer mHeader;
-	private int AvailableBlock;
-	private int Order;
+	private ArrayBlockingQueue<ItemReorderBuffer> mReorderBuffer;
 	
 	public static int SIZE_ROD = 15;
 	
@@ -25,50 +24,33 @@ public class ReorderBuffer {
 	
 	protected ReorderBuffer() {
 	
-		this.mReorderBuffer = new ItemReorderBuffer[SIZE_ROD];
-		this.mHeader = mReorderBuffer[0];
-		this.AvailableBlock = 0;
-		this.Order = 0;
-	
+		this.mReorderBuffer = new ArrayBlockingQueue<ItemReorderBuffer> 
+								  (SIZE_ROD);	
 	}
+	
 	/*
 	 * Checks for blocks availability
 	 */
 	public boolean blockAvailable(){
-		for(int i = 0; i < SIZE_ROD; i ++){
-			if (mReorderBuffer[i] == null){
-				AvailableBlock = i;
-				return true;
-			}
-		}
+		if(this.mReorderBuffer.remainingCapacity() > 0){
+			return true;
+		} 
 		return false;
 	}
 	
 	/*
 	 * Add new element
 	 */
-	public int addElement( ItemReorderBuffer mItem ){
-		
-		if(!blockAvailable()){
-			return -1;
-		} else {
-			mItem = mReorderBuffer[AvailableBlock];
-		}
-				
-		return AvailableBlock;
+	public void addElement( ItemReorderBuffer mItem ){
+		mReorderBuffer.add(mItem);
 	}
 	
 	/*
 	 * Checks for data to dispatch
 	 */
-	public ItemReorderBuffer update(){
-		// TODO: revisar
-		if(this.mHeader.getValue() != null){
-			if( (Order + 1) < 5){
-				mHeader = mReorderBuffer[Order + 1];
-			}
-		} 
-		return mHeader;
-	}
-	
+	public void update(){		
+		if(mReorderBuffer.peek().getValue() != null){
+			mReorderBuffer.poll();
+		}	
+	}	
 }
