@@ -18,7 +18,7 @@ public class ItemReorderBuffer {
 	public void setTarget(PhysicRegister pTarget) {
 		this.mTarget = pTarget;
 	}
-	public int getValue() {
+	public Integer getValue() {
 		return mValue;
 	}
 	public void setValue(int pValue) {

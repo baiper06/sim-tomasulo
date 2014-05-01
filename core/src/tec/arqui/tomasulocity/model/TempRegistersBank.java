@@ -5,6 +5,23 @@ public class TempRegistersBank {
 	private TempRegister[]	mTempRegisters;
 	private int mSize;
 	
+	/*
+	 * Singleton
+	 */
+	private static TempRegistersBank instance = null;
+	   
+	protected TempRegistersBank() {
+		mTempRegisters 	= new TempRegister[Constants.SIZE_TEMP_REGISTERS];
+	}
+	
+	public static TempRegistersBank getInstance() {
+      if(instance == null) {
+         instance = new TempRegistersBank();
+      }
+      return instance;
+	}
+	   
+	
 	public TempRegistersBank( int pSize ){
 		mSize = pSize;
 		mTempRegisters 	= new TempRegister[pSize]; 

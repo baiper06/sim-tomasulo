@@ -1,19 +1,32 @@
 package tec.arqui.tomasulocity.stage;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
 import tec.arqui.tomasulocity.model.ItemReorderBuffer;
 import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.PhysicRegister;
+import tec.arqui.tomasulocity.model.ReorderBuffer;
 import tec.arqui.tomasulocity.model.TempRegister;
+import tec.arqui.tomasulocity.model.TempRegistersBank;
+import tec.arqui.tomasulocity.model.UFAdder;
+import tec.arqui.tomasulocity.model.UFMultiplier;
 import tec.arqui.tomasulocity.model.UnitFunctional;
 
 public class Frontend {
 	
 	int mPC;
-	private ArrayList<Instruction> 		mListInstructions;
+	private ArrayList<Instruction> 	mListInstructions;
+	private Queue<Instruction> 		mBlockProgram;
+	
+	public void run(){
+		for( int i=0; i<Constants.SIZE_PAGE; i++){
+			issue();
+			mListInstructions
+		}
+	}
 	
 	public void issue(){
 		
@@ -32,17 +45,17 @@ public class Frontend {
 		tempRegTarget.setPhysicRegister( PhysicRegTarget );
 		tempRegTarget.setBusyBit( true );
 		tempRegTarget.setDirty( false );
-		mTempRegisters.addRegister(tempRegTarget);
+		TempRegistersBank.getInstance().addRegister(tempRegTarget);
 		
 		// renaming source
-		TempRegister reg = mTempRegisters.getPhysicReg( PhysicRegSource );
+		TempRegister reg = TempRegistersBank.getInstance().getPhysicReg( PhysicRegSource );
 		TempRegister tempRegSource;
 		if( reg  == null || reg.isBusyBit() == false ){
 			tempRegSource = new TempRegister();
 			tempRegSource.setPhysicRegister( PhysicRegSource );
 			tempRegSource.setBusyBit( false );
 			tempRegSource.setDirty( false );
-			mTempRegisters.addRegister(tempRegSource);
+			TempRegistersBank.getInstance().addRegister(tempRegSource);
 		} else {
 			tempRegSource = reg;
 		}
@@ -57,26 +70,26 @@ public class Frontend {
 		 * dispatch
 		 */
 		UnitFunctional fu;
-		if( mReorderBuffer.blockAvailable() ){
+		if( ReorderBuffer.getInstance().blockAvailable() ){
 			if( inst.getOperation() == Constants.Operations.ADD ||  inst.getOperation() == Constants.Operations.MOVE ){
-				fu = mAdder;
+				fu = UFAdder.getInstance();
 			} else {
-				fu = mMultiplier;
+				fu = UFMultiplier.getInstance();
 			}
 			int pos = fu.anySlotEmptyInRS( );
 			if( pos != -1 ){
 				
 				ItemReorderBuffer rob = new ItemReorderBuffer();
 				rob.setTarget( PhysicRegTarget );
-				int tagROB = mReorderBuffer.addElement(rob);
+				int tagROB = ReorderBuffer.getInstance().addElement(rob);
 				
 				ItemReservStation rs = new ItemReservStation();
 				rs.setOperation( inst.getOperation() );
 				rs.setDirty(false);
-				rs.setTag1( mTempRegisters.getTag(tempRegSource) );
-				rs.setTag2( mTempRegisters.getTag(tempRegTarget) );
+				rs.setTag1( TempRegistersBank.getInstance().getTag(tempRegSource) );
+				rs.setTag2( TempRegistersBank.getInstance().getTag(tempRegTarget) );
 				rs.setTagROB( tagROB );
-				rs.setTarget( mTempRegisters.getTag(tempRegTarget) );
+				rs.setTarget( TempRegistersBank.getInstance().getTag(tempRegTarget) );
 				rs.setValue1( PhysicRegSource.getValue() );
 				rs.setValue2( PhysicRegTarget.getValue() );
 				fu.addRS(rs, pos );
@@ -85,7 +98,13 @@ public class Frontend {
 			}
 		}
 		
-		execList.add(inst);
-		
+	}
+	
+	public ArrayList<Instruction> getListInstructions() {
+		return mListInstructions;
+	}
+
+	public void setListInstructions(Queue<Instruction> pListInstructions) {
+		this.mListInstructions = pListInstructions;
 	}
 }

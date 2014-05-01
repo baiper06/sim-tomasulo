@@ -9,12 +9,26 @@ public class ReorderBuffer {
 	
 	public static int SIZE_ROD = 15;
 	
-	public ReorderBuffer {
+	/*
+	 * Singleton
+	 */
+	private static ReorderBuffer instance = null;
+
 	
-	this.mReorderBuffer = new ItemReorderBuffer[SIZE_ROD];
-	this.mHeader = ItemReorderBuffer[0];
-	this.AvailableBlock = 0;
-	this.Order = 0;
+	public static ReorderBuffer getInstance() {
+      if(instance == null) {
+         instance = new ReorderBuffer();
+      }
+      return instance;
+	}
+	
+	
+	protected ReorderBuffer() {
+	
+		this.mReorderBuffer = new ItemReorderBuffer[SIZE_ROD];
+		this.mHeader = mReorderBuffer[0];
+		this.AvailableBlock = 0;
+		this.Order = 0;
 	
 	}
 	/*
@@ -22,13 +36,12 @@ public class ReorderBuffer {
 	 */
 	public boolean blockAvailable(){
 		for(int i = 0; i < SIZE_ROD; i ++){
-			if (ItemReorderBuffer[i] == null){
+			if (mReorderBuffer[i] == null){
 				AvailableBlock = i;
 				return true;
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
 	/*
@@ -37,9 +50,9 @@ public class ReorderBuffer {
 	public int addElement( ItemReorderBuffer mItem ){
 		
 		if(!blockAvailable()){
-			return false;
+			return -1;
 		} else {
-			mItem = ItemReorderBuffer[AvailableBlock];
+			mItem = mReorderBuffer[AvailableBlock];
 		}
 				
 		return AvailableBlock;
@@ -49,12 +62,13 @@ public class ReorderBuffer {
 	 * Checks for data to dispatch
 	 */
 	public ItemReorderBuffer update(){
-		if(this.mHeader.getValue != null)
-			return mHeader;
+		// TODO: revisar
+		if(this.mHeader.getValue() != null){
 			if( (Order + 1) < 5){
 				mHeader = mReorderBuffer[Order + 1];
 			}
 		} 
+		return mHeader;
 	}
 	
 }

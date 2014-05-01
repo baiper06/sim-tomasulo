@@ -2,13 +2,28 @@ package tec.arqui.tomasulocity.model;
 
 public class UFMultiplier extends UnitFunctional {
 
+	private final static int TIME_EXEC = 2;
 	public static int SIZE_RS = 3;
 
-	public UFMultiplier(){
+	/*
+	 * Singleton
+	 */
+	private static UFMultiplier instance = null;
+	   
+	protected UFMultiplier(){
+		super(SIZE_RS, TIME_EXEC);
 		this.mReservStation = ItemReservStation[SIZE_RS];
-		this.mTimeExec = 3;
+		this.mTimeExec = 2;
 		this.mReady = true;
 	}
+	
+	public static UFMultiplier getInstance() {
+      if(instance == null) {
+         instance = new UFMultiplier();
+      }
+      return instance;
+	}
+
 	
 	public boolean areYouReady(){
 		return this.mReady;

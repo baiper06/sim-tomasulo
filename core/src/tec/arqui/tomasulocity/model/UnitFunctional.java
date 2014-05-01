@@ -2,9 +2,9 @@ package tec.arqui.tomasulocity.model;
 
 public abstract class UnitFunctional {
 	
-	private ItemReservStation[] mReservStation;
-	private int	mTimeExec;
-	private int mSize;
+	protected ItemReservStation[] mReservStation;
+	protected int	mTimeExec;
+	protected int mSize;
 	
 	public UnitFunctional( int pSizeRS, int pTimeExec ){
 		mSize = pSizeRS;

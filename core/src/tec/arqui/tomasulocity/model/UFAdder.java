@@ -2,14 +2,28 @@ package tec.arqui.tomasulocity.model;
 
 public class UFAdder extends UnitFunctional {
 	
-	public static int SIZE_RS = 3;
-
-	public UFAdder(){
+	private final static int TIME_EXEC = 2;
+	private final static int SIZE_RS   = 2;
+	
+	/*
+	 * Singleton
+	 */
+	private static UFAdder instance = null;
+	   
+	protected UFAdder(){
+		super(SIZE_RS, TIME_EXEC);
 		this.mReservStation = ItemReservStation[SIZE_RS];
 		this.mTimeExec = 2;
 		this.mReady = true;
 	}
 	
+	public static UFAdder getInstance() {
+      if(instance == null) {
+         instance = new UFAdder();
+      }
+      return instance;
+	}
+
 	public boolean areYouReady(){
 		return this.mReady;
 	}
@@ -33,11 +47,6 @@ public class UFAdder extends UnitFunctional {
 		return instruction;
 	}
 
-	private final static int TIME_EXEC = 2;
-	private final static int SIZE_RS   = 2;
 	
-	public UFAdder() {
-		super(SIZE_RS, TIME_EXEC);
-	}
 
 }
