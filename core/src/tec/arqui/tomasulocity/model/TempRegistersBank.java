@@ -10,7 +10,7 @@ public class TempRegistersBank {
 		mTempRegisters 	= new TempRegister[pSize]; 
 	}
 	
-	public void add( TempRegister pReg ){
+	public void addRegister( TempRegister pReg ){
 		for( int i=0; i<mSize; i++ ){
 			if( mTempRegisters[i] == null || mTempRegisters[i].isDirty() ){
 				mTempRegisters[i] = pReg;
@@ -19,12 +19,21 @@ public class TempRegistersBank {
 		}
 	}
 	
-	public TempRegister get( PhysicRegister pReg ){
+	public TempRegister getPhysicReg( PhysicRegister pReg ){
 		for( int i=0; i<mSize; i++ ){
 			if( mTempRegisters[i].getPhysicRegister() == pReg ){
 				return mTempRegisters[i];
 			}
 		}
 		return null;
+	}
+	
+	public int getTag( TempRegister pReg ){
+		for( int i=0; i<mSize; i++ ){
+			if( mTempRegisters[i] == pReg ){
+				return i;
+			}
+		}
+		return -1;
 	}
 }

@@ -1,15 +1,17 @@
 package tec.arqui.tomasulocity.model;
 
+import tec.arqui.tomasulocity.model.Constants.Operations;
+
 public class Instruction {
 
-	private int mOperation;
+	private Operations mOperation;
 	private IRegister mSource;
 	private IRegister mTarget;
 	
-	public int getOperation() {
+	public Operations getOperation() {
 		return mOperation;
 	}
-	public void setOperation(int pOperation) {
+	public void setOperation(Operations pOperation) {
 		this.mOperation = pOperation;
 	}
 	public IRegister getSource() {

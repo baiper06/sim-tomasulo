@@ -7,12 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import tec.arqui.tomasulocity.model.CommonDataBus;
+import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
+import tec.arqui.tomasulocity.model.ItemReorderBuffer;
+import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.PhysicRegister;
 import tec.arqui.tomasulocity.model.ReorderBuffer;
 import tec.arqui.tomasulocity.model.TempRegister;
+import tec.arqui.tomasulocity.model.TempRegistersBank;
 import tec.arqui.tomasulocity.model.UFAdder;
 import tec.arqui.tomasulocity.model.UFMultiplier;
+import tec.arqui.tomasulocity.model.UnitFunctional;
 
 
 public class TomasuloControl {
@@ -20,30 +25,29 @@ public class TomasuloControl {
 	private ArrayList<Instruction> 		mPage;
 	private CommonDataBus				mCDB;
 	private PhysicRegister[] 			mPhysicRegisters;
-	private TempRegister[]	 			mTempRegisters;
+	private TempRegistersBank 			mTempRegisters;
 	private ReorderBuffer	 			mReorderBuffer;
 	private UFAdder 		mAdder;
 	private UFMultiplier 	mMultiplier;
 	
-	Instruction nextToExec = null;
 	ArrayList<Instruction> execList;
 	ArrayList<Instruction> wbList;
 	
 	static int clock;
-	int pc;
+	int mPC;
 	
-	public static int SIZE_REGISTERS = 16;
-	public static int SIZE_PAGE = 3;
+
 	
 	public TomasuloControl(){
-		mPhysicRegisters 	= new PhysicRegister[SIZE_REGISTERS]; 
+		mPhysicRegisters 	= new PhysicRegister[Constants.SIZE_REGISTERS]; 
+		mTempRegisters 		= new TempRegistersBank(Constants.SIZE_TEMP_REGISTERS);
 		mAdder 				= new UFAdder();
 		mMultiplier 		= new UFMultiplier();
 		mPage 				= new ArrayList<Instruction>();
 		execList = new ArrayList<Instruction>();	
 		wbList = new ArrayList<Instruction>();
 		clock = 0;
-		pc = 0;
+		mPC = 0;
 
 		// cargar instrucciones
 		
@@ -51,91 +55,87 @@ public class TomasuloControl {
 	
 	public void step(){
 		clock ++;
-		if (clock <= SIZE_PAGE){
-			issue();
+		if (clock <= Constants.SIZE_PAGE){  //  <-- revisar
+			for( int i=0; i<Constants.SIZE_PAGE; i++){
+				issue();
+			}
 		}
 			
 		execute();
 		rob();
-		
-		if (nextToExec != null){
-			execList.add(nextToExec);
-		}
 	}
 	
 	public void issue(){
 		
-		// decoder
-		Instruction inst = mPage.get(pc);
-		nextToExec = null;
+		/*
+		 *  decoder
+		 */
+		Instruction inst = mPage.get(mPC);
 		
-		if (op.equals("ADDD") || op.equals("SUBD")){
+		/*
+		 * renaming
+		 */
+		PhysicRegister PhysicRegTarget = (PhysicRegister) inst.getTarget();
+		PhysicRegister PhysicRegSource = (PhysicRegister) inst.getSource();
+		// renaming target
+		TempRegister tempRegTarget = new TempRegister();
+		tempRegTarget.setPhysicRegister( PhysicRegTarget );
+		tempRegTarget.setBusyBit( true );
+		tempRegTarget.setDirty( false );
+		mTempRegisters.addRegister(tempRegTarget);
+		
+		// renaming source
+		TempRegister reg = mTempRegisters.getPhysicReg( PhysicRegSource );
+		TempRegister tempRegSource;
+		if( reg  == null || reg.isBusyBit() == false ){
+			tempRegSource = new TempRegister();
+			tempRegSource.setPhysicRegister( PhysicRegSource );
+			tempRegSource.setBusyBit( false );
+			tempRegSource.setDirty( false );
+			mTempRegisters.addRegister(tempRegSource);
+		} else {
+			tempRegSource = reg;
+		}
+		
+		// set new registers
+		inst.setSource(tempRegTarget);
+		inst.setTarget(tempRegSource);
 
-			inst.time = 2;
-			
-			int station = schedule(Global.A);
-			inst.result = station;
-			
-			register.setStation(des, station);
-			rs.setBusy(Global.getID(station));
-			
-			int src1Station = register.getStation(src1);
-			int src2Station = register.getStation(src2);
-			if (src1Station == -1) {
-				rs.setData1(src1, register.read(src1));
+		
+		
+		/*
+		 * dispatch
+		 */
+		UnitFunctional fu;
+		if( mReorderBuffer.blockAvailable() ){
+			if( inst.getOperation() == Constants.Operations.ADD ||  inst.getOperation() == Constants.Operations.MOVE ){
+				fu = mAdder;
 			} else {
-				rs.setStation1(src1, src1Station);
+				fu = mMultiplier;
 			}
-			if (src2Station == -1) {
-				rs.setData1(src2, register.read(src2));
-			} else {
-				rs.setStation1(src2, src2Station);
-			}
-			
-			pc ++;
-			
-		} else if (op.equals("MULD") || op.equals("DIVD")){
-			inst.op = op.equals("MULD")? Global.MULD: Global.DIVD;
-			inst.time = op.equals("MULD")? 10: 40;
-			des = Global.getInt(s[1]);
-			src1 = Global.getInt(s[2]);
-			src2 = Global.getInt(s[3]);
-			inst.src1 = src1;
-			inst.src2 = src2;
-			inst.des = des;
-			
-			int station = schedule(Global.M);
-			
-			if (station == -1){
-				return;
-			}		
-			inst.result = station;
-			
-			register.setStation(des, station);
-			rs.setBusy(Global.getID(station));
-			
-			int src1Station = register.getStation(src1);
-			int src2Station = register.getStation(src2);
-			if (src1Station == -1) {
-				rs.setData1(src1, register.read(src1));
-			} else {
-				rs.setStation1(src1, src1Station);
-			}
-			if (src2Station == -1) {
-				rs.setData1(src2, register.read(src2));
-			} else {
-				rs.setStation1(src2, src2Station);
-			}
-			
-			pc++;
+			int pos = fu.anySlotEmptyInRS( );
+			if( pos != -1 ){
 				
-		} 
+				ItemReorderBuffer rob = new ItemReorderBuffer();
+				rob.setTarget( PhysicRegTarget );
+				int tagROB = mReorderBuffer.addElement(rob);
+				
+				ItemReservStation rs = new ItemReservStation();
+				rs.setOperation( inst.getOperation() );
+				rs.setDirty(false);
+				rs.setTag1( mTempRegisters.getTag(tempRegSource) );
+				rs.setTag2( mTempRegisters.getTag(tempRegTarget) );
+				rs.setTagROB( tagROB );
+				rs.setTarget( mTempRegisters.getTag(tempRegTarget) );
+				rs.setValue1( PhysicRegSource.getValue() );
+				rs.setValue2( PhysicRegTarget.getValue() );
+				fu.addRS(rs, pos );
+				
+				mPC++;
+			}
+		}
 		
-		nextToExec = inst;
-		
-		inst.issue = clock;
-		System.out.println(clock +": " +inst.name);
-		
+		execList.add(inst);
 		
 	}
 	
@@ -178,28 +178,6 @@ public class TomasuloControl {
 		
 	}
 	
-	public int schedule(int type){
-		int i = 0;
-		switch (type){			
-		case Global.A:
-			for (i=Global._A1; i<=Global._A3; i++){
-				if ( !rs.isBusy(i)){
-					return i+14;
-				}
-			}
-			break;
-			
-		case Global.M:
-			for (i=Global._M1; i<=Global._M2; i++){
-				if ( !rs.isBusy(i)){
-					return i+14;
-				}
-			}
-			break;
-		}
-		
-		return -1;	
-	}
 	/*
 	public static void main(String []args){
 		Tomasulo t = new Tomasulo();
