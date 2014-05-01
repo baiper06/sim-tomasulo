@@ -11,6 +11,7 @@ import tec.arqui.tomasulocity.model.Instruction;
 import tec.arqui.tomasulocity.model.PhysicRegister;
 import tec.arqui.tomasulocity.model.ReorderBuffer;
 import tec.arqui.tomasulocity.model.TempRegister;
+import tec.arqui.tomasulocity.model.TempRegistersBank;
 import tec.arqui.tomasulocity.model.UFAdder;
 import tec.arqui.tomasulocity.model.UFMultiplier;
 
@@ -23,7 +24,7 @@ public class TomasuloControl {
 	private ArrayList<Instruction> 		mPage;
 	private CommonDataBus				mCDB;
 	private PhysicRegister[] 			mPhysicRegisters;
-	private TempRegister[]	 			mTempRegisters;
+	private TempRegistersBank 			mTempRegisters;
 	private ReorderBuffer	 			mReorderBuffer;
 	private UFAdder 		mAdder;
 	private UFMultiplier 	mMultiplier;
@@ -37,9 +38,11 @@ public class TomasuloControl {
 	
 	public static int SIZE_REGISTERS = 16;
 	public static int SIZE_PAGE = 3;
+	public static int SIZE_TEMP_REGISTERS = 8;
 	
 	public TomasuloControl(){
 		mPhysicRegisters 	= new PhysicRegister[SIZE_REGISTERS]; 
+		mTempRegisters 		= new TempRegistersBank(SIZE_TEMP_REGISTERS);
 		mAdder 				= new UFAdder();
 		mMultiplier 		= new UFMultiplier();
 		mPage 				= new ArrayList<Instruction>();
@@ -54,8 +57,10 @@ public class TomasuloControl {
 	
 	public void step(){
 		clock ++;
-		if (clock <= SIZE_PAGE){
-			issue();
+		if (clock <= SIZE_PAGE){  //  <-- revisar
+			for( int i=0; i<SIZE_PAGE; i++){
+				issue();
+			}
 		}
 			
 		execute();
@@ -68,10 +73,43 @@ public class TomasuloControl {
 	
 	public void issue(){
 		
-		// decoder
+		/*
+		 *  decoder
+		 */
 		Instruction inst = mPage.get(pc);
 		nextToExec = null;
 		
+		/*
+		 * renaming
+		 */
+		
+		// renaming target
+		TempRegister tempRegTarget = new TempRegister();
+		tempRegTarget.setPhysicRegister( (PhysicRegister) inst.getTarget() );
+		tempRegTarget.setBusyBit( true );
+		tempRegTarget.setDirty( false );
+		mTempRegisters.add(tempRegTarget);
+		
+		// renaming source
+		TempRegister reg = mTempRegisters.get( (PhysicRegister) inst.getSource() );
+		TempRegister tempRegSource;
+		if( reg  == null || reg.isBusyBit() == false ){
+			tempRegSource = new TempRegister();
+			tempRegSource.setPhysicRegister( (PhysicRegister) inst.getSource() );
+			tempRegSource.setBusyBit( false );
+			tempRegSource.setDirty( false );
+			mTempRegisters.add(tempRegSource);
+		} else {
+			tempRegSource = reg;
+		}
+		
+		// set new registers
+		inst.setSource(tempRegTarget);
+		inst.setTarget(tempRegSource);
+
+		
+		
+		// 
 		if (op.equals("ADDD") || op.equals("SUBD")){
 
 			inst.time = 2;
