@@ -63,13 +63,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mRenamedInstructionsStackTable.setPosition(150,250);
 	    
 	    mPhysicRegistersTable = new PhysicRegistersTable();
-	    mPhysicRegistersTable.setPosition(-600,-360);
+	    mPhysicRegistersTable.setPosition(150,-50);
 	    
 	    mTemporalRegistersTable = new TemporalRegistersTable();
-	    mTemporalRegistersTable.setPosition(-200,-360);
+	    mTemporalRegistersTable.setPosition(125,125);
 	    
 	    mReorderBufferTable = new ReorderBufferTable();
-	    mReorderBufferTable.setPosition(180, -120);
+	    mReorderBufferTable.setPosition(600, -50);
 	    
 	    mReservationStationA = new ReservationStationTable("RS A");
 	    mReservationStationA.setPosition(550,320);
@@ -97,13 +97,28 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 
 	    Image arrow5 = new Image(Styles.getInstance().getArrowTop());
 	    Image arrow6 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow7 = new Image(Styles.getInstance().getArrowRight());
-	    Image arrow8 = new Image(Styles.getInstance().getArrowRight());
-	    Image arrow9 = new Image(Styles.getInstance().getArrowRight());
-	    Image arrow10 = new Image(Styles.getInstance().getArrowRight());
-	    Image arrow11 = new Image(Styles.getInstance().getArrowRight());
-	    Image arrow12 = new Image(Styles.getInstance().getArrowRight());
+	    Image arrow7 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow8 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow9 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow10 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow11 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow12 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow13 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow14 = new Image(Styles.getInstance().getArrowBottom());
+	    //Image arrow15 = new Image(Styles.getInstance().getArrowRight());
 	    
+	    //Flechas del reorder buffer
+
+	    Image arrow16 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow17 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow18 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow19 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow20 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow21 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow22 = new Image(Styles.getInstance().getArrowTopLeft());
+	    Image arrow23 = new Image(Styles.getInstance().getArrowTopLeft());
+	    Image arrow24 = new Image(Styles.getInstance().getArrowLeft());
+//	    
 	    arrow1.setPosition(150, 320);
 	    arrow2.setPosition(350, 250);
 	    arrow3.setPosition(350, 175);
@@ -113,8 +128,25 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    image6.setPosition(850, 275);
 	    image7.setPosition(850, 125);
 	    arrow5.setPosition(930, 320);
-	    arrow6.setPosition(910, 400);
-	    
+	    arrow6.setPosition(900, 400);
+	    arrow7.setPosition(800, 400);
+	    arrow8.setPosition(700, 400);
+	    arrow9.setPosition(600, 400);
+	    arrow10.setPosition(500, 400);
+	    arrow11.setPosition(400, 400);
+	    arrow12.setPosition(300, 400);
+	    arrow13.setPosition(300, 340);
+	    arrow14.setPosition(300, 270);
+	   // arrow15.setPosition(1050, 220);
+	    arrow16.setPosition(930, 50);
+	    arrow17.setPosition(930, -50);
+	    arrow18.setPosition(820, -75);
+	    arrow19.setPosition(720, -75);
+	    arrow20.setPosition(420, -75);
+	    arrow21.setPosition(320, -75);
+	    arrow22.setPosition(420, -25);
+	    arrow23.setPosition(360, 40);
+	    arrow24.setPosition(280, 60);
 	    
 	    mStage.addActor(mInstructionsStackTable);
 	    mStage.addActor(mRenamedInstructionsStackTable);
@@ -137,6 +169,24 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStage.addActor(image7);
 	    mStage.addActor(arrow5);
 	    mStage.addActor(arrow6);
+	    mStage.addActor(arrow7);
+	    mStage.addActor(arrow8);
+	    mStage.addActor(arrow9);
+	    mStage.addActor(arrow10);
+	    mStage.addActor(arrow11);
+	    mStage.addActor(arrow12);
+	    mStage.addActor(arrow13);
+	    mStage.addActor(arrow14);
+	    //mStage.addActor(arrow15);
+	    mStage.addActor(arrow16);
+	    mStage.addActor(arrow17);
+	    mStage.addActor(arrow18);
+	    mStage.addActor(arrow19);
+	    mStage.addActor(arrow20);
+	    mStage.addActor(arrow21);
+	    mStage.addActor(arrow22);
+	    mStage.addActor(arrow23);
+	    mStage.addActor(arrow24);
 	}
 
 	@Override

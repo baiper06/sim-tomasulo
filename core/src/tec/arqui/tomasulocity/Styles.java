@@ -45,6 +45,8 @@ public class Styles {
 	private Drawable mDrawableArrowTopRight;
 	
 	private Drawable mGears;
+
+	private Drawable mDrawableArrowTopLeft;
 	
 	private Styles(){
 		//Fuentes
@@ -97,6 +99,7 @@ public class Styles {
 		mDrawableArrowBottomRight = new Image(skin, "bottom-right").getDrawable();
 		mDrawableArrowTopRight = new Image(skin, "top-right").getDrawable();
 		mGears = new Image(skin,"gears").getDrawable();
+		mDrawableArrowTopLeft = new Image(skin,"top-left").getDrawable();
 	}
 	
 	public LabelStyle getGenericTableHeaderStyle(){
@@ -146,6 +149,10 @@ public class Styles {
 	
 	public Drawable getGears(){
 		return mGears;
+	}
+	
+	public Drawable getArrowTopLeft(){
+		return mDrawableArrowTopLeft;
 	}
 	
 	
