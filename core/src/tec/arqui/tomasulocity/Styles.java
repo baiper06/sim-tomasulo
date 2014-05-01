@@ -98,7 +98,7 @@ public class Styles {
 		mDrawableArrowBottom = new Image(skin, "bottom").getDrawable();
 		mDrawableArrowBottomRight = new Image(skin, "bottom-right").getDrawable();
 		mDrawableArrowTopRight = new Image(skin, "top-right").getDrawable();
-		mGears = new Image(skin,"gears").getDrawable();
+		mGears = new Image(skin,"gears3").getDrawable();
 		mDrawableArrowTopLeft = new Image(skin,"top-left").getDrawable();
 	}
 	
