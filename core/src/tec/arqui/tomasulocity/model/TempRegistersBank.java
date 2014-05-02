@@ -32,7 +32,7 @@ public class TempRegistersBank {
 		}
 	}
 	
-	public TempRegister getTempRegister( PhysicRegister pReg ){
+	public TempRegister getPhysicReg( PhysicRegister pReg ){
 		for( int i=0; i<mTempRegisters.length; i++ ){
 			if( mTempRegisters[i].getPhysicRegister() == pReg ){
 				return mTempRegisters[i];
