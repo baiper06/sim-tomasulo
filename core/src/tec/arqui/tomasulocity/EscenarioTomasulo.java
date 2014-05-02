@@ -57,6 +57,9 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	@Override
 	public void show() {
 		
+		//Temporal
+		//Temporal
+		
 		//Control
 		mTomasuloControl = new TomasuloControl();		
 		
@@ -136,6 +139,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Reservation StationA
 	                for ( int i = 0; i < UFAdder.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
+
+	                	if (item.getTarget() != null){
 		                	mReservationStationA.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
 		                	System.out.println("RS A:"+item.getOperation());
@@ -148,12 +153,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                	mReservationStationA.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
 		                	mReservationStationA.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
 		                	mReservationStationA.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
-	                	
+	                	}
 	                }
 	                
 	                //Actualizar Reservation StationB
 	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
+	                	if (item.getTarget() != null){
 		                	System.out.println("RS B:"+item.getOperation());
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
@@ -166,7 +172,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                	mReservationStationB.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
 		                	mReservationStationB.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
 		                	mReservationStationB.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
-	                	
+	                	}
 	                }
 	                
 	                //Registros Físicos
@@ -178,9 +184,11 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	               
 	                //CDB 
 	                ItemReservStation cdbItem = CommonDataBus.getInstance().getRegister();
-	                mCommonDataBusTable.mRegisters.get(0)
-	                	.setText(TempRegistersBank.getInstance().getRegisters()[cdbItem.getTarget()].getName());
-	                mCommonDataBusTable.mValues.get(0).setText(String.valueOf(cdbItem.getValue2()));
+	                if (cdbItem != null && cdbItem.getTarget() != null){
+		                mCommonDataBusTable.mRegisters.get(0)
+		                	.setText(TempRegistersBank.getInstance().getRegisters()[cdbItem.getTarget()].getName());
+		                mCommonDataBusTable.mValues.get(0).setText(String.valueOf(cdbItem.getValue2()));
+	                }
 	               
 	                //ROB
 	                int index = 0;
