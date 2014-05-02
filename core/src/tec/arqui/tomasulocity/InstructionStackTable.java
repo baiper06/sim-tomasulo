@@ -91,7 +91,7 @@ public class InstructionStackTable extends Table{
 	}
 	
 	
-	public ArrayList<Instruction> getColaInstrucciones(){
+	public ArrayList<Instruction> getInstrucciones(){
 		ArrayList<Instruction> colaInstrucciones = new ArrayList<Instruction>(Constants.SIZE_PROGRAM);
         for ( int i=0 ; i < Constants.SIZE_PROGRAM ; i++ ){
         	

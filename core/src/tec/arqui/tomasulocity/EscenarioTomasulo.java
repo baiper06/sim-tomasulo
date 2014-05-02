@@ -96,12 +96,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	                Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
 	                        
-	                mTomasuloControl.setBlockProgram(mInstructionsStackTable.getColaInstrucciones());
+	                mTomasuloControl.setBlockProgram(mInstructionsStackTable.getInstrucciones());
 	                mTomasuloControl.step();
 	                
 	                //Actualizar Tabla de Renamed
 	                for (int i = 0; i < mTomasuloControl.front.getListInstructions().size(); i++){
-	                	Instruction instruccion = mTomasuloControl.front.getListInstructions().get(i);	                	
+	                	Instruction instruccion = mTomasuloControl.front.getListInstructions().get(i);	
+	                	TempRegistersBank bank = TempRegistersBank.getInstance();
 	                	mRenamedInstructionsStackTable.mInstrucciones.get(i).setText(
 	                			Mappers.MInverseOperations.get(
 	                					instruccion.getOperation()
