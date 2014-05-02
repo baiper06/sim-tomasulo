@@ -67,10 +67,10 @@ public abstract class UnitFunctional {
 			//System.out.println("-----------------------------------------------");
 			//System.out.println("popItemsRS: " + mReservStation[i].toString());
 			if( mReservStation[i] != null && !mReservStation[i].isDirty()  ){
-				System.out.println("popItemsRS1: " + mReservStation[i]);
+				//System.out.println("popItemsRS1: " + mReservStation[i]);
 				if( !TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag1() ).isBusyBit() &&
 					!TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag2() ).isBusyBit()){
-					System.out.println("popItemsRS2: " + mReservStation[i]);
+					//System.out.println("popItemsRS2: " + mReservStation[i]);
 					//mReservStation[i].setDirty( true );
 					return mReservStation[i];
 				}	
