@@ -1,7 +1,6 @@
 package tec.arqui.tomasulocity;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import tec.arqui.tomasulocity.model.CommonDataBus;
 import tec.arqui.tomasulocity.model.Constants;
@@ -83,10 +82,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mRenamedInstructionsStackTable.setPosition(150,250);
 	    
 	    mPhysicRegistersTable = new PhysicRegistersTable();
-	    mPhysicRegistersTable.setPosition(150,-100);
+	    mPhysicRegistersTable.setPosition(170,100);
 	    
 	    mTemporalRegistersTable = new TemporalRegistersTable();
-	    mTemporalRegistersTable.setPosition(125,80);
+	    mTemporalRegistersTable.setPosition(170,-150);
 	    
 	    mReorderBufferTable = new ReorderBufferTable();
 	    mReorderBufferTable.setPosition(600, -100);
@@ -204,12 +203,14 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                Iterator<ItemReorderBuffer> it = ReorderBuffer.getInstance().getReorderBuffer().iterator();
 	                while(it.hasNext()){
 	                	ItemReorderBuffer item = it.next();
+	                	mReorderBufferTable.mListTagROB.get(index).setText(
+	                			String.valueOf(item.getTagROB()) );
 	                	mReorderBufferTable.mListTarget.get(index).setText( 
 	                			item.getTarget().getName());
 	                	mReorderBufferTable.mListValue.get(index).setText(
 	                			String.valueOf(item.getTarget().getValue()) );
-	                	mReorderBufferTable.mListReady.get(index).setText(
-	                			Mappers.MBoolean.get(item.getValue() != null ) );
+	                	mReorderBufferTable.mListSource.get(index).setText(
+	                			TempRegistersBank.getInstance().getRegister(item.getSourceTag()).getName()  );
 	                	index++;
 	                }
 	                

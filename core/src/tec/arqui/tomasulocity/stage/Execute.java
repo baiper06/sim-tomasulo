@@ -11,6 +11,7 @@ public class Execute {
 	public void run(){
 		
 		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
+		
 		if (item != null){
 			UFAdder.getInstance().updateRS(item);
 			UFMultiplier.getInstance().updateRS(item);

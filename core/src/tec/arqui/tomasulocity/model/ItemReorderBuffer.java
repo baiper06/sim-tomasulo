@@ -2,13 +2,13 @@ package tec.arqui.tomasulocity.model;
 
 public class ItemReorderBuffer {
 
-	private int 			mTag00;
-	private int 			mTag01;
+	private int 			mTagSource;
+	private int 			mTagROB;
 	private PhysicRegister 	mTarget;
 	private Integer			mValue;	
 	
-	public void setTargetTag(int pTag) {
-		this.mTag01 = pTag;
+	public void setTagROB(int pTag) {
+		this.mTagROB = pTag;
 	}
 	public PhysicRegister getTarget() {
 		return mTarget;
@@ -22,20 +22,23 @@ public class ItemReorderBuffer {
 	public void setValue(int pValue) {
 		this.mValue = pValue;
 	}
-
 	
 	public int getSourceTag(){
-		return this.mTag00;
+		return this.mTagSource;
 	}
 	
-	public int getTargetTag(){
-		return this.mTag01;
+	public int getTagROB(){
+		return this.mTagROB;
+	}
+	
+	public int setSourceTag(int pSourceTag){
+		return this.mTagSource = pSourceTag;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "ItemReorderBuffer [mTag00=" + mTag00 + ", mTag01=" + mTag01
+		return "ItemReorderBuffer [mTag00=" + mTagSource + ", mTag01=" + mTagROB
 				+ ", mTarget=" + mTarget + ", mValue=" + mValue + "]";
 	}
 }

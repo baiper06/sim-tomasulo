@@ -101,8 +101,10 @@ public class Frontend {
 		}
 				
 		ItemReorderBuffer rob = new ItemReorderBuffer();
+		rob.setSourceTag(TempRegistersBank.getInstance().getTag(tempRegSource));
 		rob.setTarget( PhysicRegTarget );
 		int tagROB = ReorderBuffer.getInstance().addElement(rob);
+		rob.setTagROB(tagROB);
 		
 		ItemReservStation rs = new ItemReservStation();
 		rs.setOperation( pInst.getOperation() );
