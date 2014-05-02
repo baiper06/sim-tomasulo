@@ -29,10 +29,7 @@ public class TempRegister implements IRegister {
 	}
 	public void setDirty(boolean pDirty) {
 		this.mDirty = pDirty;
-<<<<<<< HEAD
 	}	
-=======
-	}
 	
 	public String getName(){
 		int tag = TempRegistersBank.getInstance().getTag(this);
@@ -43,5 +40,4 @@ public class TempRegister implements IRegister {
 		return "None";
 		
 	}
->>>>>>> a9be1c5b782add2168dc2174583f2886d4d07f4f
 }

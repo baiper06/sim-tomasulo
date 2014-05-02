@@ -52,10 +52,13 @@ public class ReorderBuffer {
 		Iterator<ItemReorderBuffer> itr = mReorderBuffer.iterator();
 		while(itr.hasNext()){
 			ItemReorderBuffer elem = itr.next();
-			if (pItem.getTagROB() == elem.getTag()){
+			if (pItem.getTagROB() == elem.getTargetTag()){
 				elem.setValue(pItem.getValue2());
-				//PhysicRegistersBank.getInstance().freeRegs(elem.getTag());
-				TempRegistersBank.getInstance().freeRegs(elem.getTag());
+				TempRegistersBank.getInstance().freeRegs(elem.getTargetTag());
+			}
+			if (pItem.getTag1() == elem.getTargetTag()){
+				elem.setValue(pItem.getValue2());
+				TempRegistersBank.getInstance().freeRegs(elem.getSourceTag());
 			}
 		}
 	}

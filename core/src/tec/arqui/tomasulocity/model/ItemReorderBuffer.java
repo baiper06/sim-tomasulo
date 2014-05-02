@@ -2,15 +2,13 @@ package tec.arqui.tomasulocity.model;
 
 public class ItemReorderBuffer {
 
-	private int 			mTag;
+	private int 			mTag00;
+	private int 			mTag01;
 	private PhysicRegister 	mTarget;
-	private int 			mValue;
+	private int 			mValue;	
 	
-	public int getTag() {
-		return mTag;
-	}
-	public void setTag(int pTag) {
-		this.mTag = pTag;
+	public void setTargetTag(int pTag) {
+		this.mTag01 = pTag;
 	}
 	public PhysicRegister getTarget() {
 		return mTarget;
@@ -25,4 +23,11 @@ public class ItemReorderBuffer {
 		this.mValue = pValue;
 	}
 	
+	public int getSourceTag(){
+		return this.mTag00;
+	}
+	
+	public int getTargetTag(){
+		return this.mTag01;
+	}
 }
