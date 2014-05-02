@@ -25,6 +25,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -60,6 +61,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	public static boolean mInitial=true;
 	private float mAnimation = 0f;
 	private float mAccumulate = 0f;
+	private Image gearsA;
+	private Image gearsB;
 	
 	
 	@Override
@@ -254,6 +257,18 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }else{
 	                	mLabelFUAdd.setText("");
 	                }
+                	for ( Action a :gearsA.getActions() ){
+                		gearsA.removeAction(a);
+                	}
+                	if (UFAdder.getInstance().isExecuting()){
+                	    gearsA.addAction(Actions.forever(Actions.rotateBy(1)));
+                	}
+                	for ( Action b :gearsB.getActions() ){
+                		gearsB.removeAction(b);
+                	}
+                	if (UFAdder.getInstance().isExecuting()){
+                	    gearsB.addAction(Actions.forever(Actions.rotateBy(1)));
+                	}
 	                
 	                //Multiplier
 	                ItemReservStation itemFU2 = UFMultiplier.getInstance().getItemInExec();
@@ -270,6 +285,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                
 	                mLabelCPI.setText("CPI: "+((float)ReorderBuffer.getInstance().InstrucRatioDispatch)/((float)TomasuloControl.getClock()));
 	                
+	                
+	                
 					return true;
 	        }
 	    });
@@ -285,13 +302,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		mAccumulate += Gdx.graphics.getDeltaTime()*0.3;
-		float dd = Interpolation.circle.apply(562f, 100f, mAccumulate);
-		if (dd < 507){
-			mStage.getCamera().position.y = Interpolation.circle.apply(562f, 50f, mAccumulate);
-		}else{
-			mStage.getCamera().position.y = 507;
-		}
-		mStage.getCamera().update();
+//		float dd = Interpolation.circle.apply(562f, 100f, mAccumulate);
+//		if (dd < 507){
+//			mStage.getCamera().position.y = Interpolation.circle.apply(562f, 50f, mAccumulate);
+//		}else{
+//			mStage.getCamera().position.y = 507;
+//		}
+//		mStage.getCamera().update();
         mStage.act(delta);
 	    mStage.draw();                
         shapeRenderer.end();
@@ -395,8 +412,9 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    Image arrow2 = new Image(Styles.getInstance().getArrowTopRight());
 	    Image arrow3 = new Image(Styles.getInstance().getArrowBottomRight());
 	    Image arrow4 = new Image(Styles.getInstance().getArrowRight());
-	    Image gearsA = new Image(Styles.getInstance().getGears());
-	    Image gearsB = new Image(Styles.getInstance().getGears());
+	    
+	    gearsA = new Image(Styles.getInstance().getGears());
+	    gearsB = new Image(Styles.getInstance().getGears());
 	    Image arrow25 = new Image(Styles.getInstance().getArrowBottomRight());
 	    Image arrow26 = new Image(Styles.getInstance().getArrowTopRight());
 	
