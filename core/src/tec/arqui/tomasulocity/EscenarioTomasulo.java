@@ -6,6 +6,7 @@ import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.TempRegister;
 import tec.arqui.tomasulocity.model.TempRegistersBank;
 import tec.arqui.tomasulocity.model.UFAdder;
+import tec.arqui.tomasulocity.model.UFMultiplier;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -131,7 +132,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }
 	                
 	                //Actualizar Reservation StationA
-	                for ( int i = 0; i < Constants.RS_COUNT; i++){
+	                for ( int i = 0; i < UFAdder.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
 	                	if (item.isDirty()){
 		                	mReservationStationA.listTags.get(i).setText(
@@ -149,8 +150,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }
 	                
 	                //Actualizar Reservation StationB
-	                for ( int i = 0; i < Constants.RS_COUNT; i++){
-	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
+	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
+	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
 	                	if (item.isDirty()){
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
