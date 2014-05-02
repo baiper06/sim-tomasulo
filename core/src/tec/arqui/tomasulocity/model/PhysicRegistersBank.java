@@ -12,7 +12,7 @@ public class PhysicRegistersBank {
 	protected PhysicRegistersBank() {
 		mPhysicRegisters 	= new PhysicRegister[Constants.SIZE_REGISTERS]; 
 		for ( int i=0; i < Constants.SIZE_REGISTERS; i++ ){
-			mPhysicRegisters[i] = new PhysicRegister(0);
+			mPhysicRegisters[i] = new PhysicRegister(1);
 		}
 	}
 	
