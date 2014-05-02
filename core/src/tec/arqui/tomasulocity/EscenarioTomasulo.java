@@ -58,7 +58,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private Label mLabelTitle;
 	private Label mLabelCPI;
 	public static boolean mInitial=true;
-	private Interpolation mAnimation;
+	private float mAnimation = 0f;
+	private float mAccumulate = 0f;
 	
 	
 	@Override
@@ -283,6 +284,14 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		mAccumulate += Gdx.graphics.getDeltaTime()*0.3;
+		float dd = Interpolation.circle.apply(562f, 100f, mAccumulate);
+		if (dd < 507){
+			mStage.getCamera().position.y = Interpolation.circle.apply(562f, 50f, mAccumulate);
+		}else{
+			mStage.getCamera().position.y = 507;
+		}
+		mStage.getCamera().update();
         mStage.act(delta);
 	    mStage.draw();                
         shapeRenderer.end();
