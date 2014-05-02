@@ -21,7 +21,7 @@ public class Frontend {
 	private ArrayList<Instruction> 	mBlockProgram;
 	
 	public Frontend(){
-		mListInstructions = new ArrayList(Constants.SIZE_PAGE);
+		mListInstructions = new ArrayList<Instruction>(Constants.SIZE_PAGE);
 	}
 	
 	public void run(){
