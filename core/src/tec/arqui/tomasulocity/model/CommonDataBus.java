@@ -34,10 +34,7 @@ public class CommonDataBus {
 		mRS = null;
 		if( UFAdder.getInstance().isReady() ){
 			mRS = UFAdder.getInstance().getItemInExec();
-			System.out.println(mRS);
-			System.out.println(mRS.getTag2());
-			System.out.println(TempRegistersBank.getInstance().getRegister( mRS.getTag2() ));
-			TempRegistersBank.getInstance().getRegister( mRS.getTag2() ).setBusyBit( false );
+			TempRegistersBank.getInstance().getRegister( mRS.getTarget() ).setBusyBit( false );
 			UFAdder.getInstance().setItemInExec( null );
 			UFAdder.getInstance().popItemRS().setDirty( true );
 		} else if( UFMultiplier.getInstance().isReady() ){
