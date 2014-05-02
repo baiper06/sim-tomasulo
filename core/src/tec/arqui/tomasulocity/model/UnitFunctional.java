@@ -11,6 +11,7 @@ public abstract class UnitFunctional {
 
 	protected UnitFunctional( int pSizeRS, int pTimeExec ){
 		mSize = pSizeRS;
+		System.out.println("SizeUF:"+ mSize);
 		mTimeExec = pTimeExec;
 		mReservStation 	= new ItemReservStation[pSizeRS];
 		mTimer = 0;
