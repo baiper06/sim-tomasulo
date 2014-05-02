@@ -4,6 +4,7 @@ public class TempRegistersBank {
 
 	private TempRegister[]	mTempRegisters;
 	private int mSize;
+	private int mHeader;
 	
 	/*
 	 * Singleton
@@ -12,6 +13,7 @@ public class TempRegistersBank {
 	   
 	protected TempRegistersBank() {
 		mTempRegisters 	= new TempRegister[Constants.SIZE_TEMP_REGISTERS];
+		mHeader = 0;
 	}
 	
 	public static TempRegistersBank getInstance() {
@@ -27,21 +29,34 @@ public class TempRegistersBank {
 		mTempRegisters 	= new TempRegister[pSize]; 
 	}
 	
-	public void addRegister( TempRegister pReg ){
-		for( int i=0; i<mSize; i++ ){
+	public int addRegister( TempRegister pReg ){
+		int i=mHeader;
+		do{
 			if( mTempRegisters[i] == null || mTempRegisters[i].isDirty() ){
 				mTempRegisters[i] = pReg;
-				break;
+				mHeader = i;
+				return i;
 			} 
-		}
+			i++;
+			if( i == mSize ){
+				i = 0;
+			}
+		}while(i != mHeader);
+		return -1;
 	}
 	
-	public TempRegister getPhysicReg( PhysicRegister pReg ){
-		for( int i=0; i<mSize; i++ ){
-			if( mTempRegisters[i].getPhysicRegister() == pReg ){
+	public TempRegister getTempRegister( PhysicRegister pReg ){
+		int i=mHeader;
+		do{
+			if( mTempRegisters[i].getPhysicRegister() == pReg && !mTempRegisters[i].isDirty()){
 				return mTempRegisters[i];
+			} 
+			i--;
+			if( i == -1 ){
+				i = mSize-1;
 			}
-		}
+		}while(i != mHeader);
+
 		return null;
 	}
 	
