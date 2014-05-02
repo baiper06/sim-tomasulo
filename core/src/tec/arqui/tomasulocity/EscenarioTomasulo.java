@@ -136,8 +136,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Tabla de temporales
 	                for ( int i = 0; i < TempRegistersBank.getInstance().getRegisters().length ; i++ ){
 	                	TempRegister register = TempRegistersBank.getInstance().getRegisters()[i];
-	                	System.out.println(register);
-	                	System.out.println(mTemporalRegistersTable.mTempRegisters);
+	                	//System.out.println(register);
+	                	//System.out.println(mTemporalRegistersTable.mTempRegisters);
 	                	mTemporalRegistersTable.mTempRegisters.get(i).setText(register.getName());
 	                	if (register.getPhysicRegister() != null)
 	                		mTemporalRegistersTable.mPhysRegisters.get(i).setText(register.getPhysicRegister().getName());
@@ -151,7 +151,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                	if (item != null && item.getTarget() != null){
 		                	mReservationStationA.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
-		                	System.out.println("RS A:"+item.getOperation());
+		                	//System.out.println("RS A:"+item.getOperation());
 		                	mReservationStationA.listOps.get(i).setText(Mappers.MInverseOperations.get(item.getOperation()));
 		                	mReservationStationA.listTag1.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTag1()].getName() );
@@ -168,7 +168,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
 	                	if (item != null && item.getTarget() != null){
-		                	System.out.println("RS B:"+item.getOperation());
+		                	//System.out.println("RS B:"+item.getOperation());
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
 		                	mReservationStationB.listOps.get(i).setText(Mappers.MInverseOperations.get(item.getOperation()));

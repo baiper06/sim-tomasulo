@@ -75,7 +75,7 @@ public class ReorderBuffer {
 	public void update(){		
 		if(mReorderBuffer.peek() != null && mReorderBuffer.peek().getValue() != null){			
 			ItemReorderBuffer item = mReorderBuffer.poll();
-			System.out.println("XXXXXXXXXXXXXXXXXXXX "+ item.toString());
+			//System.out.println("XXXXXXXXXXXXXXXXXXXX "+ item.toString());
 			// escribir el valor en le reg fisico
 			item.getTarget().setValue( item.getValue() );
 		}	
