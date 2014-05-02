@@ -1,5 +1,7 @@
 package tec.arqui.tomasulocity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -7,24 +9,25 @@ public class PhysicRegistersTable extends Table{
 	
 	public final static int ROW_COUNT = 5;
 	
+	public ArrayList<Label> mRegisters;
+	public ArrayList<Label> mValues;
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
 	public PhysicRegistersTable(){
 		
+		mRegisters = new ArrayList<Label>();
+		mValues = new ArrayList<Label>();
+		
 		Label title = new Label("Registers",Styles.getInstance().getGenericTableNormalStyle());
 	    this.add(title).space(2);
 	    this.row();
 		
-		Label instructionHeader	= new Label("Instruccion", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
+		Label registersHeader	= new Label("Register", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label valuesHeader 	= new Label("Value", Styles.getInstance().getGenericTableHeaderStyle());
 	    
-	    this.add(instructionHeader).space(5);
-	    this.add(sourceOneHeader).space(5);
-	    this.add(sourceTwoHeader).space(5);
-	    this.add(sinkHeader).space(5);	
+	    this.add(registersHeader).space(5);
+	    this.add(valuesHeader).space(5);
 	    
 	    for ( int row=0; row < ROW_COUNT ; row++ )
 	    	this.addRow();
@@ -34,14 +37,13 @@ public class PhysicRegistersTable extends Table{
 		
 		this.row();
 		
-		Label instructionField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceOneField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sourceTwoField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
-		Label sinkField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		Label registersField	= new Label("-", Styles.getInstance().getGenericTableNormalStyle());
+		Label valuesOneField	= new Label("-", Styles.getInstance().getGenericTableNormalStyle());
 		
-		this.add(instructionField);
-		this.add(sourceOneField);
-		this.add(sourceTwoField);
-		this.add(sinkField);
+		this.mRegisters.add(registersField);
+		this.mValues.add(valuesOneField);
+		
+		this.add(registersField);
+		this.add(valuesOneField);
 	}
 }

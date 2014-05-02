@@ -1,7 +1,10 @@
 package tec.arqui.tomasulocity;
 
+import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
 import tec.arqui.tomasulocity.model.ItemReservStation;
+import tec.arqui.tomasulocity.model.PhysicRegister;
+import tec.arqui.tomasulocity.model.PhysicRegistersBank;
 import tec.arqui.tomasulocity.model.TempRegister;
 import tec.arqui.tomasulocity.model.TempRegistersBank;
 import tec.arqui.tomasulocity.model.UFAdder;
@@ -167,7 +170,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                	}
 	                }
 	                
-	                
+	                //Registros Físicos
+	                for ( int i = 0 ; i < Constants.SIZE_REGISTERS ; i++ ){
+	                	PhysicRegister register = PhysicRegistersBank.getInstance().getPhysicRegisters()[i];
+	                	mPhysicRegistersTable.mRegisters.get(i).setText(register.getName());
+	                	mPhysicRegistersTable.mValues.get(i).setText(String.valueOf(register.getValue()));
+	                }
 	               
 	               
 					return true;
