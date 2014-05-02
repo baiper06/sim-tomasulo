@@ -2,16 +2,16 @@ package tec.arqui.tomasulocity.model;
 
 public class CommonDataBus {
 	
-	private TempRegister mRegister;
+	private ItemReservStation mRS;
 	
 	
 	/*
-	 * Singleton
+	 * Singleton 
 	 */
 	private static CommonDataBus instance = null;
 	   
 	protected CommonDataBus() {
-		
+		mRS = new ItemReservStation();
 	}
 	
 	public static CommonDataBus getInstance() {
@@ -21,14 +21,24 @@ public class CommonDataBus {
 		return instance;
 	}
 	
-	public TempRegister getRegister() {
-		return mRegister;
+	public ItemReservStation getRegister() {
+		return mRS;
 	}
 
-	public void setRegister(TempRegister pRegister) {
-		this.mRegister = pRegister;
+	public void setRegister(ItemReservStation pRegister) {
+		this.mRS = pRegister;
 	}
 	
-	
+	public ItemReservStation popInstrutionToFU(){
+		ItemReservStation item = null;
+		if( UFAdder.getInstance().isReady() ){
+			item = UFAdder.getInstance().getItemInExec();
+			UFAdder.getInstance().setItemInExec( null );
+		} else if( UFMultiplier.getInstance().isReady() ){
+			item = UFMultiplier.getInstance().getItemInExec();
+			UFMultiplier.getInstance().setItemInExec( null );
+		}
+		return item;
+	}
 
 }

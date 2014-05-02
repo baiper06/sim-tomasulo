@@ -1,16 +1,24 @@
 package tec.arqui.tomasulocity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class CommonDataBusTable extends Table{
 	
-	public final static int ROW_COUNT = 5;
+	public final static int ROW_COUNT = 1;
+	
+	public ArrayList<Label> mRegisters;
+	public ArrayList<Label> mValues;
 	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
 	public CommonDataBusTable(){
+		
+		mRegisters = new ArrayList<Label>();
+		mValues = new ArrayList<Label>();
 		
 		Label title = new Label("CDB",Styles.getInstance().getGenericTableNormalStyle());
 	    this.add(title).space(2);
@@ -32,6 +40,9 @@ public class CommonDataBusTable extends Table{
 		
 		Label registerField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label valueField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		
+		mRegisters.add(registerField);
+		mValues.add(valueField);
 		
 		this.add(registerField);
 		this.add(valueField);

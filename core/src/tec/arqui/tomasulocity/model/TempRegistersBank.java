@@ -3,7 +3,6 @@ package tec.arqui.tomasulocity.model;
 public class TempRegistersBank {
 
 	private TempRegister[]	mTempRegisters;
-	private int mSize;
 	private int mHeader;
 	
 	/*
@@ -13,6 +12,9 @@ public class TempRegistersBank {
 	   
 	protected TempRegistersBank() {
 		mTempRegisters 	= new TempRegister[Constants.SIZE_TEMP_REGISTERS];
+		for ( int i=0; i < Constants.SIZE_TEMP_REGISTERS; i++ ){
+			mTempRegisters[i] = new TempRegister();
+		}
 		mHeader = 0;
 	}
 	
@@ -22,12 +24,12 @@ public class TempRegistersBank {
       }
       return instance;
 	}
+	
+	public TempRegister[] getRegisters(){
+		return mTempRegisters;
+	}
 	   
 	
-	public TempRegistersBank( int pSize ){
-		mSize = pSize;
-		mTempRegisters 	= new TempRegister[pSize]; 
-	}
 	
 	public int addRegister( TempRegister pReg ){
 		int i=mHeader;
@@ -38,7 +40,7 @@ public class TempRegistersBank {
 				return i;
 			} 
 			i++;
-			if( i == mSize ){
+			if( i == Constants.SIZE_TEMP_REGISTERS ){
 				i = 0;
 			}
 		}while(i != mHeader);
@@ -55,12 +57,12 @@ public class TempRegistersBank {
 	public TempRegister getTempRegister( PhysicRegister pReg ){
 		int i=mHeader;
 		do{
-			if( mTempRegisters[i].getPhysicRegister() == pReg && !mTempRegisters[i].isDirty()){
+			if( mTempRegisters[i] != null && mTempRegisters[i].getPhysicRegister() == pReg && !mTempRegisters[i].isDirty()){
 				return mTempRegisters[i];
 			} 
 			i--;
 			if( i == -1 ){
-				i = mSize-1;
+				i = Constants.SIZE_TEMP_REGISTERS-1;
 			}
 		}while(i != mHeader);
 
@@ -68,11 +70,20 @@ public class TempRegistersBank {
 	}
 	
 	public int getTag( TempRegister pReg ){
-		for( int i=0; i<mSize; i++ ){
+		for( int i=0; i<Constants.SIZE_TEMP_REGISTERS; i++ ){
 			if( mTempRegisters[i] == pReg ){
 				return i;
 			}
 		}
 		return -1;
+	}
+	
+	public boolean anyEmptySlots( ){
+		for( int i=0; i<Constants.SIZE_TEMP_REGISTERS; i++ ){
+			if( mTempRegisters[i] == null || mTempRegisters[i].isDirty() ){
+				return true;
+			} 
+		}
+		return false;
 	}
 }
