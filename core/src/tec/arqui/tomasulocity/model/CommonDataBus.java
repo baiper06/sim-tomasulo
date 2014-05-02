@@ -33,15 +33,15 @@ public class CommonDataBus {
 	public ItemReservStation popInstrutionToFU(){
 		mRS = null;
 		if( UFAdder.getInstance().isReady() ){
+			UFAdder.getInstance().popItemRS().setDirty( true );
 			mRS = UFAdder.getInstance().getItemInExec();
 			TempRegistersBank.getInstance().getRegister( mRS.getTarget() ).setBusyBit( false );
 			UFAdder.getInstance().setItemInExec( null );
-			UFAdder.getInstance().popItemRS().setDirty( true );
 		} else if( UFMultiplier.getInstance().isReady() ){
+			UFMultiplier.getInstance().popItemRS().setDirty( true );
 			mRS = UFMultiplier.getInstance().getItemInExec();
 			TempRegistersBank.getInstance().getRegister( mRS.getTarget() ).setBusyBit( false );
 			UFMultiplier.getInstance().setItemInExec( null );
-			UFMultiplier.getInstance().popItemRS().setDirty( true );
 		}
 		return mRS;
 	}
