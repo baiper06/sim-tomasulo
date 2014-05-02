@@ -22,6 +22,7 @@ public class PhysicRegistersBank {
       }
       return instance;
 	}
+	
 	public PhysicRegister[] getPhysicRegisters(){
 		return mPhysicRegisters;
 	}
@@ -34,5 +35,4 @@ public class PhysicRegistersBank {
 		}
 		return -1;
 	}
-
 }
