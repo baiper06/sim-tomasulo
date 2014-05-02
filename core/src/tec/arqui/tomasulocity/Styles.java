@@ -26,6 +26,7 @@ public class Styles {
 	private LabelStyle  mGenericTableNormalStyle;
 	private ListStyle   mGenericListStyle;
 	private SelectBoxStyle mGenericSelectBoxStyle;
+	public Drawable mBackgroundIni;
 
 	private ScrollPaneStyle mGenericScrollPaneStyle;
 
@@ -110,6 +111,8 @@ public class Styles {
 		mDrawableArrowTopRight = new Image(mSkin, "top-right").getDrawable();
 		mGears = new Image(mSkin,"gears3").getDrawable();
 		mDrawableArrowTopLeft = new Image(mSkin,"top-left").getDrawable();
+		
+		mBackgroundIni = new Image(mSkin,"FreeTheRegs").getDrawable();
 	}
 	
 	public LabelStyle getGenericTableHeaderStyle(){

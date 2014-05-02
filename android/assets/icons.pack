@@ -3,107 +3,121 @@ icons.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+FreeTheRegs
+  rotate: false
+  xy: 1, 344
+  size: 1024, 640
+  orig: 1024, 640
+  offset: 0, 0
+  index: -1
 Aaargh
   rotate: false
-  xy: 1, 468
+  xy: 1027, 472
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 badlogic
   rotate: false
-  xy: 1, 210
+  xy: 1, 86
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-rectangle2
+background
   rotate: false
-  xy: 515, 837
-  size: 317, 143
-  orig: 317, 143
+  xy: 1541, 851
+  size: 200, 133
+  orig: 200, 133
   offset: 0, 0
   index: -1
 gears3
   rotate: false
-  xy: 1, 80
+  xy: 259, 214
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gears2
   rotate: false
-  xy: 259, 338
+  xy: 1541, 721
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gears
   rotate: false
-  xy: 515, 724
+  xy: 1027, 359
   size: 125, 111
   orig: 125, 111
   offset: 0, 0
   index: -1
+rectangle2
+  rotate: false
+  xy: 1, 48
+  size: 80, 36
+  orig: 80, 36
+  offset: 0, 0
+  index: -1
 rectangle-dark
   rotate: false
-  xy: 834, 950
+  xy: 1743, 954
   size: 80, 30
   orig: 80, 30
   offset: 0, 0
   index: -1
 rectangle
   rotate: false
-  xy: 1, 48
+  xy: 259, 182
   size: 80, 30
   orig: 80, 30
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 131, 168
+  xy: 389, 302
   size: 51, 40
   orig: 51, 40
   offset: 0, 0
   index: -1
 bottom
   rotate: false
-  xy: 259, 285
+  xy: 1541, 668
   size: 40, 51
   orig: 40, 51
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 389, 426
+  xy: 1671, 809
   size: 51, 40
   orig: 51, 40
   offset: 0, 0
   index: -1
 top
   rotate: false
-  xy: 515, 671
+  xy: 1154, 419
   size: 40, 51
   orig: 40, 51
   offset: 0, 0
   index: -1
 top-left
   rotate: false
-  xy: 642, 790
+  xy: 1, 1
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 bottom-right
   rotate: false
-  xy: 834, 903
+  xy: 1743, 907
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 top-right
   rotate: false
-  xy: 1, 1
+  xy: 259, 135
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
