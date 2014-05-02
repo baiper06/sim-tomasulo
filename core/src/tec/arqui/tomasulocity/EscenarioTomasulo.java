@@ -1,6 +1,7 @@
 package tec.arqui.tomasulocity;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import tec.arqui.tomasulocity.model.CommonDataBus;
 import tec.arqui.tomasulocity.model.Constants;
@@ -24,7 +25,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -53,10 +53,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private ShapeRenderer shapeRenderer;
 	private TomasuloControl mTomasuloControl;
 	
-	private enum SIDES{
-		TOP, BOTTOM, LEFT, RIGHT
-	}
-
 	
 	@Override
 	public void show() {
@@ -140,7 +136,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Reservation StationA
 	                for ( int i = 0; i < UFAdder.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
-	                	if (!item.isDirty()){
 		                	mReservationStationA.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
 		                	System.out.println("RS A:"+item.getOperation());
@@ -153,13 +148,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                	mReservationStationA.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
 		                	mReservationStationA.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
 		                	mReservationStationA.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
-	                	}
+	                	
 	                }
 	                
 	                //Actualizar Reservation StationB
 	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
-	                	if (!item.isDirty()){
 		                	System.out.println("RS B:"+item.getOperation());
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
@@ -172,7 +166,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                	mReservationStationB.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
 		                	mReservationStationB.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
 		                	mReservationStationB.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
-	                	}
+	                	
 	                }
 	                
 	                //Registros Físicos
@@ -192,12 +186,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                int index = 0;
 	                Iterator<ItemReorderBuffer> it = ReorderBuffer.getInstance().getReorderBuffer().iterator();
 	                while(it.hasNext()){
+	                	ItemReorderBuffer item = it.next();
 	                	mReorderBufferTable.mListTarget.get(index).setText( 
-	                			it.next().getTarget().getName());
+	                			item.getTarget().getName());
 	                	mReorderBufferTable.mListValue.get(index).setText(
-	                			String.valueOf(it.next().getTarget().getValue()) );
+	                			String.valueOf(item.getTarget().getValue()) );
 	                	mReorderBufferTable.mListReady.get(index).setText(
-	                			Mappers.MBoolean.get(it.next().getValue() != null ) );
+	                			Mappers.MBoolean.get(item.getValue() != null ) );
 	                }
 	                
 					return true;
@@ -219,28 +214,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
         shapeRenderer.end();
 	}
 	
-	private Vector2 getSemiPos(Actor pActor,SIDES pActorSide){
-		Vector2 side;
-		switch (pActorSide) {
-		case TOP:
-			side = new Vector2( pActor.getX()+ pActor.getWidth()/2, 
-								 pActor.getY() +  pActor.getHeight());
-			break;
-		case BOTTOM:
-			side = new Vector2( pActor.getX()+ pActor.getWidth()/2, 
-					 pActor.getY() );
-			break;
-		case LEFT:
-			side = new Vector2( pActor.getOriginX(), 
-					 pActor.getOriginY() + pActor.getHeight()/2 );
-			break;
-		default://RIGHT
-			side = new Vector2( pActor.getRight(), 
-					 pActor.getOriginY() + pActor.getHeight()/2 );
-			break;
-		}
-		return side;
-	}
 
 	
 	public void mover(Vector2 pInicio, Vector2 pDestino){

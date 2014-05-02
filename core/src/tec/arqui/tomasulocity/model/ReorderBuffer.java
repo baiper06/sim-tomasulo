@@ -74,7 +74,7 @@ public class ReorderBuffer {
 	 * Checks for data to dispatch
 	 */
 	public void update(){		
-		if(mReorderBuffer.peek().getValue() != null){			
+		if(mReorderBuffer.peek() != null && mReorderBuffer.peek().getValue() != null){			
 			ItemReorderBuffer item = mReorderBuffer.poll();
 			item.getTarget().setValue( item.getValue() );
 		}	
