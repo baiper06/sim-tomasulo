@@ -210,7 +210,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                			String.valueOf(item.getTarget().getValue()) );
 	                	mReorderBufferTable.mListReady.get(index).setText(
 	                			Mappers.MBoolean.get(item.getValue() != null ) );
+	                	index++;
 	                }
+	                
+	                //Adder
 	                ItemReservStation itemFU = UFAdder.getInstance().getItemInExec();
 	                if (itemFU != null){
 		                mLabelFUAdd.setText( 
@@ -222,6 +225,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }else{
 	                	mLabelFUAdd.setText("");
 	                }
+	                
+	                //Multiplier
 	                ItemReservStation itemFU2 = UFMultiplier.getInstance().getItemInExec();
 	                if (itemFU2 != null){
 	                	mLabelFUMulti.setText( 
