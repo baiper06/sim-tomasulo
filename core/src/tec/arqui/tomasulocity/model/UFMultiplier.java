@@ -26,16 +26,16 @@ public class UFMultiplier extends UnitFunctional {
 		switch(mItemInExec.getOperation()){
 			case MULT:
 				mItemInExec.setValue2(mItemInExec.getValue1() *  mItemInExec.getValue2() );
-					
+				break;
 			case DIV:	
 				mItemInExec.setValue2(mItemInExec.getValue1() /  mItemInExec.getValue2() );
-				
+				break;				
 			case SHIFT_L:	
 				mItemInExec.setValue2(mItemInExec.getValue1() * 2);
-				
+				break;				
 			case SHIFT_R:	
 				mItemInExec.setValue2(mItemInExec.getValue1() / 2);
-				
+				break;				
 			default:
 				break;
 		}

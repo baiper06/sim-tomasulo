@@ -8,6 +8,7 @@ public class ReorderBuffer {
 	private ArrayBlockingQueue<ItemReorderBuffer> mReorderBuffer;
 	
 	public static int SIZE_ROD = 15;
+	public int mNextTag = 1;
 	
 	/*
 	 * Singleton
@@ -42,41 +43,47 @@ public class ReorderBuffer {
 	 */
 	public int addElement( ItemReorderBuffer mItem ){
 		mReorderBuffer.add(mItem);
-		return mReorderBuffer.size();
+		return mNextTag++;
 	}
 	
 	/*
 	 * Sets the final value & frees the temp regs.
 	 */
-	public void updateROB(ItemReservStation pItem){
-		Iterator<ItemReorderBuffer> itr = mReorderBuffer.iterator();
-		while(itr.hasNext()){
-			ItemReorderBuffer elem = itr.next();
-			if (pItem.getTagROB() == elem.getTargetTag()){
-				elem.setValue(pItem.getValue2());
-				TempRegistersBank.getInstance().freeRegs(elem.getTargetTag());
-			}
-			if (pItem.getTag1() == elem.getTargetTag()){
-				elem.setValue(pItem.getValue2());
-				TempRegistersBank.getInstance().freeRegs(elem.getSourceTag());
+	public void updateValuesFromCDB(){
+		ItemReservStation item = CommonDataBus.getInstance().getRegister();
+		if (item != null ){
+			Iterator<ItemReorderBuffer> itr = mReorderBuffer.iterator();
+			while(itr.hasNext()){
+				ItemReorderBuffer elem = itr.next();
+				if (item.getTagROB() == elem.getTagROB()){
+					elem.setValue(item.getValue2());
+					TempRegistersBank.getInstance().freeRegs(elem.getTagROB());
+				}
+				if (item.getTag1() == elem.getTagROB()){
+					elem.setValue(item.getValue2());
+					TempRegistersBank.getInstance().freeRegs(elem.getSourceTag());
+				}
 			}
 		}
+		
 	}
 	
-	/*
-	 * Set value to header
-	 */
-	public void setValue (int pValue){
-		mReorderBuffer.peek().setValue(pValue);
-	}
 	
 	/*
 	 * Checks for data to dispatch
 	 */
 	public void update(){		
-		if(mReorderBuffer.peek().getValue() != null){			
+		if(mReorderBuffer.peek() != null && mReorderBuffer.peek().getValue() != null){			
 			ItemReorderBuffer item = mReorderBuffer.poll();
+			System.out.println("XXXXXXXXXXXXXXXXXXXX "+ item.toString());
+			// escribir el valor en le reg fisico
 			item.getTarget().setValue( item.getValue() );
 		}	
+	}
+
+	public ArrayBlockingQueue<ItemReorderBuffer> getReorderBuffer() {
+		return mReorderBuffer;
 	}	
+	
+	
 }

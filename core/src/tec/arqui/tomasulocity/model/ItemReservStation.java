@@ -5,65 +5,65 @@ import tec.arqui.tomasulocity.model.Constants.Operations;
 public class ItemReservStation {
 	
 	public final static int DATA_COUNT = 8;
-	private int mTarget;
+	private Integer mTarget;
 	private Operations mOperation;
-	private int mTag1;
-	private int mTag2;
-	private int mValue1;
-	private int mValue2;
+	private Integer mTag1;
+	private Integer mTag2;
+	private Integer mValue1;
+	private Integer mValue2;
 	private boolean	mDirty;
-	private int mTagROB; //del reorder buffer
+	private Integer mTagROB; //del reorder buffer
 	
 	public ItemReservStation(){
 		mDirty = true;
 	}
 	
-	public int getTarget() {
+	public Integer getTarget() {
 		return mTarget;
 	}
 	public Operations getOperation() {
 		return mOperation;
 	}
-	public int getTag1() {
+	public Integer getTag1() {
 		return mTag1;
 	}
-	public int getTag2() {
+	public Integer getTag2() {
 		return mTag2;
 	}
-	public int getValue1() {
+	public Integer getValue1() {
 		return mValue1;
 	}
-	public int getValue2() {
+	public Integer getValue2() {
 		return mValue2;
 	}
 	public boolean isDirty() {
 		return mDirty;
 	}
-	public int getTagROB() {
+	public Integer getTagROB() {
 		return mTagROB;
 	}
-	public void setTarget(int pTarget) {
+	public void setTarget(Integer pTarget) {
 		this.mTarget = pTarget;
 	}
 	public void setOperation(Operations pOperation) {
 		this.mOperation = pOperation;
 	}
-	public void setTag1(int pTag1) {
+	public void setTag1(Integer pTag1) {
 		this.mTag1 = pTag1;
 	}
-	public void setTag2(int pTag2) {
+	public void setTag2(Integer pTag2) {
 		this.mTag2 = pTag2;
 	}
-	public void setValue1(int pValue1) {
+	public void setValue1(Integer pValue1) {
 		this.mValue1 = pValue1;
 	}
-	public void setValue2(int pValue2) {
+	public void setValue2(Integer pValue2) {
 		this.mValue2 = pValue2;
 	}
 	public void setDirty(boolean pDirty) {
 		this.mDirty = pDirty;
 	}
-	public void setTagROB(int pTagROB) {
+	public void setTagROB(Integer pTagROB) {
 		this.mTagROB = pTagROB;
 	}
 	
@@ -79,5 +79,15 @@ public class ItemReservStation {
 		semejanza[7] = objectA.getTagROB() == objectB.getTagROB();
 		return semejanza;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemReservStation [mTarget=" + mTarget + ", mOperation="
+				+ mOperation + ", mTag1=" + mTag1 + ", mTag2=" + mTag2
+				+ ", mValue1=" + mValue1 + ", mValue2=" + mValue2 + ", mDirty="
+				+ mDirty + ", mTagROB=" + mTagROB + "]";
+	}
+	
+	
 	
 }

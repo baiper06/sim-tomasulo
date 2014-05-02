@@ -2,12 +2,13 @@ package tec.arqui.tomasulocity;
 
 import java.util.ArrayList;
 
+import tec.arqui.tomasulocity.model.Constants;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class TemporalRegistersTable extends Table{
 	
-	public final static int ROW_COUNT = 8;
 	
 	public ArrayList<Label> mTempRegisters;
 	public ArrayList<Label> mPhysRegisters;
@@ -34,7 +35,7 @@ public class TemporalRegistersTable extends Table{
 	    this.add(physicalRegisterHeader).space(5);
 	    this.add(busyBitHeader).space(5);
 	    
-	    for ( int row=0; row < ROW_COUNT ; row++ )
+	    for ( int row=0; row < Constants.SIZE_TEMP_REGISTERS ; row++ )
 	    	this.addRow(row);
 	}
 	
@@ -42,7 +43,7 @@ public class TemporalRegistersTable extends Table{
 		
 		this.row();
 		
-		Label tempRegisterField		= new Label("L"+String.valueOf(pRow+1), Styles.getInstance().getGenericTableNormalStyle());
+		Label tempRegisterField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label physicalRegisterField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label busyBitField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		

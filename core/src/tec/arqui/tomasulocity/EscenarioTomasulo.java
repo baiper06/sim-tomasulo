@@ -1,10 +1,15 @@
 package tec.arqui.tomasulocity;
 
+import java.util.Iterator;
+
+import tec.arqui.tomasulocity.model.CommonDataBus;
 import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
+import tec.arqui.tomasulocity.model.ItemReorderBuffer;
 import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.PhysicRegister;
 import tec.arqui.tomasulocity.model.PhysicRegistersBank;
+import tec.arqui.tomasulocity.model.ReorderBuffer;
 import tec.arqui.tomasulocity.model.TempRegister;
 import tec.arqui.tomasulocity.model.TempRegistersBank;
 import tec.arqui.tomasulocity.model.UFAdder;
@@ -19,12 +24,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -47,14 +52,15 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private TextButton mStepButton;
 	private ShapeRenderer shapeRenderer;
 	private TomasuloControl mTomasuloControl;
+	private Label mLabelFUAdd;
+	private Label mLabelFUMulti;
 	
-	private enum SIDES{
-		TOP, BOTTOM, LEFT, RIGHT
-	}
-
 	
 	@Override
 	public void show() {
+		
+		//Temporal
+		//Temporal
 		
 		//Control
 		mTomasuloControl = new TomasuloControl();		
@@ -76,10 +82,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mRenamedInstructionsStackTable.setPosition(150,250);
 	    
 	    mPhysicRegistersTable = new PhysicRegistersTable();
-	    mPhysicRegistersTable.setPosition(150,-100);
+	    mPhysicRegistersTable.setPosition(170,100);
 	    
 	    mTemporalRegistersTable = new TemporalRegistersTable();
-	    mTemporalRegistersTable.setPosition(125,80);
+	    mTemporalRegistersTable.setPosition(170,-150);
 	    
 	    mReorderBufferTable = new ReorderBufferTable();
 	    mReorderBufferTable.setPosition(600, -100);
@@ -97,6 +103,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mPlayButton.setPosition(500, 500);
 	    mStepButton = new TextButton("Step",Styles.getInstance().getGenericTextButtonStyle());
 	    mStepButton.setPosition(600, 500);
+	    
+	    mLabelFUAdd = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
+	    mLabelFUAdd.setPosition(730, 300);
+	    
+	    mLabelFUMulti = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
+	    mLabelFUMulti.setPosition(730, 130);
 	    
 	    mStepButton.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -135,7 +147,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Reservation StationA
 	                for ( int i = 0; i < UFAdder.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
-	                	if (!item.isDirty()){
+
+	                	if (item != null && item.getTarget() != null){
 		                	mReservationStationA.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
 		                	System.out.println("RS A:"+item.getOperation());
@@ -154,7 +167,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Reservation StationB
 	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
-	                	if (!item.isDirty()){
+	                	if (item != null && item.getTarget() != null){
 		                	System.out.println("RS B:"+item.getOperation());
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
@@ -177,7 +190,55 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                	mPhysicRegistersTable.mValues.get(i).setText(String.valueOf(register.getValue()));
 	                }
 	               
+	                //CDB 
+	                ItemReservStation cdbItem = CommonDataBus.getInstance().getRegister();
+	                if (cdbItem != null && cdbItem.getTarget() != null){
+		                mCommonDataBusTable.mRegisters.get(0)
+		                	.setText(TempRegistersBank.getInstance().getRegisters()[cdbItem.getTarget()].getName());
+		                mCommonDataBusTable.mValues.get(0).setText(String.valueOf(cdbItem.getValue2()));
+	                }
 	               
+	                //ROB
+	                int index = 0;
+	                Iterator<ItemReorderBuffer> it = ReorderBuffer.getInstance().getReorderBuffer().iterator();
+	                while(it.hasNext()){
+	                	ItemReorderBuffer item = it.next();
+	                	mReorderBufferTable.mListTagROB.get(index).setText(
+	                			String.valueOf(item.getTagROB()) );
+	                	mReorderBufferTable.mListTarget.get(index).setText( 
+	                			item.getTarget().getName());
+	                	mReorderBufferTable.mListValue.get(index).setText(
+	                			String.valueOf(item.getTarget().getValue()) );
+	                	mReorderBufferTable.mListSource.get(index).setText(
+	                			TempRegistersBank.getInstance().getRegister(item.getSourceTag()).getName()  );
+	                	index++;
+	                }
+	                
+	                //Adder
+	                ItemReservStation itemFU = UFAdder.getInstance().getItemInExec();
+	                if (itemFU != null){
+		                mLabelFUAdd.setText( 
+		                		Mappers.MInverseOperations.get(itemFU.getOperation())
+		                		+ "" + TempRegistersBank.getInstance().getRegister(itemFU.getTag1()).getName() 
+		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU.getTag2()).getName()
+		                		+ "\n "
+		                		+ "   " + itemFU.getValue1() + " " + itemFU.getValue2() );
+	                }else{
+	                	mLabelFUAdd.setText("");
+	                }
+	                
+	                //Multiplier
+	                ItemReservStation itemFU2 = UFMultiplier.getInstance().getItemInExec();
+	                if (itemFU2 != null){
+	                	mLabelFUMulti.setText( 
+		                		Mappers.MInverseOperations.get(itemFU2.getOperation())
+		                		+ "" + TempRegistersBank.getInstance().getRegister(itemFU2.getTag1()).getName() 
+		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU2.getTag2()).getName()
+		                		+ "\n "
+		                		+ "   " + itemFU2.getValue1() + " " + itemFU2.getValue2() );
+	                }else{
+	                	mLabelFUMulti.setText("");
+	                }
 					return true;
 	        }
 	    });
@@ -197,28 +258,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
         shapeRenderer.end();
 	}
 	
-	private Vector2 getSemiPos(Actor pActor,SIDES pActorSide){
-		Vector2 side;
-		switch (pActorSide) {
-		case TOP:
-			side = new Vector2( pActor.getX()+ pActor.getWidth()/2, 
-								 pActor.getY() +  pActor.getHeight());
-			break;
-		case BOTTOM:
-			side = new Vector2( pActor.getX()+ pActor.getWidth()/2, 
-					 pActor.getY() );
-			break;
-		case LEFT:
-			side = new Vector2( pActor.getOriginX(), 
-					 pActor.getOriginY() + pActor.getHeight()/2 );
-			break;
-		default://RIGHT
-			side = new Vector2( pActor.getRight(), 
-					 pActor.getOriginY() + pActor.getHeight()/2 );
-			break;
-		}
-		return side;
-	}
 
 	
 	public void mover(Vector2 pInicio, Vector2 pDestino){
@@ -289,7 +328,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		// TODO Auto-generated method stub
 		mStage.getViewport().getCamera().translate(-pDeltaX, 
 				pDeltaY, 0);
-		System.out.println("pan");
 		return false;
 	}
 
@@ -472,6 +510,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStage.addActor(arrow22);
 	    mStage.addActor(arrow23);
 	    mStage.addActor(arrow24);
+	    mStage.addActor(mLabelFUAdd);
+	    mStage.addActor(mLabelFUMulti);
 		
 	}
 	

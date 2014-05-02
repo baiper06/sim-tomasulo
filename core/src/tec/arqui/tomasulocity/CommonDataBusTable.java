@@ -47,4 +47,5 @@ public class CommonDataBusTable extends Table{
 		this.add(registerField);
 		this.add(valueField);
 	}
+
 }

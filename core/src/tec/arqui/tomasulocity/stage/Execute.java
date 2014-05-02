@@ -9,12 +9,25 @@ import tec.arqui.tomasulocity.model.UnitFunctional;
 public class Execute {
 
 	public void run(){
+		
+		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
+		
+		if (item != null){
+			UFAdder.getInstance().updateRS(item);
+			UFMultiplier.getInstance().updateRS(item);
+		}
+
 		exec( UFAdder.getInstance() );
 		exec( UFMultiplier.getInstance() );
 		
-		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
-		UFAdder.getInstance().updateRS(item);
-		UFMultiplier.getInstance().updateRS(item);
+		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		for ( ItemReservStation itemRS : UFAdder.getInstance().getReservStation() ){
+			if (itemRS != null)
+				System.out.println(itemRS.toString());
+			else
+				System.out.println("null");
+		}
+		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run.end>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	}
 	
 	
@@ -23,12 +36,13 @@ public class Execute {
 		if( pUF.getItemInExec() == null ){
 			ItemReservStation itemRS = pUF.popItemRS();
 			if( itemRS != null ){
+				System.out.println("Executing...."+ itemRS.toString());
 				pUF.setItemInExec( itemRS );
-				pUF.setReady( false );
 				pUF.resetTimer();
 			}
+			pUF.setReady( false );
 		//  Despachar elemento
-		} else if( pUF.getTimer() == pUF.getTimeExec() ){
+		} else if( pUF.getTimer() == pUF.getTimeExec()-1 ){
 			pUF.action();
 			pUF.setReady( true );
 		//  Ejecutando...

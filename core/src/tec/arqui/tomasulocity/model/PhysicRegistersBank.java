@@ -12,7 +12,7 @@ public class PhysicRegistersBank {
 	protected PhysicRegistersBank() {
 		mPhysicRegisters 	= new PhysicRegister[Constants.SIZE_REGISTERS]; 
 		for ( int i=0; i < Constants.SIZE_REGISTERS; i++ ){
-			mPhysicRegisters[i] = new PhysicRegister(0);
+			mPhysicRegisters[i] = new PhysicRegister(1);
 		}
 	}
 	
@@ -22,9 +22,6 @@ public class PhysicRegistersBank {
       }
       return instance;
 	}
-<<<<<<< HEAD
-=======
-	
 	public PhysicRegister[] getPhysicRegisters(){
 		return mPhysicRegisters;
 	}
@@ -37,5 +34,4 @@ public class PhysicRegistersBank {
 		}
 		return -1;
 	}
->>>>>>> a9be1c5b782add2168dc2174583f2886d4d07f4f
 }

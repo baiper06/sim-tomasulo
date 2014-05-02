@@ -65,17 +65,30 @@ public class Frontend {
 		PhysicRegister PhysicRegTarget = (PhysicRegister) pInst.getTarget();
 		PhysicRegister PhysicRegSource = (PhysicRegister) pInst.getSource();
 		
-		// renaming source
-		TempRegister reg = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
-		TempRegister tempRegSource;
-		if( reg  == null || reg.isBusyBit() == false ){
-			tempRegSource = new TempRegister();
-			tempRegSource.setPhysicRegister( PhysicRegSource );
-			tempRegSource.setBusyBit( false );
-			tempRegSource.setDirty( false );
-			TempRegistersBank.getInstance().addRegister(tempRegSource);
+		// renaming source 1
+		TempRegister reg1 = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
+		TempRegister tempRegSource1;
+		if( reg1  == null || reg1.isBusyBit() == false ){
+			tempRegSource1 = new TempRegister();
+			tempRegSource1.setPhysicRegister( PhysicRegSource );
+			tempRegSource1.setBusyBit( false );
+			tempRegSource1.setDirty( false );
+			TempRegistersBank.getInstance().addRegister(tempRegSource1);
 		} else {
-			tempRegSource = reg;
+			tempRegSource1 = reg1;
+		}
+		
+		// renaming source 2
+		TempRegister reg2 = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
+		TempRegister tempRegSource2;
+		if( reg2  == null || reg2.isBusyBit() == false ){
+			tempRegSource2 = new TempRegister();
+			tempRegSource2.setPhysicRegister( PhysicRegSource );
+			tempRegSource2.setBusyBit( false );
+			tempRegSource2.setDirty( false );
+			TempRegistersBank.getInstance().addRegister(tempRegSource2);
+		} else {
+			tempRegSource2 = reg2;
 		}
 
 		// renaming target
@@ -86,7 +99,7 @@ public class Frontend {
 		TempRegistersBank.getInstance().addRegister(tempRegTarget);
 		
 		// set new registers
-		pInst.setSource(tempRegSource);
+		pInst.setSource(tempRegSource1);
 		pInst.setTarget(tempRegTarget);
 
 		
@@ -101,14 +114,16 @@ public class Frontend {
 		}
 				
 		ItemReorderBuffer rob = new ItemReorderBuffer();
+		rob.setSourceTag(TempRegistersBank.getInstance().getTag(tempRegSource1));
 		rob.setTarget( PhysicRegTarget );
 		int tagROB = ReorderBuffer.getInstance().addElement(rob);
+		rob.setTagROB(tagROB);
 		
 		ItemReservStation rs = new ItemReservStation();
 		rs.setOperation( pInst.getOperation() );
 		rs.setDirty(false);
-		rs.setTag1( TempRegistersBank.getInstance().getTag(tempRegSource) );
-		rs.setTag2( TempRegistersBank.getInstance().getTag(tempRegTarget) );
+		rs.setTag1( TempRegistersBank.getInstance().getTag(tempRegSource1) );
+		rs.setTag2( TempRegistersBank.getInstance().getTag(tempRegSource2) );
 		rs.setTagROB( tagROB );
 		rs.setTarget( TempRegistersBank.getInstance().getTag(tempRegTarget) );
 		rs.setValue1( PhysicRegSource.getValue() );

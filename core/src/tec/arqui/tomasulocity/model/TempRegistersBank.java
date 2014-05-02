@@ -28,7 +28,10 @@ public class TempRegistersBank {
 	public TempRegister[] getRegisters(){
 		return mTempRegisters;
 	}
-	   
+	 
+	public TempRegister getRegister( int pTag){
+		return mTempRegisters[pTag];
+	}
 	
 	
 	public int addRegister( TempRegister pReg ){
