@@ -54,7 +54,10 @@ public class TempRegistersBank {
 	 * FREE THE REGS!!!
 	 */
 	public void freeRegs(int mTag){
-		this.mTempRegisters[mTag].setDirty(true);
+		if(mTag < Constants.SIZE_TEMP_REGISTERS ){
+			this.mTempRegisters[mTag].setDirty(true);
+		}
+		
 	}
 	
 	public TempRegister getTempRegister( PhysicRegister pReg ){
