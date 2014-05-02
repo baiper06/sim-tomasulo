@@ -12,6 +12,9 @@ public class UFMultiplier extends UnitFunctional {
 	   
 	protected UFMultiplier(){
 		super(SIZE_RS, TIME_EXEC);
+//		this.mReservStation = ItemReservStation[SIZE_RS];
+//		this.mTimeExec = 2;
+//		this.mReady = true;
 	}
 	
 	public static UFMultiplier getInstance() {
@@ -21,24 +24,32 @@ public class UFMultiplier extends UnitFunctional {
       return instance;
 	}
 
-	public ItemReservStation action(){
-		super.action();
-		switch(mItemInExec.getOperation()){
-			case MULT:
-				mItemInExec.setValue2(mItemInExec.getValue1() *  mItemInExec.getValue2() );
-					
-			case DIV:	
-				mItemInExec.setValue2(mItemInExec.getValue1() /  mItemInExec.getValue2() );
-				
-			case SHIFT_L:	
-				mItemInExec.setValue2(mItemInExec.getValue1() * 2);
-				
-			case SHIFT_R:	
-				mItemInExec.setValue2(mItemInExec.getValue1() / 2);
-				
-			default:
-				break;
-		}
-		return mItemInExec;
-	}
+	
+//	public boolean areYouReady(){
+//		return this.mReady;
+//	}
+	
+//	public ItemReservStation action(ItemReservStation instruction){
+//		int i = 0;
+//		this.mReady = false;
+//		
+//		switch(instruction.mOperation){
+//			case 1:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 * 
+//											  instruction.mValue2;
+//					}
+//					
+//			case 2:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 / 
+//											  instruction.mValue2;
+//					}
+//					
+//			case 3:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 * 2;
+//					}
+//		}
+//		
+//		this.mReady = true;;
+//		return instruction;
+//	}
 }
