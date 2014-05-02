@@ -11,8 +11,12 @@ public class Execute {
 	public void run(){
 		exec( UFAdder.getInstance() );
 		exec( UFMultiplier.getInstance() );
-		CommonDataBus.getInstance().isReady();
+		
+		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
+		UFAdder.getInstance().updateRS(item);
+		UFMultiplier.getInstance().updateRS(item);
 	}
+	
 	
 	private  void exec(UnitFunctional pUF){
 		// Ingresar elemento en la UF
