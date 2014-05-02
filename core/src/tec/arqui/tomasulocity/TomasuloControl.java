@@ -34,9 +34,9 @@ public class TomasuloControl {
 		if( clock == 0 ){
 			front.setBlockProgram(mBlockProgram);
 		}
-		front.run();
-		//exec.run();
 		//back.run();
+		//exec.run();
+		front.run();
 		
 		clock ++;
 	}

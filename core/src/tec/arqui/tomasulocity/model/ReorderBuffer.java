@@ -73,5 +73,11 @@ public class ReorderBuffer {
 			ItemReorderBuffer item = mReorderBuffer.poll();
 			item.getTarget().setValue( item.getValue() );
 		}	
+	}
+
+	public ArrayBlockingQueue<ItemReorderBuffer> getReorderBuffer() {
+		return mReorderBuffer;
 	}	
+	
+	
 }
