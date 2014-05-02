@@ -1,5 +1,6 @@
 package tec.arqui.tomasulocity.model;
 
+import java.util.Iterator;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class ReorderBuffer {
@@ -45,9 +46,22 @@ public class ReorderBuffer {
 	}
 	
 	/*
+	 * Sets the final value 
+	 */
+	public void updateROB(ItemReservStation pItem){
+		Iterator<ItemReorderBuffer> itr = mReorderBuffer.iterator();
+		while(itr.hasNext()){
+			ItemReorderBuffer elem = itr.next();
+			if (pItem.getTagROB() == elem.getTag()){
+				elem.setValue(pItem.getValue2());
+			}
+		}
+	}
+	
+	/*
 	 * Set value to header
 	 */
-	public void setValue(int pValue){
+	public void setValue (int pValue){
 		mReorderBuffer.peek().setValue(pValue);
 	}
 	
