@@ -40,9 +40,11 @@ public class ReorderBuffer {
 	/*
 	 * Add new element
 	 */
-	public void addElement( ItemReorderBuffer mItem ){
+	public int addElement( ItemReorderBuffer mItem ){
 		mReorderBuffer.add(mItem);
+		return mReorderBuffer.size();
 	}
+	
 	/*
 	 * Set value to header
 	 */
