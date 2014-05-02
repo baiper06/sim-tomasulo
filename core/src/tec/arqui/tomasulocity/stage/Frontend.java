@@ -50,7 +50,7 @@ public class Frontend {
 		TempRegistersBank.getInstance().addRegister(tempRegTarget);
 		
 		// renaming source
-		TempRegister reg = TempRegistersBank.getInstance().getPhysicReg( PhysicRegSource );
+		TempRegister reg = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
 		TempRegister tempRegSource;
 		if( reg  == null || reg.isBusyBit() == false ){
 			tempRegSource = new TempRegister();

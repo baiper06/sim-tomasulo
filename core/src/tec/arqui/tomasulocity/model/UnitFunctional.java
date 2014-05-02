@@ -7,7 +7,7 @@ public abstract class UnitFunctional {
 	protected int 				mSize;
 	protected ItemReservStation mItemInExec;
 	protected int				mTimer;
-
+	protected boolean			mReady;
 
 	public UnitFunctional( int pSizeRS, int pTimeExec ){
 		mSize = pSizeRS;
@@ -71,6 +71,15 @@ public abstract class UnitFunctional {
 	public void setItemInExec(ItemReservStation mItemInExec) {
 		this.mItemInExec = mItemInExec;
 	}
+
+	public boolean isReady() {
+		return mReady;
+	}
+
+	public void setReady(boolean mReady) {
+		this.mReady = mReady;
+	}
+
 
 	public ItemReservStation action() {
 		return null;
