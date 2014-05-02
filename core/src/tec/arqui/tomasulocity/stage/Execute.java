@@ -18,7 +18,7 @@ public class Execute {
 		exec( UFAdder.getInstance() );
 		exec( UFMultiplier.getInstance() );
 		
-		/*
+		
 		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		for ( ItemReservStation itemRS : UFAdder.getInstance().getReservStation() ){
 			if (itemRS != null)
@@ -27,7 +27,7 @@ public class Execute {
 				System.out.println("null");
 		}
 		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run.end>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		*/
+		/**/
 	}
 	
 	
@@ -35,10 +35,10 @@ public class Execute {
 		// Ingresar elemento en la UF
 		if( pUF.getItemInExec() == null ){
 			ItemReservStation itemRS = pUF.popItemRS();
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  " + itemRS);
+			//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  " + itemRS);
 			if( itemRS != null ){
-				System.out.println( "00000000000000000000000000000000000000000000000000000000000000000000000000000000");
-				System.out.println("Executing...."+ itemRS.toString());
+				//System.out.println( "00000000000000000000000000000000000000000000000000000000000000000000000000000000");
+				//System.out.println("Executing...."+ itemRS.toString());
 				pUF.setItemInExec( itemRS );
 				pUF.resetTimer();
 				pUF.setExecuting(true);
