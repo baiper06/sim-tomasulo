@@ -15,7 +15,7 @@ public class TomasuloControl {
 	Frontend front;
 	Execute exec;
 	Backend back;
-	Queue<Instruction> 		mBlockProgram;
+	ArrayList<Instruction> 		mBlockProgram;
 	
 	static int clock;
 	int mPC;
@@ -43,7 +43,7 @@ public class TomasuloControl {
 	}
 
 	
-	public Queue<Instruction> getBlockProgram() {
+	public ArrayList<Instruction> getBlockProgram() {
 		return mBlockProgram;
 	}
 
@@ -51,7 +51,7 @@ public class TomasuloControl {
 		return clock;
 	}
 
-	public void setmBlockProgram(Queue<Instruction> pBlockProgram) {
+	public void setBlockProgram(ArrayList<Instruction> pBlockProgram) {
 		this.mBlockProgram = pBlockProgram;
 	}
 	

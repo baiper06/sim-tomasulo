@@ -1,5 +1,11 @@
 package tec.arqui.tomasulocity;
 
+import java.util.ArrayList;
+
+import tec.arqui.tomasulocity.model.Constants;
+import tec.arqui.tomasulocity.model.Instruction;
+import tec.arqui.tomasulocity.model.PhysicRegistersBank;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -9,10 +15,21 @@ public class InstructionStackTable extends Table{
 	
 	public final static int ROW_COUNT = 12;
 	
+	
+	private ArrayList<SelectBox<String>> mSelectBoxesInstrucciones;
+	private ArrayList<SelectBox<String>> mSelectBoxesSource1;
+	private ArrayList<SelectBox<String>> mSelectBoxesTarget;
+	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
 	public InstructionStackTable(){
+		
+		mSelectBoxesInstrucciones = new ArrayList<SelectBox<String>>();
+		mSelectBoxesSource1 = new ArrayList<SelectBox<String>>();
+		mSelectBoxesTarget = new ArrayList<SelectBox<String>>();
+		
+
 		
 		Label title = new Label("Instructions",Styles.getInstance().getGenericTableNormalStyle());
 	    this.add(title);
@@ -20,12 +37,10 @@ public class InstructionStackTable extends Table{
 		
 		Label instructionHeader	= new Label("Instruction", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label sourceOneHeader 	= new Label("Source1", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label sourceTwoHeader	= new Label("Source2", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label sinkHeader		= new Label("Sink", Styles.getInstance().getGenericTableHeaderStyle());
 	    
 	    this.add(instructionHeader);
 	    this.add(sourceOneHeader);
-	    this.add(sourceTwoHeader);
 	    this.add(sinkHeader);
 	    
 	   for ( int row=0; row < ROW_COUNT ; row++ )
@@ -65,10 +80,35 @@ public class InstructionStackTable extends Table{
 		SelectBox<String> mSink = new SelectBox<String>(Styles.getInstance().getGenericSelectBoxStyle());
 		mSink.setItems(registersItems);
 		
+		this.mSelectBoxesInstrucciones.add(mInstructions);
+		this.mSelectBoxesSource1.add(mSourceOne);
+
+		this.mSelectBoxesTarget.add(mSink);
 		this.add(mInstructions);
 		this.add(mSourceOne);
 		this.add(mSourceTwo);
 		this.add(mSink);
 	}
 	
+	
+	public ArrayList<Instruction> getColaInstrucciones(){
+		ArrayList<Instruction> colaInstrucciones = new ArrayList<Instruction>(Constants.SIZE_PROGRAM);
+        for ( int i=0 ; i < Constants.SIZE_PROGRAM ; i++ ){
+        	
+        	Instruction instruction = new Instruction();
+        	instruction.setOperation( Mappers.MOperations.get( mSelectBoxesInstrucciones.get(i).getSelected() ) );
+        	instruction.setSource( PhysicRegistersBank.getInstance().getPhysicRegisters()[
+        	                          mSelectBoxesSource1.get(i).getSelectedIndex()
+        	                       ] );
+        	instruction.setTarget( PhysicRegistersBank.getInstance().getPhysicRegisters()[
+        	                          mSelectBoxesTarget.get(i).getSelectedIndex()
+        	                       ] );        	
+        	colaInstrucciones.add(instruction);
+        	  	
+        	
+        }
+		return colaInstrucciones;
+	}
+	
+
 }

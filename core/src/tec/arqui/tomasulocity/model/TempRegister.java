@@ -1,11 +1,16 @@
 package tec.arqui.tomasulocity.model;
 
+
 public class TempRegister implements IRegister {
 
 	private PhysicRegister 	mPhysicRegister;
 	private boolean 		mBusyBit;
 	private boolean			mDirty;
 
+	public TempRegister(){
+		mBusyBit = false;
+		mDirty = false;
+	}
 	
 	public PhysicRegister getPhysicRegister() {
 		return mPhysicRegister;
@@ -26,4 +31,13 @@ public class TempRegister implements IRegister {
 		this.mDirty = pDirty;
 	}
 	
+	public String getName(){
+		int tag = TempRegistersBank.getInstance().getTag(this);
+		System.out.println("TempTag:"+String.valueOf(tag));
+		if (tag != -1 ){
+			return "L"+String.valueOf(tag+1);
+		}
+		return "None";
+		
+	}
 }
