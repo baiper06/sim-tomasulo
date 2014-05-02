@@ -113,7 +113,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mLabelFUMulti = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
 	    mLabelFUMulti.setPosition(730, 130);
 	    
-	    mLabelTitle = new Label("Daniel Jenkins\nEmmanuel Mora\nBairon Perez", Styles.getInstance().getGenericTableHeaderStyle());
+	    mLabelTitle = new Label("Tomasulo-City\n\nDaniel Jenkins\nEmmanuel Mora\nBairon Perez", Styles.getInstance().getGenericTableHeaderStyle());
 	    mLabelTitle.setPosition(500,750);
 	    
 	    mLabelCPI = new Label("-",Styles.getInstance().getGenericTableHeaderStyle());
@@ -221,6 +221,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                	mReorderBufferTable.mListTarget.get(i).setText("-");
 	                	mReorderBufferTable.mListValue.get(i).setText("-");
 	                }
+	                
 	                int index = 0;
 	                Iterator<ItemReorderBuffer> it = ReorderBuffer.getInstance().getReorderBuffer().iterator();
 	                while(it.hasNext()){
