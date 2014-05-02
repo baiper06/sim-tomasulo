@@ -72,5 +72,9 @@ public abstract class UnitFunctional {
 		this.mItemInExec = mItemInExec;
 	}
 
+	public ItemReservStation action() {
+		return null;
+	}
+
 
 }
