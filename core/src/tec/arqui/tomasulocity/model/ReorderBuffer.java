@@ -54,6 +54,8 @@ public class ReorderBuffer {
 			ItemReorderBuffer elem = itr.next();
 			if (pItem.getTagROB() == elem.getTag()){
 				elem.setValue(pItem.getValue2());
+				//PhysicRegistersBank.getInstance().freeRegs(elem.getTag());
+				TempRegistersBank.getInstance().freeRegs(elem.getTag());
 			}
 		}
 	}

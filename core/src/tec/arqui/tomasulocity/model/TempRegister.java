@@ -24,6 +24,5 @@ public class TempRegister implements IRegister {
 	}
 	public void setDirty(boolean pDirty) {
 		this.mDirty = pDirty;
-	}
-	
+	}	
 }

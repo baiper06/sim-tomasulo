@@ -45,6 +45,13 @@ public class TempRegistersBank {
 		return -1;
 	}
 	
+	/*
+	 * FREE THE REGS!!!
+	 */
+	public void freeRegs(int mTag){
+		this.mTempRegisters[mTag].setDirty(true);
+	}
+	
 	public TempRegister getTempRegister( PhysicRegister pReg ){
 		int i=mHeader;
 		do{
