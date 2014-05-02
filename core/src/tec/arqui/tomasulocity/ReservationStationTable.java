@@ -42,7 +42,7 @@ public class ReservationStationTable extends Table{
 	    Label tag2Header		= new Label("Tag2", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label value1Header		= new Label("Value1", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label value2Header 		= new Label("Value2", Styles.getInstance().getGenericTableHeaderStyle());
-	    Label busybitHeader		= new Label("BB", Styles.getInstance().getGenericTableHeaderStyle());
+	    Label busybitHeader		= new Label("Dirty", Styles.getInstance().getGenericTableHeaderStyle());
 	    Label tagROBHeader		= new Label("TagRB", Styles.getInstance().getGenericTableHeaderStyle());
 	    
 	    this.add(tagHeader).space(2);

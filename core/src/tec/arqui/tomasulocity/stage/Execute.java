@@ -27,9 +27,9 @@ public class Execute {
 			if( itemRS != null ){
 				System.out.println("Executing...."+ itemRS.toString());
 				pUF.setItemInExec( itemRS );
-				pUF.setReady( false );
 				pUF.resetTimer();
 			}
+			pUF.setReady( false );
 		//  Despachar elemento
 		} else if( pUF.getTimer() == pUF.getTimeExec()-1 ){
 			pUF.action();

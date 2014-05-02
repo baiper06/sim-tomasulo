@@ -42,7 +42,7 @@ public class TemporalRegistersTable extends Table{
 		
 		this.row();
 		
-		Label tempRegisterField		= new Label("L"+String.valueOf(pRow+1), Styles.getInstance().getGenericTableNormalStyle());
+		Label tempRegisterField		= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label physicalRegisterField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label busyBitField			= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		

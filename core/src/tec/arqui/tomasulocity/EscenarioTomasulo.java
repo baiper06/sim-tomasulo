@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -52,6 +53,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private TextButton mStepButton;
 	private ShapeRenderer shapeRenderer;
 	private TomasuloControl mTomasuloControl;
+	private Label mLabelFUAdd;
+	private Label mLabelFUMulti;
 	
 	
 	@Override
@@ -102,6 +105,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStepButton = new TextButton("Step",Styles.getInstance().getGenericTextButtonStyle());
 	    mStepButton.setPosition(600, 500);
 	    
+	    mLabelFUAdd = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
+	    mLabelFUAdd.setPosition(730, 300);
+	    
+	    mLabelFUMulti = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
+	    mLabelFUMulti.setPosition(700, 80);
+	    
 	    mStepButton.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	                Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
@@ -140,7 +149,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                for ( int i = 0; i < UFAdder.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
 
-	                	if (item.getTarget() != null){
+	                	if (item != null && item.getTarget() != null){
 		                	mReservationStationA.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
 		                	System.out.println("RS A:"+item.getOperation());
@@ -159,7 +168,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Reservation StationB
 	                for ( int i = 0; i < UFMultiplier.getInstance().getSize(); i++){
 	                	ItemReservStation item = UFMultiplier.getInstance().getReservStation()[i];
-	                	if (item.getTarget() != null){
+	                	if (item != null && item.getTarget() != null){
 		                	System.out.println("RS B:"+item.getOperation());
 		                	mReservationStationB.listTags.get(i).setText(
 		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
@@ -202,7 +211,24 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                	mReorderBufferTable.mListReady.get(index).setText(
 	                			Mappers.MBoolean.get(item.getValue() != null ) );
 	                }
-	                
+	                ItemReservStation itemFU = UFAdder.getInstance().getItemInExec();
+	                if (itemFU != null){
+		                mLabelFUAdd.setText( 
+		                		Mappers.MInverseOperations.get(itemFU.getOperation())
+		                		+ "" + TempRegistersBank.getInstance().getRegister(itemFU.getTag1()).getName() 
+		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU.getTag2()).getName()
+		                		+ "\n "
+		                		+ "   " + itemFU.getValue1() + " " + itemFU.getValue2() );
+	                }else{
+	                	mLabelFUAdd.setText("----");
+	                }
+	                ItemReservStation itemFU2 = UFMultiplier.getInstance().getItemInExec();
+	                if (itemFU2 != null){
+		                mLabelFUMulti.setText( Mappers.MInverseOperations.get(itemFU2.getOperation())
+		                		+ " " + itemFU2.getValue1() + " " + itemFU2.getValue2() );
+	                }else{
+	                	mLabelFUMulti.setText("-");
+	                }
 					return true;
 	        }
 	    });
@@ -292,7 +318,6 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		// TODO Auto-generated method stub
 		mStage.getViewport().getCamera().translate(-pDeltaX, 
 				pDeltaY, 0);
-		System.out.println("pan");
 		return false;
 	}
 
@@ -475,6 +500,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStage.addActor(arrow22);
 	    mStage.addActor(arrow23);
 	    mStage.addActor(arrow24);
+	    mStage.addActor(mLabelFUAdd);
+	    mStage.addActor(mLabelFUMulti);
 		
 	}
 	

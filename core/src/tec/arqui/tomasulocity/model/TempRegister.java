@@ -40,4 +40,12 @@ public class TempRegister implements IRegister {
 		return "None";
 		
 	}
+
+	@Override
+	public String toString() {
+		return "TempRegister [mPhysicRegister=" + mPhysicRegister
+				+ ", mBusyBit=" + mBusyBit + ", mDirty=" + mDirty + "]";
+	}
+	
+	
 }

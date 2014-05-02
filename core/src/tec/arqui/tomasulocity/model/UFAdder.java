@@ -23,14 +23,16 @@ public class UFAdder extends UnitFunctional {
 
 
 	public ItemReservStation action(){
-		System.out.println(mItemInExec.getOperation());
+		System.out.println("actionAdder: "+mItemInExec.getOperation());
 		switch( mItemInExec.getOperation()){
 			case ADD:
 				mItemInExec.setValue2(mItemInExec.getValue1() +  mItemInExec.getValue2() );
-					
+				break;	
 			case MOVE:	
 				mItemInExec.setValue2(mItemInExec.getValue1());
+				break;
 			default:
+				System.out.println("DEFAULTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 				break;
 		}
 		return mItemInExec;

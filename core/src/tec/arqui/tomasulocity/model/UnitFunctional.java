@@ -15,9 +15,7 @@ public abstract class UnitFunctional {
 		mTimeExec = pTimeExec;
 		mReservStation 	= new ItemReservStation[pSizeRS];
 		mTimer = 1;
-		for ( int i=0; i < mSize; i++ ){
-			mReservStation[i] = new ItemReservStation();
-		}
+		mReady = false;
 	}
 	
 	public int anyEmptySlotsInRS( ){
@@ -38,10 +36,10 @@ public abstract class UnitFunctional {
 	 */
 	public void updateRS (ItemReservStation pItem){
 		for(int i = 0; i < this.mSize; i++){
-			if (pItem != null && pItem.getTag1() == mReservStation[i].getTag1()){
+			if (pItem != null && mReservStation[i] != null && pItem.getTag1() == mReservStation[i].getTag1()){
 				mReservStation[i].setValue1(pItem.getValue1());
 			}
-			if (pItem != null && pItem.getTag2() == mReservStation[i].getTag2()){
+			if (pItem != null && mReservStation[i] != null && pItem.getTag2() == mReservStation[i].getTag2()){
 				mReservStation[i].setValue2(pItem.getValue2());
 			}
 		}
@@ -49,8 +47,15 @@ public abstract class UnitFunctional {
 
 	public ItemReservStation popItemRS( ){
 		for( int i=0; i<mSize; i++ ){
-			if( mReservStation[i] != null && ! mReservStation[i].isDirty()  ){
-				if( TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag1() ).isBusyBit() ){
+			System.out.println("###############################################");
+			for (TempRegister reg : TempRegistersBank.getInstance().getRegisters())
+				System.out.println(reg.toString());				
+			//System.out.println("-----------------------------------------------");
+			//System.out.println("popItemsRS: " + mReservStation[i].toString());
+			if( mReservStation[i] != null && !mReservStation[i].isDirty()  ){
+				System.out.println("popItemsRS1: " + mReservStation[i]);
+				if( !TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag1() ).isBusyBit() ){
+					System.out.println("popItemsRS2: " + mReservStation[i]);
 					mReservStation[i].setDirty( true );
 					return mReservStation[i];
 				}	
