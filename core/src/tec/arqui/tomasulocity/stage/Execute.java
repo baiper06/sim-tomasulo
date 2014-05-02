@@ -10,16 +10,15 @@ public class Execute {
 
 	public void run(){
 		
-		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
+		UFAdder.getInstance().updateRS();
+		UFMultiplier.getInstance().updateRS();
 		
-		if (item != null){
-			UFAdder.getInstance().updateRS(item);
-			UFMultiplier.getInstance().updateRS(item);
-		}
+		CommonDataBus.getInstance().popInstrutionToFU();
 
 		exec( UFAdder.getInstance() );
 		exec( UFMultiplier.getInstance() );
 		
+		/*
 		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		for ( ItemReservStation itemRS : UFAdder.getInstance().getReservStation() ){
 			if (itemRS != null)
@@ -28,6 +27,7 @@ public class Execute {
 				System.out.println("null");
 		}
 		System.out.println( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Execute.run.end>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		*/
 	}
 	
 	
@@ -35,16 +35,20 @@ public class Execute {
 		// Ingresar elemento en la UF
 		if( pUF.getItemInExec() == null ){
 			ItemReservStation itemRS = pUF.popItemRS();
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  " + itemRS);
 			if( itemRS != null ){
+				System.out.println( "00000000000000000000000000000000000000000000000000000000000000000000000000000000");
 				System.out.println("Executing...."+ itemRS.toString());
 				pUF.setItemInExec( itemRS );
 				pUF.resetTimer();
+				pUF.setExecuting(true);
 			}
 			pUF.setReady( false );
 		//  Despachar elemento
 		} else if( pUF.getTimer() == pUF.getTimeExec()-1 ){
 			pUF.action();
 			pUF.setReady( true );
+			pUF.setExecuting(false);
 		//  Ejecutando...
 		} else {
 			pUF.incrementTimer();

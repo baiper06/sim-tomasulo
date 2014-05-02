@@ -199,6 +199,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }
 	               
 	                //ROB
+	                for ( int i=0; i < ReorderBufferTable.ROW_COUNT ; i++){
+	                	mReorderBufferTable.mListTagROB.get(i).setText("-");
+	                	mReorderBufferTable.mListSource.get(i).setText("-");
+	                	mReorderBufferTable.mListTarget.get(i).setText("-");
+	                	mReorderBufferTable.mListValue.get(i).setText("-");
+	                }
 	                int index = 0;
 	                Iterator<ItemReorderBuffer> it = ReorderBuffer.getInstance().getReorderBuffer().iterator();
 	                while(it.hasNext()){
@@ -220,7 +226,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                mLabelFUAdd.setText( 
 		                		Mappers.MInverseOperations.get(itemFU.getOperation())
 		                		+ "" + TempRegistersBank.getInstance().getRegister(itemFU.getTag1()).getName() 
-		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU.getTag2()).getName()
+		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU.getTarget()).getName()
 		                		+ "\n "
 		                		+ "   " + itemFU.getValue1() + " " + itemFU.getValue2() );
 	                }else{

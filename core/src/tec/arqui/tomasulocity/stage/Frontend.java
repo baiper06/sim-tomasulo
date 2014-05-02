@@ -81,7 +81,7 @@ public class Frontend {
 		// renaming source 2
 		TempRegister reg2 = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
 		TempRegister tempRegSource2;
-		if( reg2  == null || reg2.isBusyBit() == false ){
+		if( reg2  == null ){
 			tempRegSource2 = new TempRegister();
 			tempRegSource2.setPhysicRegister( PhysicRegSource );
 			tempRegSource2.setBusyBit( false );

@@ -62,7 +62,7 @@ public class ReorderBuffer {
 					TempRegistersBank.getInstance().freeRegs(elem.getTagROB());
 				}
 				if (item.getTag1() == elem.getTagROB()){
-					elem.setValue(item.getValue2());
+					//elem.setValue(item.getValue2());
 					TempRegistersBank.getInstance().freeRegs(elem.getSourceTag());
 				}
 			}
