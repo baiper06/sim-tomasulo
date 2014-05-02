@@ -14,17 +14,18 @@ public class Execute {
 	}
 	
 	private  void exec(UnitFunctional pUF){
+		// Ingresar elemento en la UF
 		if( pUF.getItemInExec() == null ){
 			ItemReservStation itemRS = pUF.popItemRS();
 			if( itemRS != null ){
 				pUF.setItemInExec( itemRS );
+				pUF.resetTimer();
 			}
-		}
-		
-		if( pUF.getTimer() == pUF.getTimeExec() ){
-			//pUF.action();
-			pUF.setItemInExec(null);
-			// cdb
+		//  Despachar elemento
+		} else if( pUF.getTimer() == pUF.getTimeExec() ){
+			pUF.action();
+			//cdb
+		//  Ejecutando...
 		} else {
 			pUF.incrementTimer();
 		}

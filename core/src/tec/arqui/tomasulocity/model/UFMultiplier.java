@@ -21,23 +21,24 @@ public class UFMultiplier extends UnitFunctional {
       return instance;
 	}
 
-	public ItemReservStation action(ItemReservStation instruction){
-		switch(instruction.getOperation()){
+	public ItemReservStation action(){
+		super.action();
+		switch(mItemInExec.getOperation()){
 			case MULT:
-				instruction.setValue2(instruction.getValue1() *  instruction.getValue2() );
+				mItemInExec.setValue2(mItemInExec.getValue1() *  mItemInExec.getValue2() );
 					
 			case DIV:	
-				instruction.setValue2(instruction.getValue1() /  instruction.getValue2() );
+				mItemInExec.setValue2(mItemInExec.getValue1() /  mItemInExec.getValue2() );
 				
 			case SHIFT_L:	
-				instruction.setValue2(instruction.getValue1() * 2);
+				mItemInExec.setValue2(mItemInExec.getValue1() * 2);
 				
 			case SHIFT_R:	
-				instruction.setValue2(instruction.getValue1() / 2);
+				mItemInExec.setValue2(mItemInExec.getValue1() / 2);
 				
 			default:
 				break;
 		}
-		return instruction;
+		return mItemInExec;
 	}
 }

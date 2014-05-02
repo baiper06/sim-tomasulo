@@ -22,19 +22,18 @@ public class UFAdder extends UnitFunctional {
 	}
 
 
-	public ItemReservStation action(ItemReservStation instruction){
-		
-		switch(instruction.getOperation()){
+	public ItemReservStation action(){
+		super.action();
+		switch( mItemInExec.getOperation()){
 			case ADD:
-				instruction.setValue2(instruction.getValue1() +  instruction.getValue2() );
+				mItemInExec.setValue2(mItemInExec.getValue1() +  mItemInExec.getValue2() );
 					
 			case MOVE:	
-				instruction.setValue2(instruction.getValue1());
+				mItemInExec.setValue2(mItemInExec.getValue1());
 			default:
 				break;
 		}
-		
-		return instruction;
+		return mItemInExec;
 	}
 
 	
