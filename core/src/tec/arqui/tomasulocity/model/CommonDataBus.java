@@ -20,7 +20,11 @@ public class CommonDataBus {
       }
       return instance;
 	}
-	   
+
+	public void toNotify(ItemReservStation instruction){
+		UFAdder.getInstance().
+	}
+	
 	public TempRegister getRegister() {
 		return mRegister;
 	}
