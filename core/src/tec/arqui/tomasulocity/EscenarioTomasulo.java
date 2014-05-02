@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -57,6 +58,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private Label mLabelTitle;
 	private Label mLabelCPI;
 	public static boolean mInitial=true;
+	private Interpolation mAnimation;
 	
 	
 	@Override
@@ -66,10 +68,12 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		//Temporal
 		
 		//Control
-		mTomasuloControl = new TomasuloControl();	
+		mTomasuloControl = new TomasuloControl();
 		
 		//Pintores
 		mStage = new Stage(new ScreenViewport());
+		mStage.getCamera().position.x = 562;
+		mStage.getCamera().position.y = 507;
 		InputMultiplexer mux = new InputMultiplexer();
 		mux.addProcessor(mStage);
 		mux.addProcessor(new GestureDetector(this));
@@ -103,9 +107,9 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mCommonDataBusTable.setPosition(960, 220);
 	    
 	    mPlayButton = new TextButton("Play",Styles.getInstance().getGenericTextButtonStyle());
-	    mPlayButton.setPosition(500, 700);
+	    mPlayButton.setPosition(500, 500);
 	    mStepButton = new TextButton("Step",Styles.getInstance().getGenericTextButtonStyle());
-	    mStepButton.setPosition(600, 700);
+	    mStepButton.setPosition(600, 500);
 	    
 	    mLabelFUAdd = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
 	    mLabelFUAdd.setPosition(730, 300);
@@ -114,10 +118,10 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mLabelFUMulti.setPosition(730, 130);
 	    
 	    mLabelTitle = new Label("Tomasulo-City\n\nDaniel Jenkins\nEmmanuel Mora\nBairon Perez", Styles.getInstance().getGenericTableHeaderStyle());
-	    mLabelTitle.setPosition(500,750);
+	    mLabelTitle.setPosition(500,550);
 	    
 	    mLabelCPI = new Label("-",Styles.getInstance().getGenericTableHeaderStyle());
-	    mLabelCPI.setPosition(520,650);
+	    mLabelCPI.setPosition(520,450);
 	    
 	    mStepButton.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -354,6 +358,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		// TODO Auto-generated method stub
 		mStage.getViewport().getCamera().translate(-pDeltaX, 
 				pDeltaY, 0);
+		System.out.println("Camera:"+mStage.getCamera().position);
 		return false;
 	}
 
