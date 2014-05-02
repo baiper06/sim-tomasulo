@@ -9,11 +9,14 @@ public abstract class UnitFunctional {
 	protected int				mTimer;
 	protected boolean			mReady;
 
-	public UnitFunctional( int pSizeRS, int pTimeExec ){
+	protected UnitFunctional( int pSizeRS, int pTimeExec ){
 		mSize = pSizeRS;
 		mTimeExec = pTimeExec;
 		mReservStation 	= new ItemReservStation[pSizeRS];
 		mTimer = 0;
+		for ( int i=0; i < mSize; i++ ){
+			mReservStation[i] = new ItemReservStation();
+		}
 	}
 	
 	public int anySlotEmptyInRS( ){

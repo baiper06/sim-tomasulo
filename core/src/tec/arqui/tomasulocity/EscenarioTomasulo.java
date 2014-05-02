@@ -1,8 +1,11 @@
 package tec.arqui.tomasulocity;
 
+import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
+import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.TempRegister;
 import tec.arqui.tomasulocity.model.TempRegistersBank;
+import tec.arqui.tomasulocity.model.UFAdder;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -21,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.sun.org.apache.bcel.internal.classfile.Constant;
 
 public class EscenarioTomasulo implements Screen, GestureListener {
 
@@ -125,6 +129,44 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                		mTemporalRegistersTable.mPhysRegisters.get(i).setText(register.getPhysicRegister().getName());
 	                	mTemporalRegistersTable.mBusyBit.get(i).setText(Mappers.MBoolean.get(register.isBusyBit()));
 	                }
+	                
+	                //Actualizar Reservation StationA
+	                for ( int i = 0; i < Constants.RS_COUNT; i++){
+	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
+	                	if (item.isDirty()){
+		                	mReservationStationA.listTags.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
+		                	mReservationStationA.listOps.get(i).setText(Mappers.MInverseOperations.get(item.getOperation()));
+		                	mReservationStationA.listTag1.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTag1()].getName() );
+		                	mReservationStationA.listTag2.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTag2()].getName() );
+		                	mReservationStationA.listValue1.get(i).setText( String.valueOf(item.getValue1()) );
+		                	mReservationStationA.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
+		                	mReservationStationA.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
+		                	mReservationStationA.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
+	                	}
+	                }
+	                
+	                //Actualizar Reservation StationB
+	                for ( int i = 0; i < Constants.RS_COUNT; i++){
+	                	ItemReservStation item = UFAdder.getInstance().getReservStation()[i];
+	                	if (item.isDirty()){
+		                	mReservationStationB.listTags.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTarget()].getName() );
+		                	mReservationStationB.listOps.get(i).setText(Mappers.MInverseOperations.get(item.getOperation()));
+		                	mReservationStationB.listTag1.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTag1()].getName() );
+		                	mReservationStationB.listTag2.get(i).setText(
+		                			TempRegistersBank.getInstance().getRegisters()[item.getTag2()].getName() );
+		                	mReservationStationB.listValue1.get(i).setText( String.valueOf(item.getValue1()) );
+		                	mReservationStationB.listValue2.get(i).setText( String.valueOf(item.getValue2()) );
+		                	mReservationStationB.listDirtyBit.get(i).setText( Mappers.MBoolean.get(item.isDirty()) );
+		                	mReservationStationB.listTagROB.get(i).setText( String.valueOf(item.getTagROB()) );
+	                	}
+	                }
+	                
+	                
 	               
 	               
 					return true;

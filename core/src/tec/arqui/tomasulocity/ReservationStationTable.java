@@ -1,5 +1,7 @@
 package tec.arqui.tomasulocity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -7,10 +9,28 @@ public class ReservationStationTable extends Table{
 
 	public final static int ROW_COUNT = 3;
 	
+	public ArrayList<Label> listTags;
+	public ArrayList<Label> listOps;
+	public ArrayList<Label> listTag1;
+	public ArrayList<Label> listTag2;
+	public ArrayList<Label> listValue1;
+	public ArrayList<Label> listValue2;
+	public ArrayList<Label> listDirtyBit;
+	public ArrayList<Label> listTagROB;
+	
 	/**
 	 * Tabla Gráfica para desplegar el stack inicial de instrucciones
 	 */
 	public ReservationStationTable(String pName){
+		
+		listTags = new ArrayList<Label>();
+		listOps = new ArrayList<Label>();
+		listTag1 = new ArrayList<Label>();
+		listTag2 = new ArrayList<Label>();
+		listValue1 = new ArrayList<Label>();
+		listValue2 = new ArrayList<Label>();
+		listDirtyBit = new ArrayList<Label>();
+		listTagROB = new ArrayList<Label>();
 		
 		Label title = new Label(pName,Styles.getInstance().getGenericTableNormalStyle());
 	    this.add(title).space(2);
@@ -50,6 +70,15 @@ public class ReservationStationTable extends Table{
 		Label value2Field	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label busybitField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
 		Label tagROBField	= new Label(".", Styles.getInstance().getGenericTableNormalStyle());
+		
+		listTags.add(tagField);
+		listOps.add(opField);
+		listTag1.add(tag1Field);
+		listTag2.add(tag2Field);
+		listValue1.add(value1Field);
+		listValue2.add(value2Field);
+		listDirtyBit.add(busybitField);
+		listTagROB.add(tagROBField);
 		
 		this.add(tagField);
 		this.add(opField);

@@ -14,6 +14,10 @@ public class ItemReservStation {
 	private boolean	mDirty;
 	private int mTagROB; //del reorder buffer
 	
+	public ItemReservStation(){
+		mDirty = true;
+	}
+	
 	public int getTarget() {
 		return mTarget;
 	}
