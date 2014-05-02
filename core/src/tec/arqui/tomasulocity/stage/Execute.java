@@ -18,12 +18,13 @@ public class Execute {
 			ItemReservStation itemRS = pUF.popItemRS();
 			if( itemRS != null ){
 				pUF.setItemInExec( itemRS );
+				pUF.setReady( false );
 				pUF.resetTimer();
 			}
 		//  Despachar elemento
 		} else if( pUF.getTimer() == pUF.getTimeExec() ){
 			pUF.action();
-			//cdb
+			pUF.setReady( true );
 		//  Ejecutando...
 		} else {
 			pUF.incrementTimer();
