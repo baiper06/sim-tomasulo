@@ -38,6 +38,7 @@ public class CommonDataBus {
 			item = UFMultiplier.getInstance().getItemInExec();
 			UFMultiplier.getInstance().setItemInExec( null );
 		}
+		TempRegistersBank.getInstance().getRegister( item.getTarget() ).setBusyBit( false );
 		return item;
 	}
 

@@ -49,9 +49,11 @@ public abstract class UnitFunctional {
 
 	public ItemReservStation popItemRS( ){
 		for( int i=0; i<mSize; i++ ){
-			if( mReservStation[i] != null || ! mReservStation[i].isDirty() ){
-				mReservStation[i].setDirty( true );
-				return mReservStation[i];
+			if( mReservStation[i] != null && ! mReservStation[i].isDirty()  ){
+				if( TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag1() ).isBusyBit() ){
+					mReservStation[i].setDirty( true );
+					return mReservStation[i];
+				}	
 			} 
 		}
 		return null;
