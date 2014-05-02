@@ -15,14 +15,10 @@ public class CommonDataBus {
 	}
 	
 	public static CommonDataBus getInstance() {
-      if(instance == null) {
-         instance = new CommonDataBus();
-      }
-      return instance;
-	}
-
-	public void toNotify(ItemReservStation instruction){
-		UFAdder.getInstance().
+		if(instance == null) {
+		   instance = new CommonDataBus();
+		}
+		return instance;
 	}
 	
 	public TempRegister getRegister() {
@@ -32,5 +28,7 @@ public class CommonDataBus {
 	public void setRegister(TempRegister pRegister) {
 		this.mRegister = pRegister;
 	}
+	
+	
 
 }

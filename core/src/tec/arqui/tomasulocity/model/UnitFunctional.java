@@ -28,6 +28,20 @@ public abstract class UnitFunctional {
 	public void addRS( ItemReservStation pItem, int pPosition ){
 		mReservStation[pPosition] = pItem;
 	}
+	
+	/*
+	 * Actualiza datos de los RS por medio del CDB.
+	 */
+	public void updateRS (ItemReservStation pItem){
+		for(int i = 0; i < this.mSize; i++){
+			if (pItem.getTag1() == mReservStation[i].getTag1()){
+				mReservStation[i].setValue1(pItem.getValue1());
+			}
+			if (pItem.getTag2() == mReservStation[i].getTag2()){
+				mReservStation[i].setValue2(pItem.getValue2());
+			}
+		}
+	}
 
 	public ItemReservStation popItemRS( ){
 		for( int i=0; i<mSize; i++ ){

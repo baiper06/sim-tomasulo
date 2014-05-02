@@ -23,8 +23,7 @@ public class ReorderBuffer {
 	
 	protected ReorderBuffer() {	
 		this.mReorderBuffer = new ArrayBlockingQueue<ItemReorderBuffer> 
-								  (SIZE_ROD);
-		
+								  (SIZE_ROD);	
 	}
 	
 	/*

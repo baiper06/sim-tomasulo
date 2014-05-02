@@ -10,7 +10,8 @@ public class Execute {
 
 	public void run(){
 		exec( UFAdder.getInstance() );
-		exec( UFMultiplier.getInstance() );		
+		exec( UFMultiplier.getInstance() );
+		CommonDataBus.getInstance().isReady();
 	}
 	
 	private  void exec(UnitFunctional pUF){
@@ -29,15 +30,6 @@ public class Execute {
 		//  Ejecutando...
 		} else {
 			pUF.incrementTimer();
-		}
-	}
-	
-	private void toNotify(){
-		if(UFAdder.getInstance.isReady()){
-			CommonDataBus.getInstance().toNotify(exec(UFAdder.getInstance.action()));
-		}
-		if(UFMultiplier.getInstance.isReady()){
-			CommonDataBus.getInstance().toNotify(exec(UFMultiplier.getInstance.action()));
 		}
 	}
 }
