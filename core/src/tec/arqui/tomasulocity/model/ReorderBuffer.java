@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class ReorderBuffer {
+	
+	public int InstrucRatioDispatch = 0;
 
 	private ArrayBlockingQueue<ItemReorderBuffer> mReorderBuffer;
 	
@@ -17,10 +19,10 @@ public class ReorderBuffer {
 
 	
 	public static ReorderBuffer getInstance() {
-      if(instance == null) {
-         instance = new ReorderBuffer();
-      }
-      return instance;
+        if(instance == null) {
+           instance = new ReorderBuffer();
+        }
+        return instance;
 	}	
 	
 	protected ReorderBuffer() {	
@@ -78,6 +80,7 @@ public class ReorderBuffer {
 			System.out.println("XXXXXXXXXXXXXXXXXXXX "+ item.toString());
 			// escribir el valor en le reg fisico
 			item.getTarget().setValue( item.getValue() );
+			this.InstrucRatioDispatch++;
 		}	
 	}
 
