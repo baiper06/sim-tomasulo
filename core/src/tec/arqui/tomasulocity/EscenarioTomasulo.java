@@ -56,6 +56,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private Label mLabelFUMulti;
 	private Label mLabelTitle;
 	private Label mLabelCPI;
+	public static boolean mInitial=true;
 	
 	
 	@Override
@@ -65,7 +66,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		//Temporal
 		
 		//Control
-		mTomasuloControl = new TomasuloControl();		
+		mTomasuloControl = new TomasuloControl();	
 		
 		//Pintores
 		mStage = new Stage(new ScreenViewport());
@@ -123,6 +124,13 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
 	                        
 	                mTomasuloControl.setBlockProgram(mInstructionsStackTable.getInstrucciones());
+	                if (mInitial){
+		                PhysicRegister[] registers = PhysicRegistersBank.getInstance().getPhysicRegisters();
+		                for ( int i = 0; i < registers.length; i++ ){
+		                	registers[i].setValue(Integer.valueOf(mPhysicRegistersTable.mInitialValues.get(i).getText()));
+		                }
+		                mInitial = false;
+	                }
 	                mTomasuloControl.step();
 	                
 	                //Actualizar Tabla de Renamed
