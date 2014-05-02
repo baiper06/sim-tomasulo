@@ -23,7 +23,7 @@ public class UFAdder extends UnitFunctional {
 
 
 	public ItemReservStation action(){
-		super.action();
+		System.out.println(mItemInExec.getOperation());
 		switch( mItemInExec.getOperation()){
 			case ADD:
 				mItemInExec.setValue2(mItemInExec.getValue1() +  mItemInExec.getValue2() );
@@ -35,7 +35,5 @@ public class UFAdder extends UnitFunctional {
 		}
 		return mItemInExec;
 	}
-
 	
-
 }
