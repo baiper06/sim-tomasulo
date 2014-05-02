@@ -1,9 +1,10 @@
 package tec.arqui.tomasulocity.model;
 
+
 public class CommonDataBus {
 	
 	private ItemReservStation mRS;
-	
+	private static CommonDataBus mInstance;
 	
 	/*
 	 * Singleton 
@@ -41,5 +42,7 @@ public class CommonDataBus {
 		TempRegistersBank.getInstance().getRegister( item.getTarget() ).setBusyBit( false );
 		return item;
 	}
+	
+
 
 }
