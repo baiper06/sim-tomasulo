@@ -76,6 +76,7 @@ public class ReorderBuffer {
 	public void update(){		
 		if(mReorderBuffer.peek() != null && mReorderBuffer.peek().getValue() != null){			
 			ItemReorderBuffer item = mReorderBuffer.poll();
+			System.out.println("XXXXXXXXXXXXXXXXXXXX "+ item.toString());
 			item.getTarget().setValue( item.getValue() );
 		}	
 	}
