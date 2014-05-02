@@ -70,4 +70,13 @@ public class TempRegistersBank {
 		}
 		return -1;
 	}
+	
+	public boolean anyEmptySlots( ){
+		for( int i=0; i<Constants.SIZE_TEMP_REGISTERS; i++ ){
+			if( mTempRegisters[i] == null || mTempRegisters[i].isDirty() ){
+				return true;
+			} 
+		}
+		return false;
+	}
 }
