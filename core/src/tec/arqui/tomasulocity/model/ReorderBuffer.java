@@ -66,8 +66,7 @@ public class ReorderBuffer {
 					TempRegistersBank.getInstance().freeRegs(elem.getSourceTag());
 				}
 			}
-		}
-		
+		}		
 	}
 	
 	
