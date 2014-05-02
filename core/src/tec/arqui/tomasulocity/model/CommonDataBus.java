@@ -31,16 +31,16 @@ public class CommonDataBus {
 	}
 	
 	public ItemReservStation popInstrutionToFU(){
-		ItemReservStation item = null;
+		mRS = null;
 		if( UFAdder.getInstance().isReady() ){
-			item = UFAdder.getInstance().getItemInExec();
+			mRS = UFAdder.getInstance().getItemInExec();
 			UFAdder.getInstance().setItemInExec( null );
 		} else if( UFMultiplier.getInstance().isReady() ){
-			item = UFMultiplier.getInstance().getItemInExec();
+			mRS = UFMultiplier.getInstance().getItemInExec();
 			UFMultiplier.getInstance().setItemInExec( null );
 		}
 		TempRegistersBank.getInstance().getRegister( item.getTarget() ).setBusyBit( false );
-		return item;
+		return mRS;
 	}
 	
 
