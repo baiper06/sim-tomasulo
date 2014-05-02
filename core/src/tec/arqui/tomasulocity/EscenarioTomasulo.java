@@ -109,7 +109,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mLabelFUAdd.setPosition(730, 300);
 	    
 	    mLabelFUMulti = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
-	    mLabelFUMulti.setPosition(700, 80);
+	    mLabelFUMulti.setPosition(730, 130);
 	    
 	    mStepButton.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -220,14 +220,18 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		                		+ "\n "
 		                		+ "   " + itemFU.getValue1() + " " + itemFU.getValue2() );
 	                }else{
-	                	mLabelFUAdd.setText("----");
+	                	mLabelFUAdd.setText("");
 	                }
 	                ItemReservStation itemFU2 = UFMultiplier.getInstance().getItemInExec();
 	                if (itemFU2 != null){
-		                mLabelFUMulti.setText( Mappers.MInverseOperations.get(itemFU2.getOperation())
-		                		+ " " + itemFU2.getValue1() + " " + itemFU2.getValue2() );
+	                	mLabelFUMulti.setText( 
+		                		Mappers.MInverseOperations.get(itemFU2.getOperation())
+		                		+ "" + TempRegistersBank.getInstance().getRegister(itemFU2.getTag1()).getName() 
+		                		+ "," + TempRegistersBank.getInstance().getRegister(itemFU2.getTag2()).getName()
+		                		+ "\n "
+		                		+ "   " + itemFU2.getValue1() + " " + itemFU2.getValue2() );
 	                }else{
-	                	mLabelFUMulti.setText("-");
+	                	mLabelFUMulti.setText("");
 	                }
 					return true;
 	        }

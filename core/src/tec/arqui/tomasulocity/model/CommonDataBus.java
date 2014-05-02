@@ -39,10 +39,12 @@ public class CommonDataBus {
 			System.out.println(TempRegistersBank.getInstance().getRegister( mRS.getTag2() ));
 			TempRegistersBank.getInstance().getRegister( mRS.getTag2() ).setBusyBit( false );
 			UFAdder.getInstance().setItemInExec( null );
+			UFAdder.getInstance().popItemRS().setDirty( true );
 		} else if( UFMultiplier.getInstance().isReady() ){
 			mRS = UFMultiplier.getInstance().getItemInExec();
 			TempRegistersBank.getInstance().getRegister( mRS.getTarget() ).setBusyBit( false );
 			UFMultiplier.getInstance().setItemInExec( null );
+			UFMultiplier.getInstance().popItemRS().setDirty( true );
 		}
 		return mRS;
 	}

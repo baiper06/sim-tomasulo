@@ -1,5 +1,7 @@
 package tec.arqui.tomasulocity.model;
 
+import java.util.Arrays;
+
 public abstract class UnitFunctional {
 	
 	protected ItemReservStation[] mReservStation;
@@ -36,8 +38,8 @@ public abstract class UnitFunctional {
 	 */
 	public void updateRS (ItemReservStation pItem){
 		for(int i = 0; i < this.mSize; i++){
-			if (pItem != null && mReservStation[i] != null && pItem.getTag1() == mReservStation[i].getTag1()){
-				mReservStation[i].setValue1(pItem.getValue1());
+			if (pItem != null && mReservStation[i] != null && pItem.getTag2() == mReservStation[i].getTag1()){
+				mReservStation[i].setValue1(pItem.getValue2());
 			}
 			if (pItem != null && mReservStation[i] != null && pItem.getTag2() == mReservStation[i].getTag2()){
 				mReservStation[i].setValue2(pItem.getValue2());
@@ -56,7 +58,7 @@ public abstract class UnitFunctional {
 				System.out.println("popItemsRS1: " + mReservStation[i]);
 				if( !TempRegistersBank.getInstance().getRegister( mReservStation[i].getTag1() ).isBusyBit() ){
 					System.out.println("popItemsRS2: " + mReservStation[i]);
-					mReservStation[i].setDirty( true );
+					//mReservStation[i].setDirty( true );
 					return mReservStation[i];
 				}	
 			} 
@@ -109,6 +111,16 @@ public abstract class UnitFunctional {
 	public ItemReservStation action() {
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "UnitFunctional [mReservStation="
+				+ Arrays.toString(mReservStation) + ", mTimeExec=" + mTimeExec
+				+ ", mSize=" + mSize + ", mItemInExec=" + mItemInExec
+				+ ", mTimer=" + mTimer + ", mReady=" + mReady + "]";
+	}
+	
+	
 
 
 }
