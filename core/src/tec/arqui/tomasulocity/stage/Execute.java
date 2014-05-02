@@ -13,8 +13,10 @@ public class Execute {
 		exec( UFMultiplier.getInstance() );
 		
 		ItemReservStation item = CommonDataBus.getInstance().popInstrutionToFU();
-		UFAdder.getInstance().updateRS(item);
-		UFMultiplier.getInstance().updateRS(item);
+		if (item != null){
+			UFAdder.getInstance().updateRS(item);
+			UFMultiplier.getInstance().updateRS(item);
+		}
 	}
 	
 	
@@ -23,6 +25,7 @@ public class Execute {
 		if( pUF.getItemInExec() == null ){
 			ItemReservStation itemRS = pUF.popItemRS();
 			if( itemRS != null ){
+				System.out.println("Executing...."+ itemRS.toString());
 				pUF.setItemInExec( itemRS );
 				pUF.setReady( false );
 				pUF.resetTimer();

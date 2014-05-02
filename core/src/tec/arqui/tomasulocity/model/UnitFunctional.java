@@ -38,10 +38,10 @@ public abstract class UnitFunctional {
 	 */
 	public void updateRS (ItemReservStation pItem){
 		for(int i = 0; i < this.mSize; i++){
-			if (pItem.getTag1() == mReservStation[i].getTag1()){
+			if (pItem != null && pItem.getTag1() == mReservStation[i].getTag1()){
 				mReservStation[i].setValue1(pItem.getValue1());
 			}
-			if (pItem.getTag2() == mReservStation[i].getTag2()){
+			if (pItem != null && pItem.getTag2() == mReservStation[i].getTag2()){
 				mReservStation[i].setValue2(pItem.getValue2());
 			}
 		}
@@ -49,7 +49,7 @@ public abstract class UnitFunctional {
 
 	public ItemReservStation popItemRS( ){
 		for( int i=0; i<mSize; i++ ){
-			if( mReservStation[i] != null || ! mReservStation[i].isDirty() ){
+			if( mReservStation[i] != null && !mReservStation[i].isDirty() ){
 				mReservStation[i].setDirty( true );
 				return mReservStation[i];
 			} 

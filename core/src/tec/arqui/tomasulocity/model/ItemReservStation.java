@@ -79,5 +79,15 @@ public class ItemReservStation {
 		semejanza[7] = objectA.getTagROB() == objectB.getTagROB();
 		return semejanza;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemReservStation [mTarget=" + mTarget + ", mOperation="
+				+ mOperation + ", mTag1=" + mTag1 + ", mTag2=" + mTag2
+				+ ", mValue1=" + mValue1 + ", mValue2=" + mValue2 + ", mDirty="
+				+ mDirty + ", mTagROB=" + mTagROB + "]";
+	}
+	
+	
 	
 }
