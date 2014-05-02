@@ -46,7 +46,7 @@ public class ReorderBuffer {
 	}
 	
 	/*
-	 * Sets the final value 
+	 * Sets the final value & frees the temp regs.
 	 */
 	public void updateROB(ItemReservStation pItem){
 		Iterator<ItemReorderBuffer> itr = mReorderBuffer.iterator();
