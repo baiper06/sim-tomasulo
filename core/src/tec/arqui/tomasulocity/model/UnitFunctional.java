@@ -20,7 +20,7 @@ public abstract class UnitFunctional {
 		}
 	}
 	
-	public int anySlotEmptyInRS( ){
+	public int anyEmptySlotsInRS( ){
 		for( int i=0; i<mSize; i++ ){
 			if( mReservStation[i] == null || mReservStation[i].isDirty() ){
 				return i;
