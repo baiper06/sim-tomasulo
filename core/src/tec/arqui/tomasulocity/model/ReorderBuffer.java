@@ -19,13 +19,12 @@ public class ReorderBuffer {
          instance = new ReorderBuffer();
       }
       return instance;
-	}
+	}	
 	
-	
-	protected ReorderBuffer() {
-	
+	protected ReorderBuffer() {	
 		this.mReorderBuffer = new ArrayBlockingQueue<ItemReorderBuffer> 
-								  (SIZE_ROD);	
+								  (SIZE_ROD);
+		
 	}
 	
 	/*
@@ -44,13 +43,20 @@ public class ReorderBuffer {
 	public void addElement( ItemReorderBuffer mItem ){
 		mReorderBuffer.add(mItem);
 	}
+	/*
+	 * Set value to header
+	 */
+	public void setValue(int pValue){
+		mReorderBuffer.peek().setValue(pValue);
+	}
 	
 	/*
 	 * Checks for data to dispatch
 	 */
 	public void update(){		
-		if(mReorderBuffer.peek().getValue() != null){
-			mReorderBuffer.poll();
+		if(mReorderBuffer.peek().getValue() != null){			
+			ItemReorderBuffer item = mReorderBuffer.poll();
+			item.getTarget().setValue( item.getValue() );
 		}	
 	}	
 }
