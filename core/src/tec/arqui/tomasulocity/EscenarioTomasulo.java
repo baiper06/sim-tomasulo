@@ -54,6 +54,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private TomasuloControl mTomasuloControl;
 	private Label mLabelFUAdd;
 	private Label mLabelFUMulti;
+	private Label mLabelTitle;
+	private Label mLabelCPI;
 	
 	
 	@Override
@@ -100,15 +102,21 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mCommonDataBusTable.setPosition(960, 220);
 	    
 	    mPlayButton = new TextButton("Play",Styles.getInstance().getGenericTextButtonStyle());
-	    mPlayButton.setPosition(500, 500);
+	    mPlayButton.setPosition(500, 700);
 	    mStepButton = new TextButton("Step",Styles.getInstance().getGenericTextButtonStyle());
-	    mStepButton.setPosition(600, 500);
+	    mStepButton.setPosition(600, 700);
 	    
 	    mLabelFUAdd = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
 	    mLabelFUAdd.setPosition(730, 300);
 	    
 	    mLabelFUMulti = new Label("-",Styles.getInstance().getGenericTableNormalStyle());
 	    mLabelFUMulti.setPosition(730, 130);
+	    
+	    mLabelTitle = new Label("Daniel Jenkins\nEmmanuel Mora\nBairon Perez", Styles.getInstance().getGenericTableHeaderStyle());
+	    mLabelTitle.setPosition(500,750);
+	    
+	    mLabelCPI = new Label("-",Styles.getInstance().getGenericTableHeaderStyle());
+	    mLabelCPI.setPosition(520,650);
 	    
 	    mStepButton.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -245,6 +253,9 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                }else{
 	                	mLabelFUMulti.setText("");
 	                }
+	                
+	                mLabelCPI.setText("CPI: "+((float)ReorderBuffer.getInstance().InstrucRatioDispatch)/((float)TomasuloControl.getClock()));
+	                
 					return true;
 	        }
 	    });
@@ -518,7 +529,8 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStage.addActor(arrow24);
 	    mStage.addActor(mLabelFUAdd);
 	    mStage.addActor(mLabelFUMulti);
-		
+		mStage.addActor(mLabelTitle);
+		mStage.addActor(mLabelCPI);
 	}
 	
 }
