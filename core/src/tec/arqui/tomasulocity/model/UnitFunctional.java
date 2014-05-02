@@ -14,7 +14,7 @@ public abstract class UnitFunctional {
 		System.out.println("SizeUF:"+ mSize);
 		mTimeExec = pTimeExec;
 		mReservStation 	= new ItemReservStation[pSizeRS];
-		mTimer = 0;
+		mTimer = 1;
 		for ( int i=0; i < mSize; i++ ){
 			mReservStation[i] = new ItemReservStation();
 		}
@@ -79,7 +79,7 @@ public abstract class UnitFunctional {
 	}
 
 	public void resetTimer() {
-		this.mTimer = 0;
+		this.mTimer = 1;
 	}
 	
 	public ItemReservStation getItemInExec() {

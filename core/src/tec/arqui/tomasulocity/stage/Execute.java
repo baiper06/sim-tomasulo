@@ -28,7 +28,7 @@ public class Execute {
 				pUF.resetTimer();
 			}
 		//  Despachar elemento
-		} else if( pUF.getTimer() == pUF.getTimeExec() ){
+		} else if( pUF.getTimer() == pUF.getTimeExec()-1 ){
 			pUF.action();
 			pUF.setReady( true );
 		//  Ejecutando...
