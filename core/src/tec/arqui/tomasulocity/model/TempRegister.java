@@ -9,7 +9,7 @@ public class TempRegister implements IRegister {
 
 	public TempRegister(){
 		mBusyBit = false;
-		mDirty = false;
+		mDirty = true;
 	}
 	
 	public PhysicRegister getPhysicRegister() {

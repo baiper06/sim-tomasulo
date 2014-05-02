@@ -46,12 +46,6 @@ public class Frontend {
 		 */
 		PhysicRegister PhysicRegTarget = (PhysicRegister) pInst.getTarget();
 		PhysicRegister PhysicRegSource = (PhysicRegister) pInst.getSource();
-		// renaming target
-		TempRegister tempRegTarget = new TempRegister();
-		tempRegTarget.setPhysicRegister( PhysicRegTarget );
-		tempRegTarget.setBusyBit( true );
-		tempRegTarget.setDirty( false );
-		TempRegistersBank.getInstance().addRegister(tempRegTarget);
 		
 		// renaming source
 		TempRegister reg = TempRegistersBank.getInstance().getTempRegister( PhysicRegSource );
@@ -65,10 +59,18 @@ public class Frontend {
 		} else {
 			tempRegSource = reg;
 		}
+
+		// renaming target
+		
+		TempRegister tempRegTarget = new TempRegister();
+		tempRegTarget.setPhysicRegister( PhysicRegTarget );
+		tempRegTarget.setBusyBit( true );
+		tempRegTarget.setDirty( false );
+		TempRegistersBank.getInstance().addRegister(tempRegTarget);
 		
 		// set new registers
-		pInst.setSource(tempRegTarget);
-		pInst.setTarget(tempRegSource);
+		pInst.setSource(tempRegSource);
+		pInst.setTarget(tempRegTarget);
 
 		
 		

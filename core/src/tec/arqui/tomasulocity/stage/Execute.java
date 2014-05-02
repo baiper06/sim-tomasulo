@@ -1,6 +1,5 @@
 package tec.arqui.tomasulocity.stage;
 
-import tec.arqui.tomasulocity.model.CommonDataBus;
 import tec.arqui.tomasulocity.model.ItemReservStation;
 import tec.arqui.tomasulocity.model.UFAdder;
 import tec.arqui.tomasulocity.model.UFMultiplier;
@@ -11,7 +10,7 @@ public class Execute {
 	public void run(){
 		exec( UFAdder.getInstance() );
 		exec( UFMultiplier.getInstance() );
-		CommonDataBus.getInstance().isReady();
+		//CommonDataBus.getInstance().isReady();
 	}
 	
 	private  void exec(UnitFunctional pUF){

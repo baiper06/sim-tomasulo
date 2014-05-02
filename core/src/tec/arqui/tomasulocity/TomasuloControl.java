@@ -2,7 +2,6 @@ package tec.arqui.tomasulocity;
 
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 import tec.arqui.tomasulocity.model.Instruction;
 import tec.arqui.tomasulocity.stage.Backend;
@@ -36,8 +35,8 @@ public class TomasuloControl {
 			front.setBlockProgram(mBlockProgram);
 		}
 		front.run();
-		exec.run();
-		back.run();
+		//exec.run();
+		//back.run();
 		
 		clock ++;
 	}

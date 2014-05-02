@@ -74,9 +74,6 @@ public class InstructionStackTable extends Table{
 		SelectBox<String> mSourceOne = new SelectBox<String>(Styles.getInstance().getGenericSelectBoxStyle());
 		mSourceOne.setItems(registersItems);
 		
-		SelectBox<String> mSourceTwo = new SelectBox<String>(Styles.getInstance().getGenericSelectBoxStyle());
-		mSourceTwo.setItems(registersItems);
-		
 		SelectBox<String> mSink = new SelectBox<String>(Styles.getInstance().getGenericSelectBoxStyle());
 		mSink.setItems(registersItems);
 		
@@ -85,9 +82,8 @@ public class InstructionStackTable extends Table{
 
 		this.mSelectBoxesTarget.add(mSink);
 		this.add(mInstructions);
-		this.add(mSourceOne);
-		this.add(mSourceTwo);
-		this.add(mSink);
+		this.add(mSourceOne).space(2);
+		this.add(mSink).space(2);
 	}
 	
 	

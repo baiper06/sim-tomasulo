@@ -101,8 +101,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                
 	                //Actualizar Tabla de Renamed
 	                for (int i = 0; i < mTomasuloControl.front.getListInstructions().size(); i++){
-	                	Instruction instruccion = mTomasuloControl.front.getListInstructions().get(i);	
-	                	TempRegistersBank bank = TempRegistersBank.getInstance();
+	                	Instruction instruccion = mTomasuloControl.front.getListInstructions().get(i);
 	                	mRenamedInstructionsStackTable.mInstrucciones.get(i).setText(
 	                			Mappers.MInverseOperations.get(
 	                					instruccion.getOperation()
@@ -119,11 +118,14 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	                //Actualizar Tabla de temporales
 	                for ( int i = 0; i < TempRegistersBank.getInstance().getRegisters().length ; i++ ){
 	                	TempRegister register = TempRegistersBank.getInstance().getRegisters()[i];
+	                	System.out.println(register);
+	                	System.out.println(mTemporalRegistersTable.mTempRegisters);
 	                	mTemporalRegistersTable.mTempRegisters.get(i).setText(register.getName());
 	                	if (register.getPhysicRegister() != null)
 	                		mTemporalRegistersTable.mPhysRegisters.get(i).setText(register.getPhysicRegister().getName());
 	                	mTemporalRegistersTable.mBusyBit.get(i).setText(Mappers.MBoolean.get(register.isBusyBit()));
 	                }
+	               
 	               
 					return true;
 	        }
