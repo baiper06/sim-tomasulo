@@ -12,9 +12,9 @@ public class UFMultiplier extends UnitFunctional {
 	   
 	protected UFMultiplier(){
 		super(SIZE_RS, TIME_EXEC);
-		this.mReservStation = ItemReservStation[SIZE_RS];
-		this.mTimeExec = 2;
-		this.mReady = true;
+//		this.mReservStation = ItemReservStation[SIZE_RS];
+//		this.mTimeExec = 2;
+//		this.mReady = true;
 	}
 	
 	public static UFMultiplier getInstance() {
@@ -25,31 +25,31 @@ public class UFMultiplier extends UnitFunctional {
 	}
 
 	
-	public boolean areYouReady(){
-		return this.mReady;
-	}
+//	public boolean areYouReady(){
+//		return this.mReady;
+//	}
 	
-	public ItemReservStation action(ItemReservStation instruction){
-		int i = 0;
-		this.mReady = false;
-		
-		switch(instruction.mOperation){
-			case 1:	for(int t = 0; t = mTimeExec; t++){
-						instruction.mValue2 = instruction.mValue1 * 
-											  instruction.mValue2;
-					}
-					
-			case 2:	for(int t = 0; t = mTimeExec; t++){
-						instruction.mValue2 = instruction.mValue1 / 
-											  instruction.mValue2;
-					}
-					
-			case 3:	for(int t = 0; t = mTimeExec; t++){
-						instruction.mValue2 = instruction.mValue1 * 2;
-					}
-		}
-		
-		this.mReady = true;;
-		return instruction;
-	}
+//	public ItemReservStation action(ItemReservStation instruction){
+//		int i = 0;
+//		this.mReady = false;
+//		
+//		switch(instruction.mOperation){
+//			case 1:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 * 
+//											  instruction.mValue2;
+//					}
+//					
+//			case 2:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 / 
+//											  instruction.mValue2;
+//					}
+//					
+//			case 3:	for(int t = 0; t = mTimeExec; t++){
+//						instruction.mValue2 = instruction.mValue1 * 2;
+//					}
+//		}
+//		
+//		this.mReady = true;;
+//		return instruction;
+//	}
 }

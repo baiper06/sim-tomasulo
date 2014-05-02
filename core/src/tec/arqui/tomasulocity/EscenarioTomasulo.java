@@ -1,6 +1,8 @@
 package tec.arqui.tomasulocity;
 
-import java.util.ArrayList;
+import tec.arqui.tomasulocity.model.Instruction;
+import tec.arqui.tomasulocity.model.TempRegister;
+import tec.arqui.tomasulocity.model.TempRegistersBank;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -36,6 +40,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	private TextButton mPlayButton;
 	private TextButton mStepButton;
 	private ShapeRenderer shapeRenderer;
+	private TomasuloControl mTomasuloControl;
 	
 	private enum SIDES{
 		TOP, BOTTOM, LEFT, RIGHT
@@ -44,6 +49,9 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	
 	@Override
 	public void show() {
+		
+		//Control
+		mTomasuloControl = new TomasuloControl();		
 		
 		//Pintores
 		mStage = new Stage(new ScreenViewport());
@@ -84,167 +92,47 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	    mStepButton = new TextButton("Step",Styles.getInstance().getGenericTextButtonStyle());
 	    mStepButton.setPosition(600, 500);
 	    
+	    mStepButton.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	                Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
+	                        
+	                mTomasuloControl.setBlockProgram(mInstructionsStackTable.getColaInstrucciones());
+	                mTomasuloControl.step();
+	                
+	                //Actualizar Tabla de Renamed
+	                for (int i = 0; i < mTomasuloControl.front.getListInstructions().size(); i++){
+	                	Instruction instruccion = mTomasuloControl.front.getListInstructions().get(i);	                	
+	                	mRenamedInstructionsStackTable.mInstrucciones.get(i).setText(
+	                			Mappers.MInverseOperations.get(
+	                					instruccion.getOperation()
+	                			)
+	                	);
+	                	mRenamedInstructionsStackTable.mSource1.get(i).setText(
+	                			((TempRegister)instruccion.getSource()).getName()
+	                	);
+	                	mRenamedInstructionsStackTable.mSink.get(i).setText(
+	                			((TempRegister)instruccion.getTarget()).getName()
+	                	);
+	                };
+	                
+	                //Actualizar Tabla de temporales
+	                for ( int i = 0; i < TempRegistersBank.getInstance().getRegisters().length ; i++ ){
+	                	TempRegister register = TempRegistersBank.getInstance().getRegisters()[i];
+	                	mTemporalRegistersTable.mTempRegisters.get(i).setText(register.getName());
+	                	if (register.getPhysicRegister() != null)
+	                		mTemporalRegistersTable.mPhysRegisters.get(i).setText(register.getPhysicRegister().getName());
+	                	mTemporalRegistersTable.mBusyBit.get(i).setText(Mappers.MBoolean.get(register.isBusyBit()));
+	                }
+	               
+					return true;
+	        }
+	    });
+			    
 	    
-	    Image arrow1 = new Image(Styles.getInstance().getArrowBottom());
-	    Image arrow2 = new Image(Styles.getInstance().getArrowTopRight());
-	    Image arrow3 = new Image(Styles.getInstance().getArrowBottomRight());
-	    Image arrow4 = new Image(Styles.getInstance().getArrowRight());
-	    Image gearsA = new Image(Styles.getInstance().getGears());
-	    Image gearsB = new Image(Styles.getInstance().getGears());
-	    Image arrow25 = new Image(Styles.getInstance().getArrowBottomRight());
-	    Image arrow26 = new Image(Styles.getInstance().getArrowTopRight());
-
-	    Image arrow5 = new Image(Styles.getInstance().getArrowTop());
-	    Image arrow6 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow7 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow8 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow9 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow10 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow11 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow12 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow13 = new Image(Styles.getInstance().getArrowBottom());
-	    Image arrow14 = new Image(Styles.getInstance().getArrowBottom());
-	    //Image arrow15 = new Image(Styles.getInstance().getArrowRight());
-	    
-	    //Flechas del reorder buffer
-
-	    Image arrow16 = new Image(Styles.getInstance().getArrowBottom());
-	    Image arrow17 = new Image(Styles.getInstance().getArrowBottom());
-	    Image arrow18 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow19 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow20 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow21 = new Image(Styles.getInstance().getArrowLeft());
-	    Image arrow22 = new Image(Styles.getInstance().getArrowTopLeft());
-	    Image arrow23 = new Image(Styles.getInstance().getArrowTopLeft());
-	    Image arrow24 = new Image(Styles.getInstance().getArrowLeft());
-	    
-//	    
-	    arrow1.setPosition(150, 320);
-	    arrow2.setPosition(350, 250);
-	    arrow3.setPosition(350, 175);
-	    arrow4.setPosition(300, 215);
-	    gearsA.setPosition(700, 250);
-	    gearsB.setPosition(700, 80);
-	    arrow25.setPosition(850, 275);
-	    arrow26.setPosition(850, 125);
-	    arrow5.setPosition(930, 320);
-	    arrow6.setPosition(900, 400);
-	    arrow7.setPosition(800, 400);
-	    arrow8.setPosition(700, 400);
-	    arrow9.setPosition(600, 400);
-	    arrow10.setPosition(500, 400);
-	    arrow11.setPosition(400, 400);
-	    arrow12.setPosition(300, 400);
-	    arrow13.setPosition(300, 340);
-	    arrow14.setPosition(300, 270);
-	   // arrow15.setPosition(1050, 220);
-	    arrow16.setPosition(930, 50);
-	    arrow17.setPosition(930, -50);
-	    arrow18.setPosition(820, -75);
-	    arrow19.setPosition(720, -75);
-	    arrow20.setPosition(420, -75);
-	    arrow21.setPosition(320, -75);
-	    arrow22.setPosition(420, -25);
-	    arrow23.setPosition(360, 40);
-	    arrow24.setPosition(280, 60);
-	    
-	    arrow1.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow1.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow2.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow2.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow3.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow3.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow4.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow4.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow5.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow5.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow6.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow6.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow7.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow7.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow8.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow8.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow9.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow9.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow10.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow10.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow11.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow11.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow12.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow12.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow13.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow13.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow14.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow14.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow16.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow16.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow17.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow17.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow18.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow18.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow19.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow19.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow20.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow20.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow21.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow21.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow22.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow22.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow23.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow23.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow24.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow24.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow25.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow25.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-	    arrow26.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
-	    arrow26.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
-
-	    gearsA.setOrigin(gearsA.getWidth()/2, gearsA.getHeight()/2);
-	    gearsA.addAction(Actions.forever(Actions.rotateBy(1)));
-	    
-	    gearsB.setOrigin(gearsB.getWidth()/2, gearsB.getHeight()/2);
-	    gearsB.addAction(Actions.forever(Actions.rotateBy(1)));
-	    
-	    mStage.addActor(mInstructionsStackTable);
-	    mStage.addActor(mRenamedInstructionsStackTable);
-	    mStage.addActor(mPhysicRegistersTable);
-	    mStage.addActor(mTemporalRegistersTable);
-	    mStage.addActor(mReorderBufferTable);
-	    mStage.addActor(mReorderBufferTable);
-	    mStage.addActor(mReservationStationA);
-	    mStage.addActor(mReservationStationB);
-	    mStage.addActor(mCommonDataBusTable);
-	    mStage.addActor(mPlayButton);
-	    mStage.addActor(mStepButton);
-	    mStage.addActor(arrow1);
-	    mStage.addActor(arrow2);
-	    mStage.addActor(arrow3);
-	    mStage.addActor(arrow4);
-	    mStage.addActor(gearsA);
-	    mStage.addActor(gearsB);
-	    mStage.addActor(arrow25);
-	    mStage.addActor(arrow26);
-	    mStage.addActor(arrow5);
-	    mStage.addActor(arrow6);
-	    mStage.addActor(arrow7);
-	    mStage.addActor(arrow8);
-	    mStage.addActor(arrow9);
-	    mStage.addActor(arrow10);
-	    mStage.addActor(arrow11);
-	    mStage.addActor(arrow12);
-	    mStage.addActor(arrow13);
-	    mStage.addActor(arrow14);
-	    //mStage.addActor(arrow15);
-	    mStage.addActor(arrow16);
-	    mStage.addActor(arrow17);
-	    mStage.addActor(arrow18);
-	    mStage.addActor(arrow19);
-	    mStage.addActor(arrow20);
-	    mStage.addActor(arrow21);
-	    mStage.addActor(arrow22);
-	    mStage.addActor(arrow23);
-	    mStage.addActor(arrow24);
+	   this.generateGUIDetails();
 	}
+
+
 
 	@Override
 	public void render(float delta) {
@@ -326,6 +214,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 	@Override
 	public boolean tap(float pX, float pY, int pCount, int pButton) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -346,7 +235,7 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		// TODO Auto-generated method stub
 		mStage.getViewport().getCamera().translate(-pDeltaX, 
 				pDeltaY, 0);
-		System.out.println("tap");
+		System.out.println("pan");
 		return false;
 	}
 
@@ -370,6 +259,166 @@ public class EscenarioTomasulo implements Screen, GestureListener {
 		return false;
 	}
 	
+	private void generateGUIDetails() { Image arrow1 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow2 = new Image(Styles.getInstance().getArrowTopRight());
+	    Image arrow3 = new Image(Styles.getInstance().getArrowBottomRight());
+	    Image arrow4 = new Image(Styles.getInstance().getArrowRight());
+	    Image gearsA = new Image(Styles.getInstance().getGears());
+	    Image gearsB = new Image(Styles.getInstance().getGears());
+	    Image arrow25 = new Image(Styles.getInstance().getArrowBottomRight());
+	    Image arrow26 = new Image(Styles.getInstance().getArrowTopRight());
 	
+	    Image arrow5 = new Image(Styles.getInstance().getArrowTop());
+	    Image arrow6 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow7 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow8 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow9 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow10 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow11 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow12 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow13 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow14 = new Image(Styles.getInstance().getArrowBottom());
+	    //Image arrow15 = new Image(Styles.getInstance().getArrowRight());
+	    
+	    //Flechas del reorder buffer
+	
+	    Image arrow16 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow17 = new Image(Styles.getInstance().getArrowBottom());
+	    Image arrow18 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow19 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow20 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow21 = new Image(Styles.getInstance().getArrowLeft());
+	    Image arrow22 = new Image(Styles.getInstance().getArrowTopLeft());
+	    Image arrow23 = new Image(Styles.getInstance().getArrowTopLeft());
+	    Image arrow24 = new Image(Styles.getInstance().getArrowLeft());
+	    
+	//    
+	    arrow1.setPosition(150, 320);
+	    arrow2.setPosition(350, 250);
+	    arrow3.setPosition(350, 175);
+	    arrow4.setPosition(300, 215);
+	    gearsA.setPosition(700, 250);
+	    gearsB.setPosition(700, 80);
+	    arrow25.setPosition(850, 275);
+	    arrow26.setPosition(850, 125);
+	    arrow5.setPosition(930, 320);
+	    arrow6.setPosition(900, 400);
+	    arrow7.setPosition(800, 400);
+	    arrow8.setPosition(700, 400);
+	    arrow9.setPosition(600, 400);
+	    arrow10.setPosition(500, 400);
+	    arrow11.setPosition(400, 400);
+	    arrow12.setPosition(300, 400);
+	    arrow13.setPosition(300, 340);
+	    arrow14.setPosition(300, 270);
+	   // arrow15.setPosition(1050, 220);
+	    arrow16.setPosition(930, 50);
+	    arrow17.setPosition(930, -50);
+	    arrow18.setPosition(820, -75);
+	    arrow19.setPosition(720, -75);
+	    arrow20.setPosition(420, -75);
+	    arrow21.setPosition(320, -75);
+	    arrow22.setPosition(420, -25);
+	    arrow23.setPosition(360, 40);
+	    arrow24.setPosition(280, 60);
+	    
+	    arrow1.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow1.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow2.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow2.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow3.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow3.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow4.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow4.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow5.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow5.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow6.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow6.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow7.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow7.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow8.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow8.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow9.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow9.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow10.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow10.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow11.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow11.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow12.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow12.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow13.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow13.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow14.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow14.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow16.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow16.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow17.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow17.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow18.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow18.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow19.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow19.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow20.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow20.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow21.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow21.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow22.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow22.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow23.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow23.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow24.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow24.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow25.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow25.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	    arrow26.setOrigin(arrow1.getWidth()/2, arrow1.getHeight()/2);
+	    arrow26.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,0.1f),Actions.rotateBy(-10,0.1f))));
+	
+	    gearsA.setOrigin(gearsA.getWidth()/2, gearsA.getHeight()/2);
+	    gearsA.addAction(Actions.forever(Actions.rotateBy(1)));
+	    
+	    gearsB.setOrigin(gearsB.getWidth()/2, gearsB.getHeight()/2);
+	    gearsB.addAction(Actions.forever(Actions.rotateBy(1)));
+	    
+	    mStage.addActor(mInstructionsStackTable);
+	    mStage.addActor(mRenamedInstructionsStackTable);
+	    mStage.addActor(mPhysicRegistersTable);
+	    mStage.addActor(mTemporalRegistersTable);
+	    mStage.addActor(mReorderBufferTable);
+	    mStage.addActor(mReorderBufferTable);
+	    mStage.addActor(mReservationStationA);
+	    mStage.addActor(mReservationStationB);
+	    mStage.addActor(mCommonDataBusTable);
+	    mStage.addActor(mPlayButton);
+	    mStage.addActor(mStepButton);
+	    mStage.addActor(arrow1);
+	    mStage.addActor(arrow2);
+	    mStage.addActor(arrow3);
+	    mStage.addActor(arrow4);
+	    mStage.addActor(gearsA);
+	    mStage.addActor(gearsB);
+	    mStage.addActor(arrow25);
+	    mStage.addActor(arrow26);
+	    mStage.addActor(arrow5);
+	    mStage.addActor(arrow6);
+	    mStage.addActor(arrow7);
+	    mStage.addActor(arrow8);
+	    mStage.addActor(arrow9);
+	    mStage.addActor(arrow10);
+	    mStage.addActor(arrow11);
+	    mStage.addActor(arrow12);
+	    mStage.addActor(arrow13);
+	    mStage.addActor(arrow14);
+	    //mStage.addActor(arrow15);
+	    mStage.addActor(arrow16);
+	    mStage.addActor(arrow17);
+	    mStage.addActor(arrow18);
+	    mStage.addActor(arrow19);
+	    mStage.addActor(arrow20);
+	    mStage.addActor(arrow21);
+	    mStage.addActor(arrow22);
+	    mStage.addActor(arrow23);
+	    mStage.addActor(arrow24);
+		
+	}
 	
 }

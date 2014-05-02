@@ -1,7 +1,6 @@
 package tec.arqui.tomasulocity.stage;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 import tec.arqui.tomasulocity.model.Constants;
 import tec.arqui.tomasulocity.model.Instruction;
@@ -18,8 +17,12 @@ import tec.arqui.tomasulocity.model.UnitFunctional;
 public class Frontend {
 	
 	int mPC;
-	private Queue<Instruction> 	mListInstructions;
-	private Queue<Instruction> 	mBlockProgram;
+	private ArrayList<Instruction> 	mListInstructions;
+	private ArrayList<Instruction> 	mBlockProgram;
+	
+	public Frontend(){
+		mListInstructions = new ArrayList(Constants.SIZE_PAGE);
+	}
 	
 	public void run(){
 		mListInstructions.clear();
@@ -27,7 +30,8 @@ public class Frontend {
 			/*
 			 *  decoder
 			 */
-			Instruction inst = mBlockProgram.remove();
+			Instruction inst = mBlockProgram.get(0);
+			mBlockProgram.remove(0);
 			mListInstructions.add(inst);
 			
 			issue(inst);
@@ -102,15 +106,15 @@ public class Frontend {
 		
 	}
 	
-	public Queue<Instruction> getListInstructions() {
+	public ArrayList<Instruction> getListInstructions() {
 		return mListInstructions;
 	}
 	
-	public void setBlockProgram(Queue<Instruction> pBlockProgram){
+	public void setBlockProgram(ArrayList<Instruction> pBlockProgram){
 		this.mBlockProgram = pBlockProgram;
 	}
 	
-	public Queue<Instruction> getBlockProgram(){
+	public ArrayList<Instruction> getBlockProgram(){
 		return mBlockProgram;
 	}
 }
