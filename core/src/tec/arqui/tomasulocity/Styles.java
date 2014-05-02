@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class Styles {
@@ -29,6 +31,8 @@ public class Styles {
 	private ScrollPaneStyle mGenericScrollPaneStyle;
 
 	private TextButtonStyle mGenericTextButtonStyle;
+	
+	private TextFieldStyle mGenericTextFieldStyle;
 
 	private Drawable mDrawableRectDark;
 	
@@ -94,6 +98,11 @@ public class Styles {
 		mGenericTextButtonStyle.font = mNormalFont;
 		mGenericTextButtonStyle.fontColor = Color.BLACK;
 		
+		mGenericTextFieldStyle = new TextFieldStyle();
+		mGenericTextFieldStyle.font = mNormalFont;
+		mGenericTextFieldStyle.fontColor = Color.BLACK;
+		mGenericTextFieldStyle.background = mDrawableRect;
+		
 		mDrawableArrowRight  = new Image(mSkin, "right").getDrawable();
 		mDrawableArrowLeft   = new Image(mSkin, "left").getDrawable();
 		mDrawableArrowTop    = new Image(mSkin, "top").getDrawable();
@@ -122,6 +131,10 @@ public class Styles {
 	
 	public TextButtonStyle getGenericTextButtonStyle(){
 		return mGenericTextButtonStyle;
+	}
+	
+	public TextFieldStyle getGenericTextFieldStyle(){
+		return mGenericTextFieldStyle;
 	}
 	
 	public Drawable getDrawable(){
